@@ -1,0 +1,124 @@
+{
+  "release": "AXON-SQA-01 v0.3",
+  "executed_at_utc": "2026-10-30T16:22:36.023286+00:00",
+  "python": "3.13.11 (tags/v3.13.11:6278944, Dec  5 2025, 16:26:58) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "test_command": [
+    "C:\\Users\\JayPark1004\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "-m",
+    "unittest",
+    "-v",
+    "test_engineering_model",
+    "test_regressions",
+    "test_qec_reference",
+    "test_evidence_gate"
+  ],
+  "test_exit_code": 0,
+  "tests_run": 49,
+  "software_validation_status": "PASS",
+  "scope_checks": {
+    "python_tests_passed": true,
+    "legacy_v02_manifest_preserved": true,
+    "missing_heat_remains_unknown": true,
+    "missing_latency_remains_null": true,
+    "missing_wall_power_remains_null": true,
+    "unsupported_m3_claims_not_approved": true,
+    "all_22_single_pauli_cases_corrected_in_reference": true,
+    "all_16384_pauli_patterns_classified_not_all_corrected": true
+  },
+  "legacy_manifest_checks": [
+    {
+      "file": "AI_AND_HPC_CLAIMS.md",
+      "matches": true
+    },
+    {
+      "file": "AXON_QUANTUM_AUDIT_AND_DESIGN.md",
+      "matches": true
+    },
+    {
+      "file": "AXON_QUANTUM_MASTER_REVIEW.md",
+      "matches": true
+    },
+    {
+      "file": "DC_MEMORY_INTEGRATION.md",
+      "matches": true
+    },
+    {
+      "file": "README.md",
+      "matches": true
+    },
+    {
+      "file": "VERIFICATION.txt",
+      "matches": true
+    },
+    {
+      "file": "WORK_ORDER.md",
+      "matches": true
+    },
+    {
+      "file": "engineering_model.py",
+      "matches": true
+    },
+    {
+      "file": "inputs_illustrative.json",
+      "matches": true
+    },
+    {
+      "file": "inputs_unknown.json",
+      "matches": true
+    },
+    {
+      "file": "resource_checks.json",
+      "matches": true
+    },
+    {
+      "file": "results_illustrative.json",
+      "matches": true
+    },
+    {
+      "file": "results_unknown.json",
+      "matches": true
+    },
+    {
+      "file": "sensitivity.csv",
+      "matches": true
+    },
+    {
+      "file": "test_engineering_model.py",
+      "matches": true
+    }
+  ],
+  "source_sha256": {
+    "AXON_SQA_01_v0.3.md": "f3dc98f08517a7ff7d9f76930154bbccedda1d488fd99be7b046d6c9df1e5ae5",
+    "CHANGELOG.md": "e647aca9bd02c1032d06561633babdd21d3fba9dd391cb6a8e0082ea3826c5b6",
+    "claims_m3_unverified.json": "e058eca29505578d17b615502764d6814ab7ebbbbea2f1bb195006fab1f6930f",
+    "CORRECTIONS.md": "22306dbd151523aff1c61a2ea99a40c00dd8f466e971a89d4cd4c89b40a576dc",
+    "engineering_model.py": "7414a9f709a0dc7c4300792fdf390d6189b582feb2c2104f2146ee878a53881b",
+    "evidence_gate.py": "621f3a977dda5d9563db65929a1b33c2fe644dfa7b50da2f8f050328c1fdc889",
+    "inputs_illustrative.json": "2f05301ff1c9a4ef6ce1686834be8d37b66e194ad80a762faaf9057fa6973168",
+    "inputs_unknown.json": "5e94c8263f9009b0bf45e18046ed3b7ff964e30d3dda5dd42bcd3b5a66d9aaf0",
+    "M3_IMPLEMENTATION_CONTRACT.md": "65dad2847d7c3db6c0cf15f38d7f7149fe9d69df58c2c5b37ad518aaa6e21297",
+    "PROVENANCE.json": "89968de7424078bbec0dff05cff5fcaed56ae594823d5ccf2ff62b7c05d4031d",
+    "qec_reference.py": "b6c4072d0175775120e3d419e8ba8a2d9a1fc609bc68542afc2c939454299b67",
+    "README.md": "680cc617f65c3567f1ba674c7a5fb5c9ca24580d58ab808982d90e037371873d",
+    "test_engineering_model.py": "0e26b71dc46ed79e8e9073633269618e8198e8fdf814f2a0e422f22d4865dc83",
+    "test_evidence_gate.py": "f6e0cfa63f312bed2f607640e2e2810e0476da4d4a214589294cc8e7fc803c12",
+    "test_qec_reference.py": "7ddf58010b02e9394eb3a1891e35c5bee059aa2cdb6f5bbb9b2b617269be1484",
+    "test_regressions.py": "6ba17ec89a09c34453fbbefc784dd5f90130627e85ad81bdafcc383bdf2b0e22",
+    "verify_release.py": "21ce3e8b7fa02f75af04fda62918f3569ab8eddd758dce7fec699188b1d47c7c",
+    "YOUR_OS_INTERFACE.md": "3e0d118e8f293357721a1d679a4993a8a8f64dda95b0de96a556ff6e4e404ed2"
+  },
+  "tool_availability_only_not_executed": {
+    "iverilog": true,
+    "yosys": true,
+    "verilator": false,
+    "sta": false
+  },
+  "original_M3_RTL": "NOT_ACCESSED",
+  "original_M3_reproduction": "NOT_RUN",
+  "rtl_synthesis_and_timing": "NOT_RUN",
+  "fpga_or_silicon_measurements": "NOT_RUN",
+  "cryogenic_operation": "NOT_EVALUATED",
+  "qpu_qec_hardware": "NOT_EVALUATED",
+  "remote_repository_modified": false
+}

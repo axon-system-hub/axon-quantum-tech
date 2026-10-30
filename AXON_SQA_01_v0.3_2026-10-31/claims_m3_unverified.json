@@ -1,0 +1,15 @@
+{
+  "schema_version": "0.3",
+  "description": "User-reported M3 claims, not reproduced. Missing evidence stays missing; this fixture must not pass.",
+  "claims": [
+    {"id": "M3-LUT", "kind": "resource_count", "value": 20, "metadata": {"mapping_stage": "reported FPGA synthesis; raw report unavailable"}, "artifacts": []},
+    {"id": "M3-CELLS", "kind": "resource_count", "value": 50, "metadata": {"mapping_stage": "reported generic cells; gate equivalence not established"}, "artifacts": []},
+    {"id": "M3-MUL", "kind": "zero_multiplier", "value": 0, "metadata": {"post_mapping_mul_count_reported": 0}, "artifacts": []},
+    {"id": "M3-ASIC-LATENCY", "kind": "latency", "value": 0.5, "metadata": {"method": "ltp_only", "start_event": "unspecified", "end_event": "unspecified", "operating_conditions": "uncharacterized", "reported_ltp_depth": 9}, "artifacts": []},
+    {"id": "M3-FPGA-LATENCY", "kind": "latency", "value": 1.5, "metadata": {"method": "post_route_fpga"}, "artifacts": []},
+    {"id": "M3-ZERO-WATT", "kind": "zero_power", "value": 0, "metadata": {"inference": "0-MUL"}, "artifacts": []},
+    {"id": "M3-4K", "kind": "cryogenic_operation", "value": 4, "metadata": {"temperature_K": 4}, "artifacts": []},
+    {"id": "M3-QEC-E2E", "kind": "qec_e2e", "value": 5, "metadata": {}, "artifacts": []},
+    {"id": "YOUR-OS-JITTER", "kind": "os_jitter", "value": 0, "metadata": {"inference": "IA32_LSTAR Ring 0"}, "artifacts": []}
+  ]
+}

@@ -1,0 +1,54 @@
+test_bad_inputs_rejected (test_engineering_model.EngineeringChecks.test_bad_inputs_rejected) ... ok
+test_carnot_lower_bound (test_engineering_model.EngineeringChecks.test_carnot_lower_bound) ... ok
+test_channel_capacity_independent_of_count (test_engineering_model.EngineeringChecks.test_channel_capacity_independent_of_count) ... ok
+test_empty_or_duplicate_ledger_rejected (test_engineering_model.EngineeringChecks.test_empty_or_duplicate_ledger_rejected) ... ok
+test_exceeded_capacity (test_engineering_model.EngineeringChecks.test_exceeded_capacity) ... ok
+test_explicit_zero_is_not_missing (test_engineering_model.EngineeringChecks.test_explicit_zero_is_not_missing) ... ok
+test_extinction_is_power_vs_amplitude (test_engineering_model.EngineeringChecks.test_extinction_is_power_vs_amplitude) ... ok
+test_flight_time_and_thermal_population (test_engineering_model.EngineeringChecks.test_flight_time_and_thermal_population) ... ok
+test_missing_provenance_rejected (test_engineering_model.EngineeringChecks.test_missing_provenance_rejected) ... ok
+test_missing_readout_blocks_total (test_engineering_model.EngineeringChecks.test_missing_readout_blocks_total) ... ok
+test_multiplexing_directions_and_channels (test_engineering_model.EngineeringChecks.test_multiplexing_directions_and_channels) ... ok
+test_mzi_conserves_energy_including_dark_setting (test_engineering_model.EngineeringChecks.test_mzi_conserves_energy_including_dark_setting) ... ok
+test_omitted_heat_category_rejected (test_engineering_model.EngineeringChecks.test_omitted_heat_category_rejected) ... ok
+test_unknown_never_thermal_pass (test_engineering_model.EngineeringChecks.test_unknown_never_thermal_pass) ... ok
+test_aggregate_capacity_cannot_hide_overloaded_wavelength (test_regressions.LedgerRegressions.test_aggregate_capacity_cannot_hide_overloaded_wavelength) ... ok
+test_balanced_single_stream_uses_capacity (test_regressions.LedgerRegressions.test_balanced_single_stream_uses_capacity) ... ok
+test_blank_ledger_entry_name_rejected (test_regressions.LedgerRegressions.test_blank_ledger_entry_name_rejected) ... ok
+test_boolean_phase_is_not_an_angle (test_regressions.LedgerRegressions.test_boolean_phase_is_not_an_angle) ... ok
+test_negative_multiplier_cannot_reduce_heat (test_regressions.LedgerRegressions.test_negative_multiplier_cannot_reduce_heat) ... ok
+test_overflowing_contribution_is_rejected (test_regressions.LedgerRegressions.test_overflowing_contribution_is_rejected) ... ok
+test_overflowing_sum_is_rejected (test_regressions.LedgerRegressions.test_overflowing_sum_is_rejected) ... ok
+test_stage_name_cannot_be_blank (test_regressions.LedgerRegressions.test_stage_name_cannot_be_blank) ... ok
+test_stage_names_are_unique (test_regressions.LedgerRegressions.test_stage_names_are_unique) ... ok
+test_unknowns_do_not_promote_hardware_validation (test_regressions.LedgerRegressions.test_unknowns_do_not_promote_hardware_validation) ... ok
+test_all_64_input_syndrome_pairs (test_qec_reference.QECReferenceChecks.test_all_64_input_syndrome_pairs) ... ok
+test_all_patterns_match_independent_statevector_classification (test_qec_reference.QECReferenceChecks.test_all_patterns_match_independent_statevector_classification) ... ok
+test_all_pauli_weight_counts (test_qec_reference.QECReferenceChecks.test_all_pauli_weight_counts) ... ok
+test_depolarizing_endpoints_and_uniform_limit (test_qec_reference.QECReferenceChecks.test_depolarizing_endpoints_and_uniform_limit) ... ok
+test_invalid_inputs_rejected (test_qec_reference.QECReferenceChecks.test_invalid_inputs_rejected) ... ok
+test_multiqubit_counterexample_preserved (test_qec_reference.QECReferenceChecks.test_multiqubit_counterexample_preserved) ... ok
+test_no_error_and_21_single_paulis (test_qec_reference.QECReferenceChecks.test_no_error_and_21_single_paulis) ... ok
+test_single_errors_preserve_four_encoded_states (test_qec_reference.QECReferenceChecks.test_single_errors_preserve_four_encoded_states) ... ok
+test_stabilizers_act_trivially (test_qec_reference.QECReferenceChecks.test_stabilizers_act_trivially) ... ok
+test_zero_syndrome_does_not_mean_no_logical_error (test_qec_reference.QECReferenceChecks.test_zero_syndrome_does_not_mean_no_logical_error) ... ok
+test_boolean_and_nan_rejected (test_evidence_gate.EvidenceGateChecks.test_boolean_and_nan_rejected) ... ok
+test_complete_fixture_is_reviewable_not_hardware_verified (test_evidence_gate.EvidenceGateChecks.test_complete_fixture_is_reviewable_not_hardware_verified) ... ok
+test_duplicate_claim_ids_rejected (test_evidence_gate.EvidenceGateChecks.test_duplicate_claim_ids_rejected) ... ok
+test_empty_report_rejected (test_evidence_gate.EvidenceGateChecks.test_empty_report_rejected) ... ok
+test_integer_resources_required (test_evidence_gate.EvidenceGateChecks.test_integer_resources_required) ... ok
+test_ltp_cannot_be_latency_evidence (test_evidence_gate.EvidenceGateChecks.test_ltp_cannot_be_latency_evidence) ... ok
+test_missing_artifacts_blocks (test_evidence_gate.EvidenceGateChecks.test_missing_artifacts_blocks) ... ok
+test_missing_log_blocks (test_evidence_gate.EvidenceGateChecks.test_missing_log_blocks) ... ok
+test_path_traversal_and_absolute_paths_rejected (test_evidence_gate.EvidenceGateChecks.test_path_traversal_and_absolute_paths_rejected) ... ok
+test_qec_without_code_and_noise_model_blocks (test_evidence_gate.EvidenceGateChecks.test_qec_without_code_and_noise_model_blocks) ... ok
+test_sta_without_corner_and_constraints_blocks (test_evidence_gate.EvidenceGateChecks.test_sta_without_corner_and_constraints_blocks) ... ok
+test_tampered_log_blocks (test_evidence_gate.EvidenceGateChecks.test_tampered_log_blocks) ... ok
+test_unknown_value_not_zero (test_evidence_gate.EvidenceGateChecks.test_unknown_value_not_zero) ... ok
+test_zero_mul_without_pre_mapping_and_review_blocks (test_evidence_gate.EvidenceGateChecks.test_zero_mul_without_pre_mapping_and_review_blocks) ... ok
+test_zero_power_inference_rejected (test_evidence_gate.EvidenceGateChecks.test_zero_power_inference_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 49 tests in 2.398s
+
+OK

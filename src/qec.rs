@@ -166,3 +166,4 @@ impl FiveQubitCode {
         None
     }
 }
+

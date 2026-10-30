@@ -83,3 +83,4 @@ module qec_decoder_3qubit_0mul (
     assign corrected_bits = raw_bits ^ corr_mask;
 
 endmodule
+

@@ -1,0 +1,24 @@
+name: AXON SQA Python reference validation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  software-reference:
+    runs-on: [self-hosted, Windows]
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate bounded software reference only
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-Location -LiteralPath 'validation/sqa_v03'
+          python verify_release.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+# Integration template: copy package to validation/sqa_v03 and move this file
+# into .github/workflows. It neither synthesizes RTL nor certifies hardware.

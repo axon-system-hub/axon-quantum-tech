@@ -98,3 +98,4 @@ module qec_decoder_5qubit_0mul (
     end
 
 endmodule
+
