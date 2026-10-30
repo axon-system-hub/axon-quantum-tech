@@ -1,0 +1,11 @@
+[package]
+name = "axon-quantum-tech"
+version = "0.1.0"
+edition = "2021"
+description = "AXON 0-MUL (Sign-Select add/sub) vs multiplier MAC study for cryogenic quantum control datapaths"
+license = "MIT"
+
+[dependencies]
+
+[profile.release]
+opt-level = 3
