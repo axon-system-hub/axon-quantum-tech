@@ -1,3 +1,4 @@
 read_verilog H:/.hermes/evidence/cryo_0mul/rtl/macs.v
 synth -top mac_0mul -flatten
 ltp -noff
+

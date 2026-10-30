@@ -1,0 +1,7 @@
+read_verilog D:/axon-양자기술/rtl/qec_decoder_5qubit_0mul.v
+synth -top qec_decoder_5qubit_0mul -flatten
+abc
+stat
+ltp -noff
+abc -lut 4
+stat

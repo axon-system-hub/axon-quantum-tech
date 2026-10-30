@@ -13,6 +13,7 @@ pub mod activity;
 pub mod encoding_bridge;
 pub mod mac;
 pub mod optical;
+pub mod qec;
 pub mod rng;
 pub mod trit;
 
