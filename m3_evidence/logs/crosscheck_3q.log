@@ -1,0 +1,6 @@
+AXON M3 Cross-Check Report: qec_decoder_3qubit_0mul (Verilog) vs BitFlip3Code (Rust)
+Source Commit: 9d5f456663f5f6e9cc74ffc329beacb061987c95
+Boundary: declared_contract_only
+Cases Checked: 9 (8 exhaustive 3-bit hard-decision codewords + 1 soft 0-MUL int8 parity vector)
+Mismatches: 0
+Result: PASS (100% Bit-Exact Match)

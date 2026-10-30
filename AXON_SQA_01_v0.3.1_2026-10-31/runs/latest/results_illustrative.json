@@ -1,0 +1,2092 @@
+{
+  "reference_calculations": {
+    "evidence": "THEORETICAL/DERIVED, NOT HARDWARE MEASUREMENTS",
+    "five_GHz_equilibrium_two_level": [
+      {
+        "temperature_K": 0.015,
+        "excited_probability": 1.1281945672724631e-07
+      },
+      {
+        "temperature_K": 4.0,
+        "excited_probability": 0.48500686164907625
+      },
+      {
+        "temperature_K": 77.0,
+        "excited_probability": 0.49922090272902214
+      }
+    ],
+    "carnot_work_per_W_removed_at_300K_sink": {
+      "0.015": 19999.0,
+      "4.0": 74.0,
+      "77.0": 2.896103896103896
+    },
+    "500um_delay_ps_assumed_group_index_3_48": 5.804015256447846,
+    "500um_delay_ps_assumed_group_index_4_0": 6.671281903963042,
+    "45dB_extinction": {
+      "power_ratio": 3.1622776601683795e-05,
+      "field_amplitude_ratio": 0.005623413251903491
+    },
+    "1000_qubit_core_only_W_from_assumed_0_45mW_each": 0.45,
+    "legacy_1000_qubit_W_from_assumed_18mW_and_three_0_8mW_lines": 20.4,
+    "power_proxy_C_vs_B_percent_from_user_report": {
+      "zero_0_percent": -29.90196078431373,
+      "zero_33_percent": -22.3463687150838,
+      "zero_66_percent": -4.477611940298509
+    },
+    "area_proxy_C_vs_B_percent_from_user_report": 14.18918918918919
+  },
+  "scenarios": [
+    {
+      "schema_version": "0.2",
+      "model_version": "0.3",
+      "scenario": "Illustrative 77K ledger only; ALL powers ASSUMED, other stages UNKNOWN",
+      "qubits_requested": 100,
+      "evidence": "DERIVED_ENGINEERING_LEDGER; INPUT_LABELS_PRESERVED",
+      "scope": "PROJECTED-AXON",
+      "channel_plan": {
+        "signals_per_direction": 300,
+        "directional_signals_total": 600,
+        "fiber_count": 10,
+        "fiber_count_evidence": "DERIVED_FROM_ASSUMED_CHANNEL_PLAN",
+        "required_Gbps_per_direction": null,
+        "peak_streams_per_wavelength": 1,
+        "peak_required_Gbps_per_wavelength": null,
+        "capacity_Gbps_per_direction": null,
+        "bandwidth_status": "UNKNOWN",
+        "qualification": "Channel arithmetic only; no WDM hardware or crosstalk validation."
+      },
+      "thermal_stages": [
+        {
+          "name": "77K_classical_control",
+          "temperature_K": 77.0,
+          "heat_W": {
+            "known_subtotal": 1.2051,
+            "total": 1.2051,
+            "missing": [],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": 0.045,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": 0.2,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": 0.060000000000000005,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": 0.25,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": 0.25,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "radiation",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": 0.0001,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              }
+            ]
+          },
+          "capacity_W": 150.0,
+          "margin_W": 148.7949,
+          "thermal_status": "WITHIN_INPUT_BUDGET",
+          "ideal_refrigerator_minimum_work_W": 3.4900948051948055,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        },
+        {
+          "name": "4K_interface_if_used",
+          "temperature_K": 4.0,
+          "heat_W": {
+            "known_subtotal": 0.0,
+            "total": null,
+            "missing": [
+              "control_core",
+              "readout_chain",
+              "DAC_and_RF_driver",
+              "absorbed_optical_power",
+              "clock_memory",
+              "phase_bias",
+              "regulator_loss",
+              "supports_and_feeds",
+              "radiation",
+              "fiber_conduction"
+            ],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "radiation",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              }
+            ]
+          },
+          "capacity_W": null,
+          "margin_W": null,
+          "thermal_status": "UNKNOWN",
+          "ideal_refrigerator_minimum_work_W": null,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        },
+        {
+          "name": "mK_QPU_if_used",
+          "temperature_K": 0.015,
+          "heat_W": {
+            "known_subtotal": 0.0,
+            "total": null,
+            "missing": [
+              "control_core",
+              "readout_chain",
+              "DAC_and_RF_driver",
+              "absorbed_optical_power",
+              "clock_memory",
+              "phase_bias",
+              "regulator_loss",
+              "supports_and_feeds",
+              "radiation",
+              "fiber_conduction"
+            ],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "radiation",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              }
+            ]
+          },
+          "capacity_W": null,
+          "margin_W": null,
+          "thermal_status": "UNKNOWN",
+          "ideal_refrigerator_minimum_work_W": null,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        }
+      ],
+      "latency_ns": {
+        "known_subtotal": 0.0,
+        "total": null,
+        "missing": [
+          "measurement_integration",
+          "ADC_and_demodulation",
+          "link_round_trip",
+          "decoder_and_queue",
+          "DAC_and_driver",
+          "pulse_delivery"
+        ],
+        "entries": [
+          {
+            "name": "measurement_integration",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "ADC_and_demodulation",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "link_round_trip",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "decoder_and_queue",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "DAC_and_driver",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "pulse_delivery",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          }
+        ]
+      },
+      "wall_input_W": {
+        "known_subtotal": 0.0,
+        "total": null,
+        "missing": [
+          "whole_system_meter"
+        ],
+        "entries": [
+          {
+            "name": "whole_system_meter",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Whole-system power meter; include host, lasers, supplies, cryostat auxiliaries. Purchased LN2 production is an external energy boundary."
+          }
+        ]
+      },
+      "quantum_device_feasibility": "NOT_EVALUATED",
+      "qec_fidelity": "NOT_EVALUATED",
+      "evidence_authentication": "NOT_PERFORMED",
+      "system_validation": "NOT_EVALUATED",
+      "warning": "No result is a demonstration of a working quantum computer, semiconductor or QEC loop."
+    },
+    {
+      "schema_version": "0.2",
+      "model_version": "0.3",
+      "scenario": "Illustrative 77K ledger only; ALL powers ASSUMED, other stages UNKNOWN",
+      "qubits_requested": 200,
+      "evidence": "DERIVED_ENGINEERING_LEDGER; INPUT_LABELS_PRESERVED",
+      "scope": "PROJECTED-AXON",
+      "channel_plan": {
+        "signals_per_direction": 600,
+        "directional_signals_total": 1200,
+        "fiber_count": 20,
+        "fiber_count_evidence": "DERIVED_FROM_ASSUMED_CHANNEL_PLAN",
+        "required_Gbps_per_direction": null,
+        "peak_streams_per_wavelength": 1,
+        "peak_required_Gbps_per_wavelength": null,
+        "capacity_Gbps_per_direction": null,
+        "bandwidth_status": "UNKNOWN",
+        "qualification": "Channel arithmetic only; no WDM hardware or crosstalk validation."
+      },
+      "thermal_stages": [
+        {
+          "name": "77K_classical_control",
+          "temperature_K": 77.0,
+          "heat_W": {
+            "known_subtotal": 1.6102000000000003,
+            "total": 1.6102000000000003,
+            "missing": [],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": 0.09,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": 0.4,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": 0.2,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": 0.12000000000000001,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": 0.25,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": 0.25,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "radiation",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": 0.0002,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              }
+            ]
+          },
+          "capacity_W": 150.0,
+          "margin_W": 148.3898,
+          "thermal_status": "WITHIN_INPUT_BUDGET",
+          "ideal_refrigerator_minimum_work_W": 4.663306493506495,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        },
+        {
+          "name": "4K_interface_if_used",
+          "temperature_K": 4.0,
+          "heat_W": {
+            "known_subtotal": 0.0,
+            "total": null,
+            "missing": [
+              "control_core",
+              "readout_chain",
+              "DAC_and_RF_driver",
+              "absorbed_optical_power",
+              "clock_memory",
+              "phase_bias",
+              "regulator_loss",
+              "supports_and_feeds",
+              "radiation",
+              "fiber_conduction"
+            ],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "radiation",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              }
+            ]
+          },
+          "capacity_W": null,
+          "margin_W": null,
+          "thermal_status": "UNKNOWN",
+          "ideal_refrigerator_minimum_work_W": null,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        },
+        {
+          "name": "mK_QPU_if_used",
+          "temperature_K": 0.015,
+          "heat_W": {
+            "known_subtotal": 0.0,
+            "total": null,
+            "missing": [
+              "control_core",
+              "readout_chain",
+              "DAC_and_RF_driver",
+              "absorbed_optical_power",
+              "clock_memory",
+              "phase_bias",
+              "regulator_loss",
+              "supports_and_feeds",
+              "radiation",
+              "fiber_conduction"
+            ],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "radiation",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              }
+            ]
+          },
+          "capacity_W": null,
+          "margin_W": null,
+          "thermal_status": "UNKNOWN",
+          "ideal_refrigerator_minimum_work_W": null,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        }
+      ],
+      "latency_ns": {
+        "known_subtotal": 0.0,
+        "total": null,
+        "missing": [
+          "measurement_integration",
+          "ADC_and_demodulation",
+          "link_round_trip",
+          "decoder_and_queue",
+          "DAC_and_driver",
+          "pulse_delivery"
+        ],
+        "entries": [
+          {
+            "name": "measurement_integration",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "ADC_and_demodulation",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "link_round_trip",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "decoder_and_queue",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "DAC_and_driver",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "pulse_delivery",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          }
+        ]
+      },
+      "wall_input_W": {
+        "known_subtotal": 0.0,
+        "total": null,
+        "missing": [
+          "whole_system_meter"
+        ],
+        "entries": [
+          {
+            "name": "whole_system_meter",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Whole-system power meter; include host, lasers, supplies, cryostat auxiliaries. Purchased LN2 production is an external energy boundary."
+          }
+        ]
+      },
+      "quantum_device_feasibility": "NOT_EVALUATED",
+      "qec_fidelity": "NOT_EVALUATED",
+      "evidence_authentication": "NOT_PERFORMED",
+      "system_validation": "NOT_EVALUATED",
+      "warning": "No result is a demonstration of a working quantum computer, semiconductor or QEC loop."
+    },
+    {
+      "schema_version": "0.2",
+      "model_version": "0.3",
+      "scenario": "Illustrative 77K ledger only; ALL powers ASSUMED, other stages UNKNOWN",
+      "qubits_requested": 300,
+      "evidence": "DERIVED_ENGINEERING_LEDGER; INPUT_LABELS_PRESERVED",
+      "scope": "PROJECTED-AXON",
+      "channel_plan": {
+        "signals_per_direction": 900,
+        "directional_signals_total": 1800,
+        "fiber_count": 30,
+        "fiber_count_evidence": "DERIVED_FROM_ASSUMED_CHANNEL_PLAN",
+        "required_Gbps_per_direction": null,
+        "peak_streams_per_wavelength": 1,
+        "peak_required_Gbps_per_wavelength": null,
+        "capacity_Gbps_per_direction": null,
+        "bandwidth_status": "UNKNOWN",
+        "qualification": "Channel arithmetic only; no WDM hardware or crosstalk validation."
+      },
+      "thermal_stages": [
+        {
+          "name": "77K_classical_control",
+          "temperature_K": 77.0,
+          "heat_W": {
+            "known_subtotal": 2.0153000000000003,
+            "total": 2.0153000000000003,
+            "missing": [],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": 0.135,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": 0.6,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": 0.3,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": 0.18000000000000002,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": 0.25,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": 0.25,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "radiation",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": 0.00030000000000000003,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              }
+            ]
+          },
+          "capacity_W": 150.0,
+          "margin_W": 147.9847,
+          "thermal_status": "WITHIN_INPUT_BUDGET",
+          "ideal_refrigerator_minimum_work_W": 5.836518181818183,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        },
+        {
+          "name": "4K_interface_if_used",
+          "temperature_K": 4.0,
+          "heat_W": {
+            "known_subtotal": 0.0,
+            "total": null,
+            "missing": [
+              "control_core",
+              "readout_chain",
+              "DAC_and_RF_driver",
+              "absorbed_optical_power",
+              "clock_memory",
+              "phase_bias",
+              "regulator_loss",
+              "supports_and_feeds",
+              "radiation",
+              "fiber_conduction"
+            ],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "radiation",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              }
+            ]
+          },
+          "capacity_W": null,
+          "margin_W": null,
+          "thermal_status": "UNKNOWN",
+          "ideal_refrigerator_minimum_work_W": null,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        },
+        {
+          "name": "mK_QPU_if_used",
+          "temperature_K": 0.015,
+          "heat_W": {
+            "known_subtotal": 0.0,
+            "total": null,
+            "missing": [
+              "control_core",
+              "readout_chain",
+              "DAC_and_RF_driver",
+              "absorbed_optical_power",
+              "clock_memory",
+              "phase_bias",
+              "regulator_loss",
+              "supports_and_feeds",
+              "radiation",
+              "fiber_conduction"
+            ],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "radiation",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              }
+            ]
+          },
+          "capacity_W": null,
+          "margin_W": null,
+          "thermal_status": "UNKNOWN",
+          "ideal_refrigerator_minimum_work_W": null,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        }
+      ],
+      "latency_ns": {
+        "known_subtotal": 0.0,
+        "total": null,
+        "missing": [
+          "measurement_integration",
+          "ADC_and_demodulation",
+          "link_round_trip",
+          "decoder_and_queue",
+          "DAC_and_driver",
+          "pulse_delivery"
+        ],
+        "entries": [
+          {
+            "name": "measurement_integration",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "ADC_and_demodulation",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "link_round_trip",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "decoder_and_queue",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "DAC_and_driver",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "pulse_delivery",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          }
+        ]
+      },
+      "wall_input_W": {
+        "known_subtotal": 0.0,
+        "total": null,
+        "missing": [
+          "whole_system_meter"
+        ],
+        "entries": [
+          {
+            "name": "whole_system_meter",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Whole-system power meter; include host, lasers, supplies, cryostat auxiliaries. Purchased LN2 production is an external energy boundary."
+          }
+        ]
+      },
+      "quantum_device_feasibility": "NOT_EVALUATED",
+      "qec_fidelity": "NOT_EVALUATED",
+      "evidence_authentication": "NOT_PERFORMED",
+      "system_validation": "NOT_EVALUATED",
+      "warning": "No result is a demonstration of a working quantum computer, semiconductor or QEC loop."
+    },
+    {
+      "schema_version": "0.2",
+      "model_version": "0.3",
+      "scenario": "Illustrative 77K ledger only; ALL powers ASSUMED, other stages UNKNOWN",
+      "qubits_requested": 400,
+      "evidence": "DERIVED_ENGINEERING_LEDGER; INPUT_LABELS_PRESERVED",
+      "scope": "PROJECTED-AXON",
+      "channel_plan": {
+        "signals_per_direction": 1200,
+        "directional_signals_total": 2400,
+        "fiber_count": 38,
+        "fiber_count_evidence": "DERIVED_FROM_ASSUMED_CHANNEL_PLAN",
+        "required_Gbps_per_direction": null,
+        "peak_streams_per_wavelength": 1,
+        "peak_required_Gbps_per_wavelength": null,
+        "capacity_Gbps_per_direction": null,
+        "bandwidth_status": "UNKNOWN",
+        "qualification": "Channel arithmetic only; no WDM hardware or crosstalk validation."
+      },
+      "thermal_stages": [
+        {
+          "name": "77K_classical_control",
+          "temperature_K": 77.0,
+          "heat_W": {
+            "known_subtotal": 2.4203799999999998,
+            "total": 2.4203799999999998,
+            "missing": [],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": 0.18,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": 0.8,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": 0.4,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": 0.24000000000000002,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": 0.25,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": 0.25,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "radiation",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": 0.00038,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              }
+            ]
+          },
+          "capacity_W": 150.0,
+          "margin_W": 147.57962,
+          "thermal_status": "WITHIN_INPUT_BUDGET",
+          "ideal_refrigerator_minimum_work_W": 7.009671948051947,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        },
+        {
+          "name": "4K_interface_if_used",
+          "temperature_K": 4.0,
+          "heat_W": {
+            "known_subtotal": 0.0,
+            "total": null,
+            "missing": [
+              "control_core",
+              "readout_chain",
+              "DAC_and_RF_driver",
+              "absorbed_optical_power",
+              "clock_memory",
+              "phase_bias",
+              "regulator_loss",
+              "supports_and_feeds",
+              "radiation",
+              "fiber_conduction"
+            ],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "radiation",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              }
+            ]
+          },
+          "capacity_W": null,
+          "margin_W": null,
+          "thermal_status": "UNKNOWN",
+          "ideal_refrigerator_minimum_work_W": null,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        },
+        {
+          "name": "mK_QPU_if_used",
+          "temperature_K": 0.015,
+          "heat_W": {
+            "known_subtotal": 0.0,
+            "total": null,
+            "missing": [
+              "control_core",
+              "readout_chain",
+              "DAC_and_RF_driver",
+              "absorbed_optical_power",
+              "clock_memory",
+              "phase_bias",
+              "regulator_loss",
+              "supports_and_feeds",
+              "radiation",
+              "fiber_conduction"
+            ],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "radiation",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              }
+            ]
+          },
+          "capacity_W": null,
+          "margin_W": null,
+          "thermal_status": "UNKNOWN",
+          "ideal_refrigerator_minimum_work_W": null,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        }
+      ],
+      "latency_ns": {
+        "known_subtotal": 0.0,
+        "total": null,
+        "missing": [
+          "measurement_integration",
+          "ADC_and_demodulation",
+          "link_round_trip",
+          "decoder_and_queue",
+          "DAC_and_driver",
+          "pulse_delivery"
+        ],
+        "entries": [
+          {
+            "name": "measurement_integration",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "ADC_and_demodulation",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "link_round_trip",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "decoder_and_queue",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "DAC_and_driver",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "pulse_delivery",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          }
+        ]
+      },
+      "wall_input_W": {
+        "known_subtotal": 0.0,
+        "total": null,
+        "missing": [
+          "whole_system_meter"
+        ],
+        "entries": [
+          {
+            "name": "whole_system_meter",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Whole-system power meter; include host, lasers, supplies, cryostat auxiliaries. Purchased LN2 production is an external energy boundary."
+          }
+        ]
+      },
+      "quantum_device_feasibility": "NOT_EVALUATED",
+      "qec_fidelity": "NOT_EVALUATED",
+      "evidence_authentication": "NOT_PERFORMED",
+      "system_validation": "NOT_EVALUATED",
+      "warning": "No result is a demonstration of a working quantum computer, semiconductor or QEC loop."
+    },
+    {
+      "schema_version": "0.2",
+      "model_version": "0.3",
+      "scenario": "Illustrative 77K ledger only; ALL powers ASSUMED, other stages UNKNOWN",
+      "qubits_requested": 500,
+      "evidence": "DERIVED_ENGINEERING_LEDGER; INPUT_LABELS_PRESERVED",
+      "scope": "PROJECTED-AXON",
+      "channel_plan": {
+        "signals_per_direction": 1500,
+        "directional_signals_total": 3000,
+        "fiber_count": 48,
+        "fiber_count_evidence": "DERIVED_FROM_ASSUMED_CHANNEL_PLAN",
+        "required_Gbps_per_direction": null,
+        "peak_streams_per_wavelength": 1,
+        "peak_required_Gbps_per_wavelength": null,
+        "capacity_Gbps_per_direction": null,
+        "bandwidth_status": "UNKNOWN",
+        "qualification": "Channel arithmetic only; no WDM hardware or crosstalk validation."
+      },
+      "thermal_stages": [
+        {
+          "name": "77K_classical_control",
+          "temperature_K": 77.0,
+          "heat_W": {
+            "known_subtotal": 2.82548,
+            "total": 2.82548,
+            "missing": [],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": 0.225,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": 1.0,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": 0.5,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": 0.3,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": 0.25,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": 0.25,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "radiation",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": 0.00048000000000000007,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              }
+            ]
+          },
+          "capacity_W": 150.0,
+          "margin_W": 147.17452,
+          "thermal_status": "WITHIN_INPUT_BUDGET",
+          "ideal_refrigerator_minimum_work_W": 8.182883636363638,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        },
+        {
+          "name": "4K_interface_if_used",
+          "temperature_K": 4.0,
+          "heat_W": {
+            "known_subtotal": 0.0,
+            "total": null,
+            "missing": [
+              "control_core",
+              "readout_chain",
+              "DAC_and_RF_driver",
+              "absorbed_optical_power",
+              "clock_memory",
+              "phase_bias",
+              "regulator_loss",
+              "supports_and_feeds",
+              "radiation",
+              "fiber_conduction"
+            ],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "radiation",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              }
+            ]
+          },
+          "capacity_W": null,
+          "margin_W": null,
+          "thermal_status": "UNKNOWN",
+          "ideal_refrigerator_minimum_work_W": null,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        },
+        {
+          "name": "mK_QPU_if_used",
+          "temperature_K": 0.015,
+          "heat_W": {
+            "known_subtotal": 0.0,
+            "total": null,
+            "missing": [
+              "control_core",
+              "readout_chain",
+              "DAC_and_RF_driver",
+              "absorbed_optical_power",
+              "clock_memory",
+              "phase_bias",
+              "regulator_loss",
+              "supports_and_feeds",
+              "radiation",
+              "fiber_conduction"
+            ],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "radiation",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              }
+            ]
+          },
+          "capacity_W": null,
+          "margin_W": null,
+          "thermal_status": "UNKNOWN",
+          "ideal_refrigerator_minimum_work_W": null,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        }
+      ],
+      "latency_ns": {
+        "known_subtotal": 0.0,
+        "total": null,
+        "missing": [
+          "measurement_integration",
+          "ADC_and_demodulation",
+          "link_round_trip",
+          "decoder_and_queue",
+          "DAC_and_driver",
+          "pulse_delivery"
+        ],
+        "entries": [
+          {
+            "name": "measurement_integration",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "ADC_and_demodulation",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "link_round_trip",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "decoder_and_queue",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "DAC_and_driver",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "pulse_delivery",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          }
+        ]
+      },
+      "wall_input_W": {
+        "known_subtotal": 0.0,
+        "total": null,
+        "missing": [
+          "whole_system_meter"
+        ],
+        "entries": [
+          {
+            "name": "whole_system_meter",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Whole-system power meter; include host, lasers, supplies, cryostat auxiliaries. Purchased LN2 production is an external energy boundary."
+          }
+        ]
+      },
+      "quantum_device_feasibility": "NOT_EVALUATED",
+      "qec_fidelity": "NOT_EVALUATED",
+      "evidence_authentication": "NOT_PERFORMED",
+      "system_validation": "NOT_EVALUATED",
+      "warning": "No result is a demonstration of a working quantum computer, semiconductor or QEC loop."
+    },
+    {
+      "schema_version": "0.2",
+      "model_version": "0.3",
+      "scenario": "Illustrative 77K ledger only; ALL powers ASSUMED, other stages UNKNOWN",
+      "qubits_requested": 1000,
+      "evidence": "DERIVED_ENGINEERING_LEDGER; INPUT_LABELS_PRESERVED",
+      "scope": "PROJECTED-AXON",
+      "channel_plan": {
+        "signals_per_direction": 3000,
+        "directional_signals_total": 6000,
+        "fiber_count": 94,
+        "fiber_count_evidence": "DERIVED_FROM_ASSUMED_CHANNEL_PLAN",
+        "required_Gbps_per_direction": null,
+        "peak_streams_per_wavelength": 1,
+        "peak_required_Gbps_per_wavelength": null,
+        "capacity_Gbps_per_direction": null,
+        "bandwidth_status": "UNKNOWN",
+        "qualification": "Channel arithmetic only; no WDM hardware or crosstalk validation."
+      },
+      "thermal_stages": [
+        {
+          "name": "77K_classical_control",
+          "temperature_K": 77.0,
+          "heat_W": {
+            "known_subtotal": 4.850939999999999,
+            "total": 4.850939999999999,
+            "missing": [],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": 0.45,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": 2.0,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": 1.0,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": 0.6,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": 0.25,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": 0.25,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "radiation",
+                "contribution": 0.1,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": 0.0009400000000000001,
+                "input_evidence": "ASSUMED",
+                "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions"
+              }
+            ]
+          },
+          "capacity_W": 150.0,
+          "margin_W": 145.14906,
+          "thermal_status": "WITHIN_INPUT_BUDGET",
+          "ideal_refrigerator_minimum_work_W": 14.04882623376623,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        },
+        {
+          "name": "4K_interface_if_used",
+          "temperature_K": 4.0,
+          "heat_W": {
+            "known_subtotal": 0.0,
+            "total": null,
+            "missing": [
+              "control_core",
+              "readout_chain",
+              "DAC_and_RF_driver",
+              "absorbed_optical_power",
+              "clock_memory",
+              "phase_bias",
+              "regulator_loss",
+              "supports_and_feeds",
+              "radiation",
+              "fiber_conduction"
+            ],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "radiation",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              }
+            ]
+          },
+          "capacity_W": null,
+          "margin_W": null,
+          "thermal_status": "UNKNOWN",
+          "ideal_refrigerator_minimum_work_W": null,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        },
+        {
+          "name": "mK_QPU_if_used",
+          "temperature_K": 0.015,
+          "heat_W": {
+            "known_subtotal": 0.0,
+            "total": null,
+            "missing": [
+              "control_core",
+              "readout_chain",
+              "DAC_and_RF_driver",
+              "absorbed_optical_power",
+              "clock_memory",
+              "phase_bias",
+              "regulator_loss",
+              "supports_and_feeds",
+              "radiation",
+              "fiber_conduction"
+            ],
+            "entries": [
+              {
+                "name": "control_core",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "readout_chain",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "DAC_and_RF_driver",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "absorbed_optical_power",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "clock_memory",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "phase_bias",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "regulator_loss",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "supports_and_feeds",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "radiation",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              },
+              {
+                "name": "fiber_conduction",
+                "contribution": null,
+                "input_evidence": "ASSUMED",
+                "source": "Unmeasured; populate from identified hardware and operating conditions"
+              }
+            ]
+          },
+          "capacity_W": null,
+          "margin_W": null,
+          "thermal_status": "UNKNOWN",
+          "ideal_refrigerator_minimum_work_W": null,
+          "ideal_work_note": "300 K heat rejection; reversible lower bound only. Not wall power or purchased LN2 energy."
+        }
+      ],
+      "latency_ns": {
+        "known_subtotal": 0.0,
+        "total": null,
+        "missing": [
+          "measurement_integration",
+          "ADC_and_demodulation",
+          "link_round_trip",
+          "decoder_and_queue",
+          "DAC_and_driver",
+          "pulse_delivery"
+        ],
+        "entries": [
+          {
+            "name": "measurement_integration",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "ADC_and_demodulation",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "link_round_trip",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "decoder_and_queue",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "DAC_and_driver",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          },
+          {
+            "name": "pulse_delivery",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Measure this component; no default delay is supplied"
+          }
+        ]
+      },
+      "wall_input_W": {
+        "known_subtotal": 0.0,
+        "total": null,
+        "missing": [
+          "whole_system_meter"
+        ],
+        "entries": [
+          {
+            "name": "whole_system_meter",
+            "contribution": null,
+            "input_evidence": "ASSUMED",
+            "source": "Whole-system power meter; include host, lasers, supplies, cryostat auxiliaries. Purchased LN2 production is an external energy boundary."
+          }
+        ]
+      },
+      "quantum_device_feasibility": "NOT_EVALUATED",
+      "qec_fidelity": "NOT_EVALUATED",
+      "evidence_authentication": "NOT_PERFORMED",
+      "system_validation": "NOT_EVALUATED",
+      "warning": "No result is a demonstration of a working quantum computer, semiconductor or QEC loop."
+    }
+  ]
+}

@@ -1,0 +1,348 @@
+{
+  "schema_version": "m3-intake-1",
+  "note": "Source-linked M3 evidence bundle generated from clean commit 9d5f456663f5f6e9cc74ffc329beacb061987c95. All synthesis metrics are [SYNTHESIZED] structural counts.",
+  "implementations": [
+    {
+      "id": "repetition_3",
+      "repository": "Axon-Labs-Org/axon-quantum-tech",
+      "source_commit": "9d5f456663f5f6e9cc74ffc329beacb061987c95",
+      "worktree_clean": true,
+      "contract": {
+        "code_name": "3-Qubit Bit-Flip Repetition Code [[3, 1, 1]] (bit-flip distance 3, full Pauli distance 1)",
+        "error_model": "Single-qubit bit-flip (Pauli X) errors on 3 physical data qubits; supports hard binary input and soft signed int8 demodulated readout via 0-MUL subtraction parity.",
+        "syndrome_layout": "2-bit syndrome {s1, s0} where s0 = q0 ^ q1 (stabilizer Z0 Z1) and s1 = q1 ^ q2 (stabilizer Z1 Z2).",
+        "input_encoding": "mode_soft (1b), raw_bits[2:0] (3b binary codeword), analog_y0..2 (3 x signed int8 readout voltages where sign bit 1 indicates state |1>).",
+        "output_semantics": "Combinational single-cycle outputs: syndrome[1:0] (2b), soft_diff0[8:0] (9b), soft_diff1[8:0] (9b), corr_mask[2:0] (3b one-hot bit-flip mask), corrected_bits[2:0] (3b).",
+        "rounds": 1,
+        "syndrome_bits": 2,
+        "output_bits": 26,
+        "measurement_errors": false,
+        "n_data": 3,
+        "k_logical": 1,
+        "distance": 1
+      },
+      "source_snapshot": {
+        "path": "source_snapshot_9d5f456.txt",
+        "sha256": "1bad31d69676041d2275add77d4f9ffbdef4a49ac349b6afe2634074898de775"
+      },
+      "artifacts": {
+        "rtl_source": {
+          "path": "src/qec_decoder_3qubit_0mul.v",
+          "sha256": "d2f23478c60a9d1ab8f5bd19f59bb1d95f1bb41ac00513f36ca5ec1913280645"
+        },
+        "testbench_source": {
+          "path": "src/tb_qec_decoder.v",
+          "sha256": "ca78d839ff535719f8acec95884b73cfb77f2670caa7e6c4169629f9f56db796"
+        },
+        "rust_reference_source": {
+          "path": "src/qec.rs",
+          "sha256": "f876ab379a9fc3e1655d8ae3300b71b5097d043ea1e1089dbb0c28ef7b38ab82"
+        },
+        "golden_vectors": {
+          "path": "vectors/golden_vectors_3q.json",
+          "sha256": "2c6bb5bdee21b40ea520630ab1b9e1d40ea81109a36849e500c9e5e069b3ed74"
+        },
+        "rtl_test_log": {
+          "path": "logs/rtl_tb_qec_decoder.log",
+          "sha256": "7b2fbbef4e018c32f1783b8f6dee05f7fa7f90c577d32d1e14c5a1e6db00f827"
+        },
+        "rust_test_log": {
+          "path": "logs/rust_qec_tests.log",
+          "sha256": "7378860dce1ca4627ace2786458549d288d6e1a1b7d2ad48ad39f3d5d6defbb7"
+        },
+        "crosscheck_log": {
+          "path": "logs/crosscheck_3q.log",
+          "sha256": "8137ebc7d09db787ca3fc4a2f7217ff0d5589116a72651b828b3cdcf03b87e9b"
+        }
+      },
+      "rtl_test": {
+        "command": "iverilog -o tb_qec_decoder.vvp rtl/qec_decoder_3qubit_0mul.v rtl/qec_decoder_5qubit_0mul.v rtl/tb_qec_decoder.v && vvp tb_qec_decoder.vvp",
+        "tool_version": "Icarus Verilog version 14.0 (devel) (s20260301-579-g15d870a52-dirty)",
+        "source_commit": "9d5f456663f5f6e9cc74ffc329beacb061987c95",
+        "exit_code": 0,
+        "cases_run": 9
+      },
+      "rust_test": {
+        "command": "cargo test --test qec_tests -- --nocapture",
+        "tool_version": "rustc 1.93.0 (254b59607 2026-01-19) / cargo 1.93.0 (083ac5135 2025-12-15)",
+        "source_commit": "9d5f456663f5f6e9cc74ffc329beacb061987c95",
+        "exit_code": 0,
+        "cases_run": 4
+      },
+      "crosscheck": {
+        "command": "vvp tb_qec_decoder.vvp && cargo test --test qec_tests",
+        "tool_version": "Icarus Verilog version 14.0 (devel) (s20260301-579-g15d870a52-dirty) + rustc 1.93.0 (254b59607 2026-01-19) / cargo 1.93.0 (083ac5135 2025-12-15)",
+        "source_commit": "9d5f456663f5f6e9cc74ffc329beacb061987c95",
+        "exit_code": 0,
+        "cases_run": 9,
+        "comparison_boundary": "declared_contract_only",
+        "mismatches": 0
+      },
+      "synthesis_runs": [
+        {
+          "id": "qec3_abc_stdcells",
+          "source_commit": "9d5f456663f5f6e9cc74ffc329beacb061987c95",
+          "top": "qec_decoder_3qubit_0mul",
+          "tool_version": "Yosys 0.70+16 (git sha1 3bb533450, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 15.2.1)",
+          "target": "Yosys internal generic stdcells (abc default gate library)",
+          "command": "yosys -s synth/qec3_stdcells.ys",
+          "mapping_stage": "post_abc_stdcells",
+          "hierarchy_scope": "flattened_top_module",
+          "exit_code": 0,
+          "artifacts": {
+            "script": {
+              "path": "synth/qec3_stdcells.ys",
+              "sha256": "e8d04bf69fca7066ca7f52173247179346e4bdb083edde708ca23b2f2e83f8dd"
+            },
+            "log": {
+              "path": "synth/qec3_stdcells.log",
+              "sha256": "173b6f239bfc96bccef98b89545ca7159b2a913aaa87501e5e3d0392214b5bd7"
+            },
+            "pre_map_netlist": {
+              "path": "synth/qec3_stdcells_pre_map.v",
+              "sha256": "a02f10712c3c5138b9337d2cf02953b5346a53a34dbe137b153f674b72e4337d"
+            },
+            "mapped_netlist": {
+              "path": "synth/qec3_stdcells_mapped.v",
+              "sha256": "494bff834b2c3bb082ce0c488304761d5a2e170b9bfd851e02a69be80bb2bca3"
+            }
+          },
+          "metrics": [
+            {
+              "raw_field": "Number of cells",
+              "value": 86,
+              "unit": "cells",
+              "log_line": 571
+            },
+            {
+              "raw_field": "Longest topological path (ltp -noff)",
+              "value": 15,
+              "unit": "logic_levels",
+              "log_line": 583
+            },
+            {
+              "raw_field": "$mul cell count",
+              "value": 0,
+              "unit": "operators",
+              "log_line": 571
+            }
+          ]
+        },
+        {
+          "id": "qec3_abc_lut4",
+          "source_commit": "9d5f456663f5f6e9cc74ffc329beacb061987c95",
+          "top": "qec_decoder_3qubit_0mul",
+          "tool_version": "Yosys 0.70+16 (git sha1 3bb533450, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 15.2.1)",
+          "target": "Generic 4-input LUT architecture (abc -lut 4)",
+          "command": "yosys -s synth/qec3_lut4.ys",
+          "mapping_stage": "post_abc_lut4",
+          "hierarchy_scope": "flattened_top_module",
+          "exit_code": 0,
+          "artifacts": {
+            "script": {
+              "path": "synth/qec3_lut4.ys",
+              "sha256": "ca5845fbcdf1e576b996e0f3f1d4f708ee91a5f954f7669feb9705f5401957c8"
+            },
+            "log": {
+              "path": "synth/qec3_lut4.log",
+              "sha256": "c0769980b4ce8f5ea33ba6a516498adff0c9612275d58c9586f8ee4096da23d2"
+            },
+            "pre_map_netlist": {
+              "path": "synth/qec3_lut4_pre_map.v",
+              "sha256": "a02f10712c3c5138b9337d2cf02953b5346a53a34dbe137b153f674b72e4337d"
+            },
+            "mapped_netlist": {
+              "path": "synth/qec3_lut4_mapped.v",
+              "sha256": "496ded5fec46c9fba0f900313567cb425bee35f22f4e491e371fd4ab0e3fb803"
+            }
+          },
+          "metrics": [
+            {
+              "raw_field": "$lut (4-input LUTs)",
+              "value": 44,
+              "unit": "LUT4",
+              "log_line": 609
+            },
+            {
+              "raw_field": "Mapped DSP blocks",
+              "value": 0,
+              "unit": "DSP",
+              "log_line": 609
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "five_qubit",
+      "repository": "Axon-Labs-Org/axon-quantum-tech",
+      "source_commit": "9d5f456663f5f6e9cc74ffc329beacb061987c95",
+      "worktree_clean": true,
+      "contract": {
+        "code_name": "5-Qubit Perfect Quantum Error Correction Code [[5, 1, 3]]",
+        "error_model": "Arbitrary single-qubit Pauli errors (X, Y, Z across 5 physical qubits = 15 distinct error patterns + 1 identity); ideal noiseless syndrome input per single cycle.",
+        "syndrome_layout": "4-bit syndrome {s3, s2, s1, s0} corresponding to stabilizer generators g0=XZZXI, g1=IXZZX, g2=XIXZZ, g3=ZXIXZ.",
+        "input_encoding": "mode_soft (1b), syndrome_in[3:0] (4b binary syndrome), analog_s0..3 (4 x signed int8 resonator readout signals where MSB sign bit provides soft-mode syndrome).",
+        "output_semantics": "Combinational single-cycle outputs: syndrome[3:0] (4b), error_detected (1b), target_qubit[2:0] (3b index 0..4, 7 if no error), corr_pauli[1:0] (2b: 00=I, 01=X, 10=Y, 11=Z), corr_qubits[9:0] (10b per-qubit Pauli correction bus).",
+        "rounds": 1,
+        "syndrome_bits": 4,
+        "output_bits": 20,
+        "measurement_errors": false,
+        "n_data": 5,
+        "k_logical": 1,
+        "distance": 3
+      },
+      "source_snapshot": {
+        "path": "source_snapshot_9d5f456.txt",
+        "sha256": "1bad31d69676041d2275add77d4f9ffbdef4a49ac349b6afe2634074898de775"
+      },
+      "artifacts": {
+        "rtl_source": {
+          "path": "src/qec_decoder_5qubit_0mul.v",
+          "sha256": "5672cdb5f75a90270fb8b93db3140835d63272ae24feb4661209a8e08c9f864b"
+        },
+        "testbench_source": {
+          "path": "src/tb_qec_decoder.v",
+          "sha256": "ca78d839ff535719f8acec95884b73cfb77f2670caa7e6c4169629f9f56db796"
+        },
+        "rust_reference_source": {
+          "path": "src/qec.rs",
+          "sha256": "f876ab379a9fc3e1655d8ae3300b71b5097d043ea1e1089dbb0c28ef7b38ab82"
+        },
+        "golden_vectors": {
+          "path": "vectors/golden_vectors_5q.json",
+          "sha256": "f2a40456845b800550c603ae61232de91982e5eab2ea198205cc790aa8b182ff"
+        },
+        "rtl_test_log": {
+          "path": "logs/rtl_tb_qec_decoder.log",
+          "sha256": "7b2fbbef4e018c32f1783b8f6dee05f7fa7f90c577d32d1e14c5a1e6db00f827"
+        },
+        "rust_test_log": {
+          "path": "logs/rust_qec_tests.log",
+          "sha256": "7378860dce1ca4627ace2786458549d288d6e1a1b7d2ad48ad39f3d5d6defbb7"
+        },
+        "crosscheck_log": {
+          "path": "logs/crosscheck_5q.log",
+          "sha256": "9c29e81229666cd8444b9691fe81cc1a77a8b3546073f3a0a25d12f1f2d1e356"
+        }
+      },
+      "rtl_test": {
+        "command": "iverilog -o tb_qec_decoder.vvp rtl/qec_decoder_3qubit_0mul.v rtl/qec_decoder_5qubit_0mul.v rtl/tb_qec_decoder.v && vvp tb_qec_decoder.vvp",
+        "tool_version": "Icarus Verilog version 14.0 (devel) (s20260301-579-g15d870a52-dirty)",
+        "source_commit": "9d5f456663f5f6e9cc74ffc329beacb061987c95",
+        "exit_code": 0,
+        "cases_run": 16
+      },
+      "rust_test": {
+        "command": "cargo test --test qec_tests -- --nocapture",
+        "tool_version": "rustc 1.93.0 (254b59607 2026-01-19) / cargo 1.93.0 (083ac5135 2025-12-15)",
+        "source_commit": "9d5f456663f5f6e9cc74ffc329beacb061987c95",
+        "exit_code": 0,
+        "cases_run": 4
+      },
+      "crosscheck": {
+        "command": "vvp tb_qec_decoder.vvp && cargo test --test qec_tests",
+        "tool_version": "Icarus Verilog version 14.0 (devel) (s20260301-579-g15d870a52-dirty) + rustc 1.93.0 (254b59607 2026-01-19) / cargo 1.93.0 (083ac5135 2025-12-15)",
+        "source_commit": "9d5f456663f5f6e9cc74ffc329beacb061987c95",
+        "exit_code": 0,
+        "cases_run": 16,
+        "comparison_boundary": "declared_contract_only",
+        "mismatches": 0
+      },
+      "synthesis_runs": [
+        {
+          "id": "qec5_abc_stdcells",
+          "source_commit": "9d5f456663f5f6e9cc74ffc329beacb061987c95",
+          "top": "qec_decoder_5qubit_0mul",
+          "tool_version": "Yosys 0.70+16 (git sha1 3bb533450, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 15.2.1)",
+          "target": "Yosys internal generic stdcells (abc default gate library)",
+          "command": "yosys -s synth/qec5_stdcells.ys",
+          "mapping_stage": "post_abc_stdcells",
+          "hierarchy_scope": "flattened_top_module",
+          "exit_code": 0,
+          "artifacts": {
+            "script": {
+              "path": "synth/qec5_stdcells.ys",
+              "sha256": "98c869b0892621fed4405068ec9f368159d0e018664fdfc68008c72be744c1a3"
+            },
+            "log": {
+              "path": "synth/qec5_stdcells.log",
+              "sha256": "3cbfee2d2e59589f330185e56e179d0d78df03b6570147cd2aec821c9f8fcd6c"
+            },
+            "pre_map_netlist": {
+              "path": "synth/qec5_stdcells_pre_map.v",
+              "sha256": "6c5459503602ae8dbc0be6795955eb1a4a9b33b8aae6f41b112b5e8c8ba705aa"
+            },
+            "mapped_netlist": {
+              "path": "synth/qec5_stdcells_mapped.v",
+              "sha256": "d63fbbfac1b64ce4a41bb8463e13e20e1b6f986886428820b4c53e3f80c8a66b"
+            }
+          },
+          "metrics": [
+            {
+              "raw_field": "Number of cells",
+              "value": 50,
+              "unit": "cells",
+              "log_line": 720
+            },
+            {
+              "raw_field": "Longest topological path (ltp -noff)",
+              "value": 9,
+              "unit": "logic_levels",
+              "log_line": 732
+            },
+            {
+              "raw_field": "$mul cell count",
+              "value": 0,
+              "unit": "operators",
+              "log_line": 720
+            }
+          ]
+        },
+        {
+          "id": "qec5_abc_lut4",
+          "source_commit": "9d5f456663f5f6e9cc74ffc329beacb061987c95",
+          "top": "qec_decoder_5qubit_0mul",
+          "tool_version": "Yosys 0.70+16 (git sha1 3bb533450, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 15.2.1)",
+          "target": "Generic 4-input LUT architecture (abc -lut 4)",
+          "command": "yosys -s synth/qec5_lut4.ys",
+          "mapping_stage": "post_abc_lut4",
+          "hierarchy_scope": "flattened_top_module",
+          "exit_code": 0,
+          "artifacts": {
+            "script": {
+              "path": "synth/qec5_lut4.ys",
+              "sha256": "865bc787ed8c2c98d1976fd3a43b5dcea0b65b2801606e3ebb4d22da5fdd4eb1"
+            },
+            "log": {
+              "path": "synth/qec5_lut4.log",
+              "sha256": "cdc2a0824bbebe2805fc50b952351329d38cf1011eea2ef01d3cc1d9f45139f6"
+            },
+            "pre_map_netlist": {
+              "path": "synth/qec5_lut4_pre_map.v",
+              "sha256": "6c5459503602ae8dbc0be6795955eb1a4a9b33b8aae6f41b112b5e8c8ba705aa"
+            },
+            "mapped_netlist": {
+              "path": "synth/qec5_lut4_mapped.v",
+              "sha256": "705c81d2b3e438e4986d37e2e70efa1d38f795908240de4bfb9396560e7e57ae"
+            }
+          },
+          "metrics": [
+            {
+              "raw_field": "$lut (4-input LUTs)",
+              "value": 20,
+              "unit": "LUT4",
+              "log_line": 758
+            },
+            {
+              "raw_field": "Mapped DSP blocks",
+              "value": 0,
+              "unit": "DSP",
+              "log_line": 758
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

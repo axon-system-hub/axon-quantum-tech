@@ -1,0 +1,178 @@
+# AXON Quantum Tech Source Snapshot (9d5f456663f5f6e9cc74ffc329beacb061987c95)
+
+## git show --stat --oneline 9d5f456663f5f6e9cc74ffc329beacb061987c95
+9d5f456 feat(patent-36): expand claims 6-11 with 5-qubit tiling (100Q), single-cycle 0-MUL QEC, cavity lid Li-Fi, and vapor cell physical AI module
+ AXON_SQA_01_v0.3_2026-10-31.zip                    |  Bin 0 -> 132192 bytes
+ AXON_SQA_01_v0.3_2026-10-31/AXON_SQA_01_v0.3.md    |  203 ++
+ AXON_SQA_01_v0.3_2026-10-31/CHANGELOG.md           |   18 +
+ AXON_SQA_01_v0.3_2026-10-31/CORRECTIONS.md         |   29 +
+ .../M3_IMPLEMENTATION_CONTRACT.md                  |   61 +
+ AXON_SQA_01_v0.3_2026-10-31/PROVENANCE.json        |   12 +
+ AXON_SQA_01_v0.3_2026-10-31/README.md              |   42 +
+ AXON_SQA_01_v0.3_2026-10-31/SHA256SUMS.txt         |   42 +
+ AXON_SQA_01_v0.3_2026-10-31/YOUR_OS_INTERFACE.md   |   33 +
+ .../claims_m3_unverified.json                      |   15 +
+ .../engineering_model.patch                        |  105 +
+ AXON_SQA_01_v0.3_2026-10-31/engineering_model.py   |  241 +++
+ AXON_SQA_01_v0.3_2026-10-31/evidence_gate.py       |  157 ++
+ .../inputs_illustrative.json                       |  333 +++
+ AXON_SQA_01_v0.3_2026-10-31/inputs_unknown.json    |  333 +++
+ .../integration/axon-sqa-validation.yml            |   24 +
+ .../legacy_v02/AI_AND_HPC_CLAIMS.md                |  141 ++
+ .../legacy_v02/AXON_QUANTUM_AUDIT_AND_DESIGN.md    |  229 +++
+ .../legacy_v02/AXON_QUANTUM_MASTER_REVIEW.md       |  594 ++++++
+ .../legacy_v02/DC_MEMORY_INTEGRATION.md            |  121 ++
+ AXON_SQA_01_v0.3_2026-10-31/legacy_v02/README.md   |   41 +
+ .../legacy_v02/SHA256SUMS.txt                      |   15 +
+ .../legacy_v02/VERIFICATION.txt                    |   26 +
+ .../legacy_v02/WORK_ORDER.md                       |   81 +
+ .../legacy_v02/engineering_model.py                |  219 ++
+ .../legacy_v02/inputs_illustrative.json            |  333 +++
+ .../legacy_v02/inputs_unknown.json                 |  333 +++
+ .../legacy_v02/resource_checks.json                |   29 +
+ .../legacy_v02/results_illustrative.json           | 2062 +++++++++++++++++++
+ .../legacy_v02/results_unknown.json                | 2128 +++++++++++++++++++
+ .../legacy_v02/sensitivity.csv                     |   10 +
+ .../legacy_v02/test_engineering_model.py           |  114 ++
+ AXON_SQA_01_v0.3_2026-10-31/qec_reference.py       |  111 +
+ .../results/m3_evidence_gate.json                  |  130 ++
+ .../results/qec_reference.json                     |   54 +
+ .../results/results_illustrative.json              | 2092 +++++++++++++++++++
+ .../results/results_unknown.json                   | 2158 ++++++++++++++++++++
+ AXON_SQA_01_v0.3_2026-10-31/results/tests.log      |   54 +
+ .../results/verification.json                      |  124 ++
+ .../test_engineering_model.py                      |  114 ++
+ AXON_SQA_01_v0.3_2026-10-31/test_evidence_gate.py  |   89 +
+ AXON_SQA_01_v0.3_2026-10-31/test_qec_reference.py  |  108 +
+ AXON_SQA_01_v0.3_2026-10-31/test_regressions.py    |   76 +
+ AXON_SQA_01_v0.3_2026-10-31/verify_release.py      |   90 +
+ PAT35_CAVITY_LID_FABRICATION_SPEC.md               |    1 +
+ PATENT_36_SPECIFICATION.md                         |   59 +-
+ rtl/qec_decoder_3qubit_0mul.v                      |    1 +
+ rtl/qec_decoder_5qubit_0mul.v                      |    1 +
+ rtl/tb_qec_decoder.v                               |    1 +
+ src/qec.rs                                         |    1 +
+ synth_qec_3qubit.ys                                |    1 +
+ synth_qec_5qubit.ys                                |    1 +
+ 52 files changed, 13385 insertions(+), 5 deletions(-)
+
+## git show --stat --oneline ef5ceffdb5588d3987b6ff1410ff72345c4b3cca
+ef5ceff feat(qec): implement 3-qubit and 5-qubit 0-MUL decoders in Rust & synthesizable Verilog RTL
+ README.md                     |  21 ++--
+ RTL_PPA_SYNTHESIS_REPORT.md   |  56 +++++++---
+ rtl/qec_decoder_3qubit_0mul.v |  85 +++++++++++++++
+ rtl/qec_decoder_5qubit_0mul.v | 100 +++++++++++++++++
+ rtl/tb_qec_decoder.v          | 244 ++++++++++++++++++++++++++++++++++++++++++
+ src/lib.rs                    |   1 +
+ src/qec.rs                    | 168 +++++++++++++++++++++++++++++
+ synth_qec_3qubit.ys           |   7 ++
+ synth_qec_5qubit.ys           |   7 ++
+ test_ltp_0mul.ys              |   1 +
+ test_ltp_tern_mul.ys          |   1 +
+ test_lut_synth.ys             |   1 +
+ test_lut_tern_mul.ys          |   1 +
+ test_sky130_synth.ys          |   1 +
+ tests/qec_tests.rs            | 144 +++++++++++++++++++++++++
+ 15 files changed, 819 insertions(+), 19 deletions(-)
+
+## git ls-tree -r --full-tree 9d5f456663f5f6e9cc74ffc329beacb061987c95
+100644 blob cce95174407340a5d036f5eba856fa808205353c	.gitignore
+100644 blob 2b4f76775ced1129aba3ad5f693b397978b4f062	AXON_PAT35_CAVITY_LID_REV_B.dxf
+100644 blob 346f5e5ed9f58d898bf8c6b7ab4b4c07888b6153	AXON_PAT35_CAVITY_LID_REV_B.png
+100644 blob 9b522aca4a6e4a761d50c00f803a43c06b2406b7	AXON_PAT35_CAVITY_LID_REV_B.svg
+100644 blob e6b5c4f015d11a5a3b190bbf60b54ebc83e96d43	AXON_QUANTUM_DIRECTIVE.md
+100644 blob 10a79b0c70c587ac6eb92bde420b7fbab2a28817	AXON_Quantum_Review_v0.2_2026-10-30.zip
+100644 blob 887cd26e448dd15d3f448842674a5aa1b68bff99	AXON_Quantum_Review_v0.2_2026-10-30/AI_AND_HPC_CLAIMS.md
+100644 blob a0c59e2f0acb918fc5133adf95e5a0a405bd07a1	AXON_Quantum_Review_v0.2_2026-10-30/AXON_QUANTUM_AUDIT_AND_DESIGN.md
+100644 blob b19e64e682e2e4732912a2b5fdee05b2190ac340	AXON_Quantum_Review_v0.2_2026-10-30/AXON_QUANTUM_MASTER_REVIEW.md
+100644 blob f9f5862e6c280927980eb72286393a629c2abcf8	AXON_Quantum_Review_v0.2_2026-10-30/DC_MEMORY_INTEGRATION.md
+100644 blob c41b4b6c0a3170313a02d29938ab254105a0a937	AXON_Quantum_Review_v0.2_2026-10-30/README.md
+100644 blob 9972507aa56f1136493a2f1016dbaf3e31972cb4	AXON_Quantum_Review_v0.2_2026-10-30/SHA256SUMS.txt
+100644 blob aa39baad9c3a43492f046810cb5ea4d67e98c391	AXON_Quantum_Review_v0.2_2026-10-30/VERIFICATION.txt
+100644 blob 305d3b3f57eda9307267851e1fd7e535e6b4737c	AXON_Quantum_Review_v0.2_2026-10-30/WORK_ORDER.md
+100644 blob 4cc1b12e90b4230491eb18d1dd15aa047d8eed0d	AXON_Quantum_Review_v0.2_2026-10-30/__pycache__/engineering_model.cpython-313.pyc
+100644 blob 06878b44330531210fb1774e17eca53612b91a1e	AXON_Quantum_Review_v0.2_2026-10-30/__pycache__/test_engineering_model.cpython-313.pyc
+100644 blob 4826b57f8c9377f3223ef9e4f1f02865b3606ed7	AXON_Quantum_Review_v0.2_2026-10-30/engineering_model.py
+100644 blob c8705f7179b5c631fca2a0a604de4346b684d503	AXON_Quantum_Review_v0.2_2026-10-30/inputs_illustrative.json
+100644 blob 7e0a3cb6c3616fef0b6bda822b7e7a1f194da182	AXON_Quantum_Review_v0.2_2026-10-30/inputs_unknown.json
+100644 blob 2781cf2d6c3a8241b70a182587302ad919b3629c	AXON_Quantum_Review_v0.2_2026-10-30/resource_checks.json
+100644 blob 4ddb8acc7baa3ff114cf039daae1586988d2f32d	AXON_Quantum_Review_v0.2_2026-10-30/results_illustrative.json
+100644 blob bd3462d55551c75a5880edb4c611df4bb39a1bae	AXON_Quantum_Review_v0.2_2026-10-30/results_unknown.json
+100644 blob 89eea4e6db694c8f98c8522badb88ba68f009889	AXON_Quantum_Review_v0.2_2026-10-30/sensitivity.csv
+100644 blob 918fccdf73c4a602ce9e82515715e24776839427	AXON_Quantum_Review_v0.2_2026-10-30/test_engineering_model.py
+100644 blob 3810c3518947d71a0ed6ae25e1ccfc679c3f3d04	AXON_SQA_01_v0.3_2026-10-31.zip
+100644 blob d076c31ba60db52922fc7cc96ae8cae153bf2c5b	AXON_SQA_01_v0.3_2026-10-31/AXON_SQA_01_v0.3.md
+100644 blob ccac10cd11dba85bba67a5012f69473614459178	AXON_SQA_01_v0.3_2026-10-31/CHANGELOG.md
+100644 blob 2c2710e5c92c93bcdef65ba2529443d059081a59	AXON_SQA_01_v0.3_2026-10-31/CORRECTIONS.md
+100644 blob a9c2c34af3670eb6ce64402bd9ba132a692ca576	AXON_SQA_01_v0.3_2026-10-31/M3_IMPLEMENTATION_CONTRACT.md
+100644 blob 175294284dcb2bd7264acbc1f86d496cc1a47873	AXON_SQA_01_v0.3_2026-10-31/PROVENANCE.json
+100644 blob 3c9579bdb7df047cb819bc2c80302574eece47d0	AXON_SQA_01_v0.3_2026-10-31/README.md
+100644 blob dffe73552a654b5269201630b71deb73962c12a9	AXON_SQA_01_v0.3_2026-10-31/SHA256SUMS.txt
+100644 blob 7227185c9516405d964f488bc9bbb2ce5242f901	AXON_SQA_01_v0.3_2026-10-31/YOUR_OS_INTERFACE.md
+100644 blob 58d7d86f06fd3078ab4b7caf8715747fe44704d9	AXON_SQA_01_v0.3_2026-10-31/claims_m3_unverified.json
+100644 blob 778e7152f142014a8f090384a74ebf728e825afe	AXON_SQA_01_v0.3_2026-10-31/engineering_model.patch
+100644 blob afebef762676c2c4fbdfae2ab7701935fc4e7188	AXON_SQA_01_v0.3_2026-10-31/engineering_model.py
+100644 blob ee19e46698fe45d4440bfd9d874aa618b8cc80c1	AXON_SQA_01_v0.3_2026-10-31/evidence_gate.py
+100644 blob c8705f7179b5c631fca2a0a604de4346b684d503	AXON_SQA_01_v0.3_2026-10-31/inputs_illustrative.json
+100644 blob 7e0a3cb6c3616fef0b6bda822b7e7a1f194da182	AXON_SQA_01_v0.3_2026-10-31/inputs_unknown.json
+100644 blob 452b4337d1a33224a10188747b12856dcb3c7e58	AXON_SQA_01_v0.3_2026-10-31/integration/axon-sqa-validation.yml
+100644 blob 887cd26e448dd15d3f448842674a5aa1b68bff99	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/AI_AND_HPC_CLAIMS.md
+100644 blob a0c59e2f0acb918fc5133adf95e5a0a405bd07a1	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/AXON_QUANTUM_AUDIT_AND_DESIGN.md
+100644 blob b19e64e682e2e4732912a2b5fdee05b2190ac340	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/AXON_QUANTUM_MASTER_REVIEW.md
+100644 blob f9f5862e6c280927980eb72286393a629c2abcf8	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/DC_MEMORY_INTEGRATION.md
+100644 blob c41b4b6c0a3170313a02d29938ab254105a0a937	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/README.md
+100644 blob 9972507aa56f1136493a2f1016dbaf3e31972cb4	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/SHA256SUMS.txt
+100644 blob aa39baad9c3a43492f046810cb5ea4d67e98c391	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/VERIFICATION.txt
+100644 blob 305d3b3f57eda9307267851e1fd7e535e6b4737c	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/WORK_ORDER.md
+100644 blob 4826b57f8c9377f3223ef9e4f1f02865b3606ed7	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/engineering_model.py
+100644 blob c8705f7179b5c631fca2a0a604de4346b684d503	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/inputs_illustrative.json
+100644 blob 7e0a3cb6c3616fef0b6bda822b7e7a1f194da182	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/inputs_unknown.json
+100644 blob 2781cf2d6c3a8241b70a182587302ad919b3629c	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/resource_checks.json
+100644 blob 4ddb8acc7baa3ff114cf039daae1586988d2f32d	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/results_illustrative.json
+100644 blob bd3462d55551c75a5880edb4c611df4bb39a1bae	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/results_unknown.json
+100644 blob 89eea4e6db694c8f98c8522badb88ba68f009889	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/sensitivity.csv
+100644 blob 918fccdf73c4a602ce9e82515715e24776839427	AXON_SQA_01_v0.3_2026-10-31/legacy_v02/test_engineering_model.py
+100644 blob 6b01a57714d289dac53277d1e4cc0a60fdf4e820	AXON_SQA_01_v0.3_2026-10-31/qec_reference.py
+100644 blob a134313676906330a16de8a067cb9c417f2b2735	AXON_SQA_01_v0.3_2026-10-31/results/m3_evidence_gate.json
+100644 blob f1ce6a79a30647bcc579ec5c2869c92629ff4f68	AXON_SQA_01_v0.3_2026-10-31/results/qec_reference.json
+100644 blob c471428292b18b8579a34494be95f9f390d74dee	AXON_SQA_01_v0.3_2026-10-31/results/results_illustrative.json
+100644 blob f5f3015c5e07ca9a5cc8db66a9cdaa9abbd6ee2c	AXON_SQA_01_v0.3_2026-10-31/results/results_unknown.json
+100644 blob 7a5465b1a655c251c521596bdac9c5fa433d7e12	AXON_SQA_01_v0.3_2026-10-31/results/tests.log
+100644 blob fc996f1217d4a6461276c5868dadaf544035d4fe	AXON_SQA_01_v0.3_2026-10-31/results/verification.json
+100644 blob 918fccdf73c4a602ce9e82515715e24776839427	AXON_SQA_01_v0.3_2026-10-31/test_engineering_model.py
+100644 blob 96aa7916905cb054bef08200c4dc5e296af39c71	AXON_SQA_01_v0.3_2026-10-31/test_evidence_gate.py
+100644 blob e5564a6651f8a20bc88a43644cd6dcb435280844	AXON_SQA_01_v0.3_2026-10-31/test_qec_reference.py
+100644 blob a690c83e41db4cbfa9bc9ead160f2e1320b1f90e	AXON_SQA_01_v0.3_2026-10-31/test_regressions.py
+100644 blob b50c9130d380de00c0c58fe8ef613b540782731e	AXON_SQA_01_v0.3_2026-10-31/verify_release.py
+100644 blob 8b990df011816fc830288b9720099f1125b4a927	Cargo.lock
+100644 blob 0e5bf97f10c4977e5adcc86f47c6151399005893	Cargo.toml
+100644 blob 544fc760a1db9949759d306d052da2dc4da0b32c	OPTICAL_FUSION.md
+100644 blob 24c7800898311920d9d14b380d00470830ab9386	PAT35_CAVITY_LID_FABRICATION_SPEC.md
+100644 blob e82788c1e4156513729ccb4208f2e7af98d56aef	PATENT_36_SPECIFICATION.md
+100644 blob b0a2b85346155bda2f403876eb9ca06a1bc23608	README.md
+100644 blob e37f357c55037c6ec6ad37d35b0a49e75670e952	RTL_PPA_SYNTHESIS_REPORT.md
+100644 blob 9092305de1872a6f936693cdd3133e0c59f5a89a	rtl/qec_decoder_3qubit_0mul.v
+100644 blob 6982a361ac764fdb6ff130bc591e0fa05f84d3fb	rtl/qec_decoder_5qubit_0mul.v
+100644 blob 679b2a129af4835fa5ee6e40f853ed454be87a4b	rtl/tb_qec_decoder.v
+100644 blob 0b468550fd8e88554544bbbe5591dd2193a8a916	src/activity.rs
+100644 blob 80018ab8aabf4b78849be576c0646d2599b75f93	src/bin/fusion_pat34.rs
+100644 blob ae79ba5c31adc9ff3f5ef4ca5cf6b0a1e084bf3f	src/bin/scale_sim.rs
+100644 blob 2b4b6450fc67502313645ec7e6804c146c93eada	src/encoding_bridge.rs
+100644 blob fc20ec51fc900979f659e131938ee6b7bb860ce3	src/lib.rs
+100644 blob 3b7c26077e083809fe52803678f4345db2218334	src/mac.rs
+100644 blob b5eec12dde87fde699981619f178869b7d3fd202	src/main.rs
+100644 blob 7b221e5ae0bb4b210444b50f21ba3973ec91ca3b	src/optical.rs
+100644 blob 0fbc7c0c10840d87f87843d412357b6c1415689f	src/qec.rs
+100644 blob e6570469d7aaef6307f59150e47f57fa7c6b953d	src/rng.rs
+100644 blob cd619d9c3fc6048c0375cab2cea5634c84235a3d	src/trit.rs
+100644 blob c8105935431281e229b9d413aaac5b284571204b	synth_qec_3qubit.ys
+100644 blob 6dfa6d1cc39d178314e699fb6014478745c472ac	synth_qec_5qubit.ys
+100644 blob bca216260d437adefd853f198d4363979e2ef003	test_ltp_0mul.ys
+100644 blob 01487da6ee33f7b248f39e0c67290cf2cc2c4741	test_ltp_tern_mul.ys
+100644 blob 3a88bd40bfb6975bb18f65bb06f2009a50f6479b	test_lut_synth.ys
+100644 blob 77486f4e87690cee566140527e11636a9163e0cf	test_lut_tern_mul.ys
+100644 blob b1dc15651d7276a1f9877802bd7651aaf27535b8	test_sky130_synth.ys
+100644 blob dffe57e69fe194bc796e3ec86d62df9174e41c02	tests/equivalence.rs
+100644 blob ddd4b8b97cc285adafe102f34cbd7623a5a86a8e	tests/interface_and_exhaustive.rs
+100644 blob e64c29f55e08ce6971d692915eb295398f391975	tests/qec_tests.rs
+

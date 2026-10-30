@@ -1,0 +1,16 @@
+
+running 4 tests
+test test_3qubit_bitflip_exhaustive_single_error_correction ... ok
+test test_5qubit_code_all_15_single_qubit_paulis_are_uniquely_identified ... ok
+test test_3qubit_soft_syndrome_0mul_matches_hard_syndrome ... ok
+
+[QEC Monte Carlo 100,000 trials]
+Physical error rate (target p=0.05): 0.0502
+Logical error rate post-QEC:         0.0072
+test test_qec_error_suppression_monte_carlo ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.12s
+     Running tests\qec_tests.rs (C:\Users\JayPark1004\.gemini\antigravity\brain\84b06b5f-170d-4d4a-8207-d32e84dd678c\scratch\cargo_target\debug\deps\qec_tests-153a58dba5fb5665.exe)

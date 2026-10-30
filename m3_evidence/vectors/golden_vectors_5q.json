@@ -1,0 +1,117 @@
+{
+  "code": "[[5, 1, 3]]",
+  "cases": [
+    {
+      "syndrome": 0,
+      "target_qubit": 7,
+      "corr_pauli": 0,
+      "corr_qubits_10b": 0,
+      "pauli_label": "I"
+    },
+    {
+      "syndrome": 1,
+      "target_qubit": 1,
+      "corr_pauli": 1,
+      "corr_qubits_10b": 4,
+      "pauli_label": "X_1"
+    },
+    {
+      "syndrome": 2,
+      "target_qubit": 4,
+      "corr_pauli": 3,
+      "corr_qubits_10b": 768,
+      "pauli_label": "Z_4"
+    },
+    {
+      "syndrome": 3,
+      "target_qubit": 2,
+      "corr_pauli": 1,
+      "corr_qubits_10b": 16,
+      "pauli_label": "X_2"
+    },
+    {
+      "syndrome": 4,
+      "target_qubit": 2,
+      "corr_pauli": 3,
+      "corr_qubits_10b": 48,
+      "pauli_label": "Z_2"
+    },
+    {
+      "syndrome": 5,
+      "target_qubit": 0,
+      "corr_pauli": 3,
+      "corr_qubits_10b": 3,
+      "pauli_label": "Z_0"
+    },
+    {
+      "syndrome": 6,
+      "target_qubit": 3,
+      "corr_pauli": 1,
+      "corr_qubits_10b": 64,
+      "pauli_label": "X_3"
+    },
+    {
+      "syndrome": 7,
+      "target_qubit": 2,
+      "corr_pauli": 2,
+      "corr_qubits_10b": 32,
+      "pauli_label": "Y_2"
+    },
+    {
+      "syndrome": 8,
+      "target_qubit": 0,
+      "corr_pauli": 1,
+      "corr_qubits_10b": 1,
+      "pauli_label": "X_0"
+    },
+    {
+      "syndrome": 9,
+      "target_qubit": 3,
+      "corr_pauli": 3,
+      "corr_qubits_10b": 192,
+      "pauli_label": "Z_3"
+    },
+    {
+      "syndrome": 10,
+      "target_qubit": 1,
+      "corr_pauli": 3,
+      "corr_qubits_10b": 12,
+      "pauli_label": "Z_1"
+    },
+    {
+      "syndrome": 11,
+      "target_qubit": 1,
+      "corr_pauli": 2,
+      "corr_qubits_10b": 8,
+      "pauli_label": "Y_1"
+    },
+    {
+      "syndrome": 12,
+      "target_qubit": 4,
+      "corr_pauli": 1,
+      "corr_qubits_10b": 256,
+      "pauli_label": "X_4"
+    },
+    {
+      "syndrome": 13,
+      "target_qubit": 0,
+      "corr_pauli": 2,
+      "corr_qubits_10b": 2,
+      "pauli_label": "Y_0"
+    },
+    {
+      "syndrome": 14,
+      "target_qubit": 4,
+      "corr_pauli": 2,
+      "corr_qubits_10b": 512,
+      "pauli_label": "Y_4"
+    },
+    {
+      "syndrome": 15,
+      "target_qubit": 3,
+      "corr_pauli": 2,
+      "corr_qubits_10b": 128,
+      "pauli_label": "Y_3"
+    }
+  ]
+}

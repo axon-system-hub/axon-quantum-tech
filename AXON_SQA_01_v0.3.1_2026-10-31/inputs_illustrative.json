@@ -1,0 +1,333 @@
+{
+  "schema_version": "0.2",
+  "name": "Illustrative 77K ledger only; ALL powers ASSUMED, other stages UNKNOWN",
+  "channel_plan": {
+    "signals_per_qubit": 3,
+    "wavelengths_per_fiber": 64,
+    "streams_per_wavelength": 1,
+    "separate_directions": 2,
+    "bitrate_per_signal_Gbps": {
+      "value": null,
+      "evidence": "ASSUMED",
+      "source": "Need payload, sampling, coding and scheduling requirements"
+    },
+    "capacity_per_wavelength_Gbps": {
+      "value": null,
+      "evidence": "ASSUMED",
+      "source": "Need measured optical/RF bandwidth, overhead and crosstalk"
+    }
+  },
+  "stages": [
+    {
+      "name": "77K_classical_control",
+      "temperature_K": {
+        "value": 77,
+        "evidence": "TARGET",
+        "source": "Proposed temperature setpoint; not measured",
+        "name": "temperature_K"
+      },
+      "cooling_capacity_W": {
+        "value": 150,
+        "evidence": "ASSUMED",
+        "source": "Illustrative capacity assumption only; not a cooler specification"
+      },
+      "heat_terms_W": [
+        {
+          "value": 0.00045,
+          "evidence": "ASSUMED",
+          "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions",
+          "name": "control_core",
+          "basis": "per_qubit"
+        },
+        {
+          "value": 0.002,
+          "evidence": "ASSUMED",
+          "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions",
+          "name": "readout_chain",
+          "basis": "per_qubit"
+        },
+        {
+          "value": 0.001,
+          "evidence": "ASSUMED",
+          "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions",
+          "name": "DAC_and_RF_driver",
+          "basis": "per_qubit"
+        },
+        {
+          "value": 0.0001,
+          "evidence": "ASSUMED",
+          "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions",
+          "name": "absorbed_optical_power",
+          "basis": "per_signal"
+        },
+        {
+          "value": 0.25,
+          "evidence": "ASSUMED",
+          "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions",
+          "name": "clock_memory",
+          "basis": "fixed"
+        },
+        {
+          "value": 0.1,
+          "evidence": "ASSUMED",
+          "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions",
+          "name": "phase_bias",
+          "basis": "fixed"
+        },
+        {
+          "value": 0.1,
+          "evidence": "ASSUMED",
+          "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions",
+          "name": "regulator_loss",
+          "basis": "fixed"
+        },
+        {
+          "value": 0.25,
+          "evidence": "ASSUMED",
+          "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions",
+          "name": "supports_and_feeds",
+          "basis": "fixed"
+        },
+        {
+          "value": 0.1,
+          "evidence": "ASSUMED",
+          "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions",
+          "name": "radiation",
+          "basis": "fixed"
+        },
+        {
+          "value": 1e-05,
+          "evidence": "ASSUMED",
+          "source": "Arbitrary sensitivity input; NOT AXON hardware data; replace before engineering decisions",
+          "name": "fiber_conduction",
+          "basis": "per_fiber"
+        }
+      ]
+    },
+    {
+      "name": "4K_interface_if_used",
+      "temperature_K": {
+        "value": 4,
+        "evidence": "TARGET",
+        "source": "Proposed temperature setpoint; not measured",
+        "name": "temperature_K"
+      },
+      "cooling_capacity_W": {
+        "value": null,
+        "evidence": "ASSUMED",
+        "source": "Need cooling curve at operating temperature and upstream load"
+      },
+      "heat_terms_W": [
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "control_core",
+          "basis": "per_qubit"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "readout_chain",
+          "basis": "per_qubit"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "DAC_and_RF_driver",
+          "basis": "per_qubit"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "absorbed_optical_power",
+          "basis": "per_signal"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "clock_memory",
+          "basis": "fixed"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "phase_bias",
+          "basis": "fixed"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "regulator_loss",
+          "basis": "fixed"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "supports_and_feeds",
+          "basis": "fixed"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "radiation",
+          "basis": "fixed"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "fiber_conduction",
+          "basis": "per_fiber"
+        }
+      ]
+    },
+    {
+      "name": "mK_QPU_if_used",
+      "temperature_K": {
+        "value": 0.015,
+        "evidence": "TARGET",
+        "source": "Proposed temperature setpoint; not measured",
+        "name": "temperature_K"
+      },
+      "cooling_capacity_W": {
+        "value": null,
+        "evidence": "ASSUMED",
+        "source": "Need cooling curve at operating temperature and upstream load"
+      },
+      "heat_terms_W": [
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "control_core",
+          "basis": "per_qubit"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "readout_chain",
+          "basis": "per_qubit"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "DAC_and_RF_driver",
+          "basis": "per_qubit"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "absorbed_optical_power",
+          "basis": "per_signal"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "clock_memory",
+          "basis": "fixed"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "phase_bias",
+          "basis": "fixed"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "regulator_loss",
+          "basis": "fixed"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "supports_and_feeds",
+          "basis": "fixed"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "radiation",
+          "basis": "fixed"
+        },
+        {
+          "value": null,
+          "evidence": "ASSUMED",
+          "source": "Unmeasured; populate from identified hardware and operating conditions",
+          "name": "fiber_conduction",
+          "basis": "per_fiber"
+        }
+      ]
+    }
+  ],
+  "latency_terms_ns": [
+    {
+      "value": null,
+      "evidence": "ASSUMED",
+      "source": "Measure this component; no default delay is supplied",
+      "name": "measurement_integration",
+      "basis": "fixed"
+    },
+    {
+      "value": null,
+      "evidence": "ASSUMED",
+      "source": "Measure this component; no default delay is supplied",
+      "name": "ADC_and_demodulation",
+      "basis": "fixed"
+    },
+    {
+      "value": null,
+      "evidence": "ASSUMED",
+      "source": "Measure this component; no default delay is supplied",
+      "name": "link_round_trip",
+      "basis": "fixed"
+    },
+    {
+      "value": null,
+      "evidence": "ASSUMED",
+      "source": "Measure this component; no default delay is supplied",
+      "name": "decoder_and_queue",
+      "basis": "fixed"
+    },
+    {
+      "value": null,
+      "evidence": "ASSUMED",
+      "source": "Measure this component; no default delay is supplied",
+      "name": "DAC_and_driver",
+      "basis": "fixed"
+    },
+    {
+      "value": null,
+      "evidence": "ASSUMED",
+      "source": "Measure this component; no default delay is supplied",
+      "name": "pulse_delivery",
+      "basis": "fixed"
+    }
+  ],
+  "wall_input_terms_W": [
+    {
+      "value": null,
+      "evidence": "ASSUMED",
+      "source": "Whole-system power meter; include host, lasers, supplies, cryostat auxiliaries. Purchased LN2 production is an external energy boundary.",
+      "name": "whole_system_meter",
+      "basis": "fixed"
+    }
+  ]
+}

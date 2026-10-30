@@ -1,0 +1,130 @@
+{
+  "schema_version": "0.3",
+  "report_complete_for_review": false,
+  "results": [
+    {
+      "id": "M3-LUT",
+      "status": "BLOCKED",
+      "issues": [
+        "missing metadata: tool_version",
+        "missing metadata: target",
+        "missing metadata: top",
+        "missing metadata: command",
+        "raw local evidence artifacts required"
+      ],
+      "hardware_authentication": "NOT_PERFORMED"
+    },
+    {
+      "id": "M3-CELLS",
+      "status": "BLOCKED",
+      "issues": [
+        "missing metadata: tool_version",
+        "missing metadata: target",
+        "missing metadata: top",
+        "missing metadata: command",
+        "raw local evidence artifacts required"
+      ],
+      "hardware_authentication": "NOT_PERFORMED"
+    },
+    {
+      "id": "M3-MUL",
+      "status": "BLOCKED",
+      "issues": [
+        "missing metadata: tool_version",
+        "missing metadata: target",
+        "missing metadata: top",
+        "missing metadata: command",
+        "missing metadata: pre_mapping_mul_count",
+        "missing metadata: mapped_dsp_count",
+        "missing metadata: structural_review",
+        "pre-mapping operator and mapped DSP counts must both be zero for this narrow gate",
+        "mapped structural/domain review required; a post-map $mul=0 is insufficient",
+        "raw local evidence artifacts required"
+      ],
+      "hardware_authentication": "NOT_PERFORMED"
+    },
+    {
+      "id": "M3-ASIC-LATENCY",
+      "status": "CONTRADICTED",
+      "issues": [
+        "topological depth is not a timing analysis in ns",
+        "raw local evidence artifacts required"
+      ],
+      "hardware_authentication": "NOT_PERFORMED"
+    },
+    {
+      "id": "M3-FPGA-LATENCY",
+      "status": "BLOCKED",
+      "issues": [
+        "missing metadata: start_event",
+        "missing metadata: end_event",
+        "missing metadata: operating_conditions",
+        "missing routed timing metadata: part_and_speed_grade",
+        "missing routed timing metadata: constraints",
+        "missing routed timing metadata: routing_report",
+        "raw local evidence artifacts required"
+      ],
+      "hardware_authentication": "NOT_PERFORMED"
+    },
+    {
+      "id": "M3-ZERO-WATT",
+      "status": "CONTRADICTED",
+      "issues": [
+        "0-MUL does not imply zero power; use measured/estimated finite power with boundary and resolution",
+        "raw local evidence artifacts required"
+      ],
+      "hardware_authentication": "NOT_PERFORMED"
+    },
+    {
+      "id": "M3-4K",
+      "status": "BLOCKED",
+      "issues": [
+        "missing metadata: device",
+        "missing metadata: duration_s",
+        "missing metadata: test_protocol",
+        "missing metadata: pass_fail_criteria",
+        "missing metadata: observed_errors",
+        "raw local evidence artifacts required"
+      ],
+      "hardware_authentication": "NOT_PERFORMED"
+    },
+    {
+      "id": "M3-QEC-E2E",
+      "status": "BLOCKED",
+      "issues": [
+        "missing metadata: code",
+        "missing metadata: distance",
+        "missing metadata: data_qubits",
+        "missing metadata: rounds",
+        "missing metadata: noise_model",
+        "missing metadata: start_event",
+        "missing metadata: end_event",
+        "missing metadata: logical_error_rate",
+        "missing metadata: rounds_per_second",
+        "missing metadata: tail_latency_ns",
+        "missing metadata: feedback_boundary",
+        "raw local evidence artifacts required"
+      ],
+      "hardware_authentication": "NOT_PERFORMED"
+    },
+    {
+      "id": "YOUR-OS-JITTER",
+      "status": "BLOCKED",
+      "issues": [
+        "missing metadata: device",
+        "missing metadata: firmware",
+        "missing metadata: workload",
+        "missing metadata: samples",
+        "missing metadata: duration_s",
+        "missing metadata: start_event",
+        "missing metadata: end_event",
+        "missing metadata: maximum_observed_ns",
+        "missing metadata: instrument_resolution_ns",
+        "raw local evidence artifacts required"
+      ],
+      "hardware_authentication": "NOT_PERFORMED"
+    }
+  ],
+  "hardware_validation": "NOT_EVALUATED",
+  "note": "Presence/hash checker only. Hashes do not authenticate provenance or test correctness."
+}

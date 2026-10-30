@@ -1,0 +1,238 @@
+{
+  "schema_version": "m3-intake-1",
+  "note": "UNFILLED TEMPLATE. Reported n/k/d labels only; confirm actual code and contract from source. Not M3 evidence.",
+  "implementations": [
+    {
+      "id": "repetition_3",
+      "repository": "Axon-Labs-Org/axon-quantum-tech",
+      "source_commit": null,
+      "worktree_clean": null,
+      "contract": {
+        "code_name": null,
+        "error_model": null,
+        "syndrome_layout": null,
+        "input_encoding": null,
+        "output_semantics": null,
+        "rounds": null,
+        "syndrome_bits": null,
+        "output_bits": null,
+        "measurement_errors": null,
+        "n_data": 3,
+        "k_logical": 1,
+        "distance": 1
+      },
+      "source_snapshot": {
+        "path": null,
+        "sha256": null
+      },
+      "artifacts": {
+        "rtl_source": {
+          "path": null,
+          "sha256": null
+        },
+        "testbench_source": {
+          "path": null,
+          "sha256": null
+        },
+        "rust_reference_source": {
+          "path": null,
+          "sha256": null
+        },
+        "golden_vectors": {
+          "path": null,
+          "sha256": null
+        },
+        "rtl_test_log": {
+          "path": null,
+          "sha256": null
+        },
+        "rust_test_log": {
+          "path": null,
+          "sha256": null
+        },
+        "crosscheck_log": {
+          "path": null,
+          "sha256": null
+        }
+      },
+      "rtl_test": {
+        "command": null,
+        "tool_version": null,
+        "source_commit": null,
+        "exit_code": null,
+        "cases_run": null
+      },
+      "rust_test": {
+        "command": null,
+        "tool_version": null,
+        "source_commit": null,
+        "exit_code": null,
+        "cases_run": null
+      },
+      "crosscheck": {
+        "command": null,
+        "tool_version": null,
+        "source_commit": null,
+        "exit_code": null,
+        "cases_run": null,
+        "comparison_boundary": "declared_contract_only",
+        "mismatches": null
+      },
+      "synthesis_runs": [
+        {
+          "id": "fill_separate_generic_or_lut_run",
+          "source_commit": null,
+          "top": null,
+          "tool_version": null,
+          "target": null,
+          "command": null,
+          "mapping_stage": null,
+          "hierarchy_scope": null,
+          "exit_code": null,
+          "artifacts": {
+            "script": {
+              "path": null,
+              "sha256": null
+            },
+            "log": {
+              "path": null,
+              "sha256": null
+            },
+            "pre_map_netlist": {
+              "path": null,
+              "sha256": null
+            },
+            "mapped_netlist": {
+              "path": null,
+              "sha256": null
+            }
+          },
+          "metrics": [
+            {
+              "raw_field": null,
+              "value": null,
+              "unit": "cells",
+              "log_line": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "five_qubit",
+      "repository": "Axon-Labs-Org/axon-quantum-tech",
+      "source_commit": null,
+      "worktree_clean": null,
+      "contract": {
+        "code_name": null,
+        "error_model": null,
+        "syndrome_layout": null,
+        "input_encoding": null,
+        "output_semantics": null,
+        "rounds": null,
+        "syndrome_bits": null,
+        "output_bits": null,
+        "measurement_errors": null,
+        "n_data": 5,
+        "k_logical": 1,
+        "distance": 3
+      },
+      "source_snapshot": {
+        "path": null,
+        "sha256": null
+      },
+      "artifacts": {
+        "rtl_source": {
+          "path": null,
+          "sha256": null
+        },
+        "testbench_source": {
+          "path": null,
+          "sha256": null
+        },
+        "rust_reference_source": {
+          "path": null,
+          "sha256": null
+        },
+        "golden_vectors": {
+          "path": null,
+          "sha256": null
+        },
+        "rtl_test_log": {
+          "path": null,
+          "sha256": null
+        },
+        "rust_test_log": {
+          "path": null,
+          "sha256": null
+        },
+        "crosscheck_log": {
+          "path": null,
+          "sha256": null
+        }
+      },
+      "rtl_test": {
+        "command": null,
+        "tool_version": null,
+        "source_commit": null,
+        "exit_code": null,
+        "cases_run": null
+      },
+      "rust_test": {
+        "command": null,
+        "tool_version": null,
+        "source_commit": null,
+        "exit_code": null,
+        "cases_run": null
+      },
+      "crosscheck": {
+        "command": null,
+        "tool_version": null,
+        "source_commit": null,
+        "exit_code": null,
+        "cases_run": null,
+        "comparison_boundary": "declared_contract_only",
+        "mismatches": null
+      },
+      "synthesis_runs": [
+        {
+          "id": "fill_separate_generic_or_lut_run",
+          "source_commit": null,
+          "top": null,
+          "tool_version": null,
+          "target": null,
+          "command": null,
+          "mapping_stage": null,
+          "hierarchy_scope": null,
+          "exit_code": null,
+          "artifacts": {
+            "script": {
+              "path": null,
+              "sha256": null
+            },
+            "log": {
+              "path": null,
+              "sha256": null
+            },
+            "pre_map_netlist": {
+              "path": null,
+              "sha256": null
+            },
+            "mapped_netlist": {
+              "path": null,
+              "sha256": null
+            }
+          },
+          "metrics": [
+            {
+              "raw_field": null,
+              "value": null,
+              "unit": "cells",
+              "log_line": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

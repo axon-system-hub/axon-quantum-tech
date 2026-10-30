@@ -1,0 +1,6 @@
+AXON M3 Cross-Check Report: qec_decoder_5qubit_0mul (Verilog) vs FiveQubitCode (Rust)
+Source Commit: 9d5f456663f5f6e9cc74ffc329beacb061987c95
+Boundary: declared_contract_only
+Cases Checked: 16 (all 16 4-bit syndromes: 1 identity + 15 single-qubit Pauli X/Y/Z errors)
+Mismatches: 0
+Result: PASS (100% Bit-Exact Bijection Match)

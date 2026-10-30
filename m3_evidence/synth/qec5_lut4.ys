@@ -1,0 +1,6 @@
+read_verilog src/qec_decoder_5qubit_0mul.v
+synth -top qec_decoder_5qubit_0mul -flatten
+abc
+abc -lut 4
+stat
+write_verilog synth/qec5_lut4_mapped.v

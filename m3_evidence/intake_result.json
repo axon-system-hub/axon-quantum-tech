@@ -1,0 +1,20 @@
+{
+  "schema_version": "m3-intake-1",
+  "report_complete_for_review": true,
+  "implementations": [
+    {
+      "id": "repetition_3",
+      "status": "READY_FOR_REVIEW",
+      "issues": [],
+      "semantic_equivalence": "NOT_AUTHENTICATED"
+    },
+    {
+      "id": "five_qubit",
+      "status": "READY_FOR_REVIEW",
+      "issues": [],
+      "semantic_equivalence": "NOT_AUTHENTICATED"
+    }
+  ],
+  "hardware_validation": "NOT_EVALUATED",
+  "note": "Metadata and file hashes only. Commit attribution, log meaning, equivalence and measurements require independent review."
+}

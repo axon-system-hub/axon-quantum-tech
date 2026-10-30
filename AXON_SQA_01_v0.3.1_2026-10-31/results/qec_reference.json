@@ -1,0 +1,54 @@
+{
+  "scope": "GENERAL_REFERENCE_NOT_AXON_M3",
+  "evidence": "DERIVED_FINITE_ENUMERATION",
+  "code": "Steane [[7,1,3]]",
+  "noise_model": "independent data-qubit depolarizing; ideal noiseless syndrome",
+  "measurement_rounds": 1,
+  "data_qubits": 7,
+  "single_pauli_cases_including_identity": 22,
+  "single_pauli_cases_corrected": 22,
+  "patterns": 16384,
+  "successes_by_pauli_weight": [
+    1,
+    21,
+    42,
+    252,
+    609,
+    1281,
+    1428,
+    462
+  ],
+  "failures_by_pauli_weight": [
+    0,
+    0,
+    147,
+    693,
+    2226,
+    3822,
+    3675,
+    1725
+  ],
+  "first_uncorrected_pattern": {
+    "x_error": 0,
+    "z_error": 3,
+    "weight": 2
+  },
+  "logical_failure_examples": [
+    {
+      "assumed_p": 0.001,
+      "calculated_probability": 1.6277421405467118e-05
+    },
+    {
+      "assumed_p": 0.01,
+      "calculated_probability": 0.0015782072448386284
+    },
+    {
+      "assumed_p": 0.05,
+      "calculated_probability": 0.034361035939643333
+    }
+  ],
+  "hardware_latency_ns": null,
+  "hardware_power_W": null,
+  "circuit_level_qec": "NOT_EVALUATED",
+  "fault_tolerant_syndrome_extraction": "NOT_IMPLEMENTED"
+}

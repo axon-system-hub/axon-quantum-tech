@@ -1,0 +1,18 @@
+{
+  "release": "AXON-SQA-01 v0.3.1",
+  "document_date_KST": "2026-10-31",
+  "baseline_library_file_id": "libfile_efd9b7e20b008191870152bc06d30352",
+  "baseline_zip_sha256": "28671505e8618396823530e8aa458cf896ba69c9a879cd207ec9077f7e1501b8",
+  "baseline_manifest_files_verified": 15,
+  "repository_attempted": "Axon-Labs-Org/axon-quantum-tech",
+  "repository_README_access_result": "404 on current connector; repository existence or global access not determined",
+  "original_M3_or_YourOS_modified": false,
+  "remote_commit_or_push_performed": false,
+  "release_scope": "Corrected audit receipt, immutable release verification, separate M3 intake; no original RTL/YourOS changes or hardware claims",
+  "parent_release": "AXON-SQA-01 v0.3",
+  "parent_library_file_id": "libfile_5ba39379496481919bf0cbab687c906f",
+  "parent_zip_sha256": "41183d49a529519507a52fb18f860582d1554fe559e87b8376b8d153b6c344ea",
+  "parent_archive": "baseline/AXON_SQA_01_v0.3_2026-10-31.zip",
+  "parent_manifest_files_verified": 42,
+  "local_audit_receipt": "LOCAL_AUDIT_RECEIPT.json"
+}

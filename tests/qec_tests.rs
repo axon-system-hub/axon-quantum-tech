@@ -142,3 +142,38 @@ fn test_qec_error_suppression_monte_carlo() {
         qec_rate
     );
 }
+
+#[test]
+fn test_5qubit_non_css_transversal_cnot_stabilizer_leakage_counterexample() {
+    // Audit Verification (AXON-PAT-36 Claim 6):
+    // Under bitwise CNOT_{C -> T}, X_C (x) I_T -> X_C (x) X_T and Z_C (x) I_T -> Z_C (x) I_T.
+    // Therefore, applying naive bitwise transversal CNOT^{\otimes 5} to generator g0 = X Z Z X I on Control
+    // induces the operator P_T = X I I X I on the Target [[5, 1, 3]] block.
+    let g0_control = FiveQubitCode::GENERATORS[0]; // [X, Z, Z, X, I]
+    let induced_target: [Pauli; 5] = g0_control.map(|p| match p {
+        Pauli::X | Pauli::Y => Pauli::X,
+        Pauli::I | Pauli::Z => Pauli::I,
+    });
+    assert_eq!(
+        induced_target,
+        [Pauli::X, Pauli::I, Pauli::I, Pauli::X, Pauli::I],
+        "Bitwise CNOT maps (XZZXI)_C (x) I_T to (XZZXI)_C (x) (XIIXI)_T"
+    );
+
+    // Check commutation of induced_target (XIIXI) with target stabilizer g1 = IXZZX:
+    let g1_target = FiveQubitCode::GENERATORS[1]; // [I, X, Z, Z, X]
+    let mut anticommute_positions = 0;
+    for i in 0..5 {
+        if !FiveQubitCode::commutes(induced_target[i], g1_target[i]) {
+            anticommute_positions += 1;
+        }
+    }
+    // Odd number of anti-commuting single-qubit positions (specifically qubit 3: X vs Z)
+    // proves that (XIIXI)_T anti-commutes with g1 = IXZZX and thus leaves the [[5, 1, 3]] code space!
+    assert_eq!(anticommute_positions, 1);
+    assert_eq!(
+        anticommute_positions % 2,
+        1,
+        "Induced target operator XIIXI anti-commutes with stabilizer g1 = IXZZX; naive transversal CNOT does not preserve [[5, 1, 3]] code space"
+    );
+}

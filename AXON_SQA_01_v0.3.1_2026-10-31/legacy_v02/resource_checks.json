@@ -1,0 +1,29 @@
+{
+  "evidence": "THEORETICAL/DERIVED; not device performance",
+  "hilbert_dimension_1000_qubits_scientific": "1.071509e+301",
+  "qutrit_count_dimension_equivalent": 630.9297535714575,
+  "630_qutrit_log2_dimension": 998.5263754543283,
+  "631_qutrit_log2_dimension": 1000.1113379550495,
+  "surface_code_independent_patch_illustration": [
+    {
+      "distance_assumed": 3,
+      "data_plus_measurement_qubits": 17,
+      "patch_count_in_1000_excluding_other_overheads": 58
+    },
+    {
+      "distance_assumed": 7,
+      "data_plus_measurement_qubits": 97,
+      "patch_count_in_1000_excluding_other_overheads": 10
+    },
+    {
+      "distance_assumed": 21,
+      "data_plus_measurement_qubits": 881,
+      "patch_count_in_1000_excluding_other_overheads": 1
+    }
+  ],
+  "100B_ternary_5trit_payload_bytes": 20000000000.0,
+  "1000Q_100parameter_8byte_LUT_bytes": 800000,
+  "3000channel_1GSps_1ms_2byte_waveform_bytes": 6000000000.0,
+  "fiber_1m_ng1_5_one_way_ns": 5.00346142797228,
+  "fiber_10m_ng1_5_one_way_ns": 50.0346142797228
+}
