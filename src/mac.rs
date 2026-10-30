@@ -69,3 +69,4 @@ pub fn mac_0mul(x: &[i8; LANES], w: &[Trit; LANES]) -> MacOut {
     }
     MacOut { y, ops, terms }
 }
+

@@ -33,3 +33,4 @@ impl ActivityMeter {
         self.toggles as f64 / self.vectors.saturating_sub(1).max(1) as f64
     }
 }
+

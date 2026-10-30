@@ -53,3 +53,4 @@ fn encodings_match_rtl() {
     assert_eq!(Trit::Neg.to_signed2(), 0b11);
     assert_eq!(Trit::Neg.to_sign_select(), 0b11);
 }
+

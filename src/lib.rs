@@ -11,8 +11,10 @@
 
 pub mod activity;
 pub mod mac;
+pub mod optical;
 pub mod rng;
 pub mod trit;
 
 /// Number of lanes in the MAC cores (matches the RTL study in `evidence/cryo_0mul`).
 pub const LANES: usize = 4;
+

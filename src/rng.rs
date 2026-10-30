@@ -21,3 +21,4 @@ impl Rng {
         self.next_u64() as u8 as i8
     }
 }
+
