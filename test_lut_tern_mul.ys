@@ -1,0 +1,4 @@
+read_verilog H:/.hermes/evidence/cryo_0mul/rtl/macs.v
+synth -top mac_tern_mul -flatten
+abc -lut 4
+stat

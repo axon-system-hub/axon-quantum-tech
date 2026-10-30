@@ -32,3 +32,4 @@ fn bridge_maps_valid_codes_and_rejects_every_other_byte() {
         }
     }
 }
+

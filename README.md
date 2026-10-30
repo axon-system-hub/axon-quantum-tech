@@ -4,16 +4,18 @@ Rust reference models for the AXON **0-MUL (Sign-Select add/sub)** vs multiplier
 aimed at cryogenic quantum-control datapaths where thermal budget is the limiting factor.
 
 ## Status (evidence tiers)
-- 🟢 Functional: `mac_0mul` is bit-exact with the ternary-multiplier MAC (`cargo test`).
-- 🟢 Verification: MZI optical 0-SKIP model (`fusion_pat34`) verified with ER >= 45dB, cosine > 0.9999.
-- 🟠 ESTIMATED: 100-1000 qubit cryogenic thermal/scaling simulation (`scale_sim`).
-- 🔴 TARGET: Sky130 + OpenSTA power/timing, 4K/77K device measurements, physical qubit pulse tests.
+- 🟢 Functional: `mac_0mul` is bit-exact with the ternary-multiplier MAC (`cargo test`, 768 exhaustive + 200k random).
+- 🟢 Synthesis (PPA): Under identical `synth -flatten; abc` synthesis, C (`mac_0mul`) achieves **-23.4% gates (295 vs 385)**, **-38.2% 4-LUTs (110 vs 178)**, and **-7.1% logic depth (26 vs 28)** vs B (`mac_tern_mul`).
+- 🟠 ESTIMATED: Analytical thermal/scaling models (`engineering_model.py`, `scale_sim`). QPU feasibility and end-to-end QEC latency remain **`NOT_EVALUATED`**.
+- 🔴 TARGET: Silicon tape-out, physical QPU pulse-level QEC experiments, 77K/4K physical chip measurements.
 
-## Official Patent & Architecture Documents
+## Core Reports & Verification Documents
+- **RTL PPA 합성 보고서**: [`RTL_PPA_SYNTHESIS_REPORT.md`](RTL_PPA_SYNTHESIS_REPORT.md)
+  - Yosys 0.70+ 및 ABC 기반 B (`mac_tern_mul`) vs C (`mac_0mul`) 정량 비교
+- **감사 및 엔지니어링 모델**: [`AXON_Quantum_Review_v0.2_2026-10-30/`](AXON_Quantum_Review_v0.2_2026-10-30/README.md)
+  - GPT-6.1 Sol 레드팀 감사 보고서 및 14개 단위 테스트 검증 모델
 - **특허 36 (AXON-PAT-36)**: [`PATENT_36_SPECIFICATION.md`](PATENT_36_SPECIFICATION.md)
-  - 액체질소(77K) 극저온 전도 냉각 및 광학 PIM 직결 인터페이스 기반 무곱셈 1,000 큐비트 데이터센터 랙 실장형 양자-고전 하이브리드 컴퓨터 시스템
 - **마스터 개발 지침서**: [`AXON_QUANTUM_DIRECTIVE.md`](AXON_QUANTUM_DIRECTIVE.md)
-  - 5대 기본 공리 및 L0~L4 풀스택 아키텍처 규범
 - **광 CPNPU 융합 리포트**: [`OPTICAL_FUSION.md`](OPTICAL_FUSION.md)
 
 ## Usage

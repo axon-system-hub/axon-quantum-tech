@@ -1,0 +1,7 @@
+read_verilog H:/.hermes/evidence/cryo_0mul/rtl/macs.v
+hierarchy -top mac_0mul
+proc; flatten; opt
+dfflibmap -liberty H:/.hermes/axon_mlqt_runtime/sky130_tt_1v80.lib
+abc -liberty H:/.hermes/axon_mlqt_runtime/sky130_tt_1v80.lib
+clean
+stat -liberty H:/.hermes/axon_mlqt_runtime/sky130_tt_1v80.lib
