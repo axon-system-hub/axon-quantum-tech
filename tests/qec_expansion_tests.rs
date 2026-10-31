@@ -1,12 +1,14 @@
 //! Comprehensive unit tests for 100-Qubit Tiling, Surface Code d=3, and OpenQASM Bridge.
 
-use axon_quantum_tech::qec::Pauli;
+use axon_quantum_tech::qec::{FiveQubitCode, Pauli};
 use axon_quantum_tech::qasm_bridge::{QasmToTasmCompiler, TasmOp};
 use axon_quantum_tech::surface_code::{
     decode_surface_d3, surface_x_syndrome, surface_z_syndrome, SurfaceCorrection,
 };
 use axon_quantum_tech::tiler_100q::{
-    decode_100q_parallel, decode_concatenated_mode_b, TOTAL_PHYSICAL_QUBITS_100Q,
+    decode_100q_parallel, decode_concatenated_mode_b, logical_cnot_5q_protocol,
+    naive_bitwise_cnot_5q, tile_stabilizer_syndrome, IDENTITY_5Q, LOGICAL_X_5Q, LOGICAL_Z_5Q,
+    TOTAL_PHYSICAL_QUBITS_100Q,
 };
 
 #[test]
@@ -145,3 +147,46 @@ fn test_openqasm_bridge_compiler() {
     assert!(asm_text.contains("T_0MUL_SYND5Q tile[0]"));
     assert!(asm_text.contains("T_0MUL_CORR5Q tile[0]"));
 }
+
+#[test]
+fn test_inter_tile_logical_cnot_preserves_code_space_vs_naive_transversal() {
+    // 1. Verify that naive bitwise transversal CNOT breaks [[5, 1, 3]] code space on g0 = XZZXI
+    let g0 = FiveQubitCode::GENERATORS[0];
+    let (_c_naive, t_naive) = naive_bitwise_cnot_5q(&g0, &IDENTITY_5Q);
+    assert_eq!(t_naive, [Pauli::X, Pauli::I, Pauli::I, Pauli::X, Pauli::I]);
+    assert_ne!(
+        tile_stabilizer_syndrome(&t_naive),
+        0,
+        "Naive bitwise CNOT leaks stabilizer g0 into non-zero syndrome on Target tile"
+    );
+
+    // 2. Verify that Claim 6 `logical_cnot_5q_protocol` preserves ALL 4 stabilizer generators
+    //    on both Control and Target tiles with ZERO syndrome leakage
+    for gen in FiveQubitCode::GENERATORS.iter() {
+        let (c_out, t_out) = logical_cnot_5q_protocol(gen, &IDENTITY_5Q);
+        assert_eq!(tile_stabilizer_syndrome(&c_out), 0, "Control stabilizer must remain in code space");
+        assert_eq!(tile_stabilizer_syndrome(&t_out), 0, "Target stabilizer must remain in code space");
+        assert_eq!(c_out, *gen);
+        assert_eq!(t_out, IDENTITY_5Q);
+
+        let (c_out2, t_out2) = logical_cnot_5q_protocol(&IDENTITY_5Q, gen);
+        assert_eq!(tile_stabilizer_syndrome(&c_out2), 0);
+        assert_eq!(tile_stabilizer_syndrome(&t_out2), 0);
+        assert_eq!(c_out2, IDENTITY_5Q);
+        assert_eq!(t_out2, *gen);
+    }
+
+    // 3. Verify exact logical CNOT action on logical Paulis \bar{X} and \bar{Z}:
+    //    \bar{X}_C \otimes I_T -> \bar{X}_C \otimes \bar{X}_T
+    let (lx_c, lx_t) = logical_cnot_5q_protocol(&LOGICAL_X_5Q, &IDENTITY_5Q);
+    assert_eq!((lx_c, lx_t), (LOGICAL_X_5Q, LOGICAL_X_5Q));
+    assert_eq!(tile_stabilizer_syndrome(&lx_c), 0);
+    assert_eq!(tile_stabilizer_syndrome(&lx_t), 0);
+
+    //    I_C \otimes \bar{Z}_T -> \bar{Z}_C \otimes \bar{Z}_T
+    let (lz_c, lz_t) = logical_cnot_5q_protocol(&IDENTITY_5Q, &LOGICAL_Z_5Q);
+    assert_eq!((lz_c, lz_t), (LOGICAL_Z_5Q, LOGICAL_Z_5Q));
+    assert_eq!(tile_stabilizer_syndrome(&lz_c), 0);
+    assert_eq!(tile_stabilizer_syndrome(&lz_t), 0);
+}
+

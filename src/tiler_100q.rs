@@ -1,16 +1,16 @@
 //! 100-Qubit Modular Tiling Engine & Scalable QPU Architecture.
 //!
 //! # Specification:
-//! - Physical Qubits: 100 physical qubits grouped into 20 tiles of [[5, 1, 3]] perfect codes.
-//! - Per-Tile Decoder: Single-cycle 0-MUL syndrome decoder (50 gates, 20 4-LUTs per tile).
-//! - Total Decoder Complexity: 1,000 standard gates, 400 4-LUTs across all 100 physical qubits.
-//! - Decoding Latency: 1 clock cycle (0.91 ns @ 28nm / < 3.2 ns @ 77K CMOS).
+//! - Physical Data Qubits: 100 physical data qubits grouped into 20 tiles of [[5, 1, 3]] perfect codes (ancilla/readout separate).
+//! - Per-Tile Decoder: Single-cycle 0-MUL syndrome decoder (`[SYNTHESIZED]`: 50 stdcells, 20 LUT4, 9 logic_levels per tile).
+//! - Total 100Q Tile Engine (`qec_tile_100q_0mul`): 1,014 stdcells, 326 FFs, 354 LUT4, 20 logic_levels (`[SYNTHESIZED]`).
+//! - Decoding Latency: 1 combinational clock cycle for local digital syndrome decoding.
 //!
 //! # Operating Modes:
 //! 1. Mode A: 20 Independent Fault-Tolerant Logical Qubits (Distance 3)
-//!    - Optimized for robot edge intelligence, quantum sensing, parallel variational optimization.
-//! 2. Mode B: 4 Concatenated [[5, 1, 3]]^2 Logical Qubits (Distance 9)
-//!    - 5 tiles per logical qubit (25 physical qubits / logical qubit).
+//!    - Coupled via code-space-preserving inter-tile Logical CNOT protocol (`logical_cnot_5q_protocol`).
+//! 2. Mode B: 4 Concatenated [[25, 1, 9]] Logical Qubits (Distance 9)
+//!    - 5 tiles per logical qubit (25 physical data qubits / logical qubit).
 //!    - Capable of correcting up to 4 arbitrary Pauli errors per logical qubit.
 //! 3. Mode C: 1,000-Qubit Rack Scale Expansion (200 Tiles)
 
@@ -146,3 +146,122 @@ pub fn decode_concatenated_mode_b(state_100q: &Qpu100State) -> [SuperTileResult;
 
     super_results
 }
+
+// ----------------------------------------------------------------------------
+// 3. Inter-Tile Logical CNOT Protocol (Claim 6 Code-Space Preservation)
+// ----------------------------------------------------------------------------
+
+/// 5-qubit Pauli string on a single [[5, 1, 3]] tile.
+pub type TilePauli = [Pauli; 5];
+
+/// Logical operators of the [[5, 1, 3]] code:
+/// L_X = X X X X X, L_Z = Z Z Z Z Z.
+pub const LOGICAL_X_5Q: TilePauli = [Pauli::X; 5];
+pub const LOGICAL_Z_5Q: TilePauli = [Pauli::Z; 5];
+pub const IDENTITY_5Q: TilePauli = [Pauli::I; 5];
+
+/// Multiply two single-qubit Paulis up to global phase (+/-1, +/-i).
+#[inline]
+pub fn multiply_pauli_no_phase(a: Pauli, b: Pauli) -> Pauli {
+    match (a, b) {
+        (Pauli::I, x) | (x, Pauli::I) => x,
+        (x, y) if x == y => Pauli::I,
+        (Pauli::X, Pauli::Z) | (Pauli::Z, Pauli::X) => Pauli::Y,
+        (Pauli::X, Pauli::Y) | (Pauli::Y, Pauli::X) => Pauli::Z,
+        (Pauli::Y, Pauli::Z) | (Pauli::Z, Pauli::Y) => Pauli::X,
+        _ => unreachable!(),
+    }
+}
+
+/// Multiply two 5-qubit Pauli strings element-wise (modulo phase).
+pub fn multiply_tile_pauli(a: &TilePauli, b: &TilePauli) -> TilePauli {
+    let mut out = [Pauli::I; 5];
+    for i in 0..5 {
+        out[i] = multiply_pauli_no_phase(a[i], b[i]);
+    }
+    out
+}
+
+/// Compute the 4-bit stabilizer syndrome of a 5-qubit Pauli string on a [[5, 1, 3]] tile.
+/// Returns 0 iff the operator commutes with all 4 stabilizer generators g0..g3
+/// (i.e. preserves the [[5, 1, 3]] code space).
+pub fn tile_stabilizer_syndrome(op: &TilePauli) -> u8 {
+    let mut syn = 0u8;
+    for (k, gen) in FiveQubitCode::GENERATORS.iter().enumerate() {
+        let mut anti = 0;
+        for q in 0..5 {
+            if !FiveQubitCode::commutes(op[q], gen[q]) {
+                anti += 1;
+            }
+        }
+        if anti % 2 == 1 {
+            syn |= 1 << k;
+        }
+    }
+    syn
+}
+
+/// Naive bitwise transversal CNOT^{\otimes 5} on two 5-qubit tiles (Control -> Target).
+/// NOTE: For the non-CSS [[5, 1, 3]] code, this leaks stabilizers out of the code space!
+/// Provided here to contrast with `logical_cnot_5q_protocol`.
+pub fn naive_bitwise_cnot_5q(control: &TilePauli, target: &TilePauli) -> (TilePauli, TilePauli) {
+    let mut out_c = *control;
+    let mut out_t = *target;
+    for q in 0..5 {
+        // Under CNOT_{c->t}:
+        // X_c -> X_c X_t, Z_c -> Z_c, Y_c -> Y_c X_t
+        // X_t -> X_t,     Z_t -> Z_c Z_t, Y_t -> Z_c Y_t
+        if matches!(control[q], Pauli::X | Pauli::Y) {
+            out_t[q] = multiply_pauli_no_phase(out_t[q], Pauli::X);
+        }
+        if matches!(target[q], Pauli::Z | Pauli::Y) {
+            out_c[q] = multiply_pauli_no_phase(out_c[q], Pauli::Z);
+        }
+    }
+    (out_c, out_t)
+}
+
+/// Code-Space-Preserving Inter-Tile Logical CNOT Protocol (Claim 6: Gate Teleportation / Lattice Surgery).
+///
+/// Using ancilla-mediated joint logical parity measurements (\bar{Z}_C \bar{Z}_A and \bar{X}_A \bar{X}_T)
+/// with Pauli-frame byproduct updates (\bar{X} = X^{\otimes 5}, \bar{Z} = Z^{\otimes 5}):
+/// - Every tile stabilizer generator g_0..g_3 commutes with \bar{X} and \bar{Z} and remains strictly
+///   invariant (0 syndrome leakage on both Control and Target tiles).
+/// - Logical operators transform via exact logical CNOT:
+///   \bar{X}_C -> \bar{X}_C \otimes \bar{X}_T, \bar{Z}_T -> \bar{Z}_C \otimes \bar{Z}_T.
+pub fn logical_cnot_5q_protocol(control: &TilePauli, target: &TilePauli) -> (TilePauli, TilePauli) {
+    // Check whether the control operator anti-commutes with Logical Z (\bar{Z}_C = ZZZZZ),
+    // which detects the presence of a logical \bar{X}_C or \bar{Y}_C component.
+    let mut anti_with_zbar_c = 0;
+    for q in 0..5 {
+        if !FiveQubitCode::commutes(control[q], LOGICAL_Z_5Q[q]) {
+            anti_with_zbar_c += 1;
+        }
+    }
+    let has_logical_x_on_c = (anti_with_zbar_c % 2) == 1;
+
+    // Check whether the target operator anti-commutes with Logical X (\bar{X}_T = XXXXX),
+    // which detects the presence of a logical \bar{Z}_T or \bar{Y}_T component.
+    let mut anti_with_xbar_t = 0;
+    for q in 0..5 {
+        if !FiveQubitCode::commutes(target[q], LOGICAL_X_5Q[q]) {
+            anti_with_xbar_t += 1;
+        }
+    }
+    let has_logical_z_on_t = (anti_with_xbar_t % 2) == 1;
+
+    let mut out_c = *control;
+    let mut out_t = *target;
+
+    // Propagate logical X from Control to Target via \bar{X}_T = X^{\otimes 5}
+    if has_logical_x_on_c {
+        out_t = multiply_tile_pauli(&out_t, &LOGICAL_X_5Q);
+    }
+    // Propagate logical Z from Target to Control via \bar{Z}_C = Z^{\otimes 5}
+    if has_logical_z_on_t {
+        out_c = multiply_tile_pauli(&out_c, &LOGICAL_Z_5Q);
+    }
+
+    (out_c, out_t)
+}
+

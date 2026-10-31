@@ -192,3 +192,4 @@ fn parse_two_qubits(line: &str, prefix: &str) -> Result<(usize, usize), String> 
     let q2 = extract_bracket_index(parts[1]).ok_or_else(|| format!("Invalid q2 in '{}'", line))?;
     Ok((q1, q2))
 }
+

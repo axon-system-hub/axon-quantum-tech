@@ -1,0 +1,8 @@
+read_verilog D:/axon-양자기술/rtl/qec_decoder_surface_d3_0mul.v
+synth -top qec_decoder_surface_d3_0mul -flatten
+select -assert-none t:$mul
+abc
+stat
+ltp -noff
+abc -lut 4
+stat
