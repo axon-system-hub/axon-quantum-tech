@@ -1,0 +1,72 @@
+{
+  "evidence": "SIMULATED",
+  "delay_unit": "arbitrary",
+  "config": {
+    "width": 1.0,
+    "visibility": 0.9,
+    "eta_a": 0.7,
+    "eta_b": 0.65,
+    "dark_a": 0.001,
+    "dark_b": 0.001,
+    "shots": 20000,
+    "seed": 343536
+  },
+  "rows": [
+    {
+      "delay": -4,
+      "overlap": 0.0003019163651122607,
+      "expected_probability": 0.228098363149401,
+      "coincidences": 4629,
+      "shots": 20000,
+      "observed_probability": 0.23145
+    },
+    {
+      "delay": -2,
+      "overlap": 0.12180175491295143,
+      "expected_probability": 0.2004847152315755,
+      "coincidences": 4110,
+      "shots": 20000,
+      "observed_probability": 0.2055
+    },
+    {
+      "delay": -1,
+      "overlap": 0.5458775937413701,
+      "expected_probability": 0.10410367436909186,
+      "coincidences": 2101,
+      "shots": 20000,
+      "observed_probability": 0.10505
+    },
+    {
+      "delay": 0,
+      "overlap": 0.9,
+      "expected_probability": 0.023621168687499996,
+      "coincidences": 482,
+      "shots": 20000,
+      "observed_probability": 0.0241
+    },
+    {
+      "delay": 1,
+      "overlap": 0.5458775937413701,
+      "expected_probability": 0.10410367436909186,
+      "coincidences": 2069,
+      "shots": 20000,
+      "observed_probability": 0.10345
+    },
+    {
+      "delay": 2,
+      "overlap": 0.12180175491295143,
+      "expected_probability": 0.2004847152315755,
+      "coincidences": 4121,
+      "shots": 20000,
+      "observed_probability": 0.20605
+    },
+    {
+      "delay": 4,
+      "overlap": 0.0003019163651122607,
+      "expected_probability": 0.228098363149401,
+      "coincidences": 4594,
+      "shots": 20000,
+      "observed_probability": 0.2297
+    }
+  ]
+}

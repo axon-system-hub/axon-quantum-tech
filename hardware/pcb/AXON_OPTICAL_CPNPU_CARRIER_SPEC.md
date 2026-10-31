@@ -61,7 +61,12 @@
   - 16개 (+)극 가산 채널 어레이
   - 16개 (-)극 감산 채널 어레이
 - **호환 칩**: Hamamatsu G11193 시리즈, Albis Optoelectronics PD 어레이, 또는 국내 우리로(Wooriiro) 광다이오드 칩
-- **암전류(Dark Current)**: $I_d \le 0.5\,\mathrm{nA}$ @ $V_R = 5\,\mathrm{V}$
+- **77K 극저온 운용 시 밴드갭 청색 천이(Varshni Blue-Shift) 대응 필수 규격**:
+  - 표준 $\mathrm{In}_{0.53}\mathrm{Ga}_{0.47}\mathrm{As}$는 300K 상온에서 $\lambda_c \approx 1670\,\mathrm{nm}$이나, **77K 냉각 시 밴드갭 증가로 차단 파장이 $\lambda_c \approx 1540\,\mathrm{nm}$로 단파장 이동**하여 1550nm 감도가 급감함.
+  - **옵션 A (상온 300K 보드)**: 표준 $\mathrm{In}_{0.53}\mathrm{Ga}_{0.47}\mathrm{As}$ + 1550nm VCSEL 그대로 사용.
+  - **옵션 B (극저온 77K 보드 - 파장 변경)**: 표준 $\mathrm{In}_{0.53}\mathrm{Ga}_{0.47}\mathrm{As}$ 유지 시 광원을 **1310nm (O-Band)** 또는 **1490~1510nm**로 지정.
+  - **옵션 C (극저온 77K 보드 - 1550nm DWDM 유지)**: 수신 소자를 **Extended-InGaAs ($\mathrm{In}_{0.68}\mathrm{Ga}_{0.32}\mathrm{As}$, 상온 차단파장 $1.9\sim 2.2\,\mu\mathrm{m}$)**로 지정.
+- **암전류(Dark Current)**: $I_d \le 0.5\,\mathrm{nA}$ @ 300K (77K 냉각 시 수 $\mathrm{pA}$ 이하로 억제)
 - **차단 주파수(Cutoff Freq)**: $f_{-3\mathrm{dB}} \ge 8.0\,\mathrm{GHz}$
 
 ### 4.3 아날로그 전치 증폭부 (Analog Front-End, AFE)
