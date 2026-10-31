@@ -13,10 +13,14 @@ pub mod activity;
 pub mod encoding_bridge;
 pub mod mac;
 pub mod optical;
+pub mod qasm_bridge;
 pub mod qec;
 pub mod rng;
+pub mod surface_code;
+pub mod tiler_100q;
 pub mod trit;
 
 /// Number of lanes in the MAC cores (matches the RTL study in `evidence/cryo_0mul`).
 pub const LANES: usize = 4;
+
 
