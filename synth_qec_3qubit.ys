@@ -1,6 +1,22 @@
+# The 0-MUL gate MUST run before `synth`.
+# Measured on Yosys 0.70: `select -assert-none t:$mul` placed AFTER `synth`
+# returns exit 0 even for `assign y = a * b`, because techmap has already
+# lowered $mul into ordinary gates by then. Before synth the same assertion
+# fails with "Assertion failed: selection is not empty: t:$mul".
+# The supported form runs the check on the elaborated RTL, then resets and
+# synthesizes separately.
+read_verilog D:/axon-양자기술/rtl/qec_decoder_3qubit_0mul.v
+hierarchy -top qec_decoder_3qubit_0mul
+proc
+# No `opt` here on purpose: opt removes dead logic, so a dangling multiplier
+# would be optimized away before the check. Measured: a `*` probe that no
+# output reads disappears under `opt` (assertion then passes); the same probe
+# is caught with `proc` alone.
+select -assert-none t:$mul
+design -reset
+
 read_verilog D:/axon-양자기술/rtl/qec_decoder_3qubit_0mul.v
 synth -top qec_decoder_3qubit_0mul -flatten
-select -assert-none t:$mul
 abc
 stat
 ltp -noff

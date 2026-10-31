@@ -1,7 +1,16 @@
+# The 0-MUL gate MUST run before `synth` - see synth_qec_3qubit.ys for the
+# measured reason (an assertion after synth passes even on `a * b`).
+read_verilog D:/axon-양자기술/rtl/qec_decoder_5qubit_0mul.v
+read_verilog D:/axon-양자기술/rtl/qec_tile_100q_0mul.v
+hierarchy -top qec_tile_100q_0mul
+proc
+# No `opt` here on purpose - see synth_qec_3qubit.ys.
+select -assert-none t:$mul
+design -reset
+
 read_verilog D:/axon-양자기술/rtl/qec_decoder_5qubit_0mul.v
 read_verilog D:/axon-양자기술/rtl/qec_tile_100q_0mul.v
 synth -top qec_tile_100q_0mul -flatten
-select -assert-none t:$mul
 abc
 stat
 ltp -noff
