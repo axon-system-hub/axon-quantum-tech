@@ -169,9 +169,9 @@ def gen_top_copper():
         14: "C,5.000000",   # 5.0mm M2.5 mounting pad
         15: "C,0.600000",   # 0.6mm via pad (0.3mm drill)
         16: "R,0.150000X0.350000",  # VCSEL / BPD micro bond pad
-        17: "R,0.250000X0.600000",  # WSON-8 pin pad
-        18: "R,1.200000X1.600000",  # WSON-8 thermal exposed pad
-        19: "R,0.500000X0.600000",  # 0402 passive pad
+        17: "R,0.500000X0.250000",  # WSON-8 pin pad (X=0.50mm, Y=0.25mm, pitch 0.50mm)
+        18: "R,0.900000X1.200000",  # WSON-8 thermal exposed pad (X=0.90mm, Y=1.20mm)
+        19: "R,0.600000X0.500000",  # 0402 passive pad (X=0.60mm, Y=0.50mm)
         20: "R,0.300000X1.500000",  # Samtec QSH connector pin pad
         21: "R,1.500000X4.000000",  # SMA RF connector ground launch pad
         22: "R,0.600000X2.500000",  # SMA RF connector 50-ohm center signal launch pad
@@ -255,9 +255,11 @@ def gen_top_copper():
         lines.append(f"X{fmt_coord(px)}Y{fmt_coord(31.0)}D01*")
 
     # KCL Bus Feed directly to TIA U1 Inverting Input Pin 2 at (CX - 0.95, 23.25)
+    # Routes down outside WSON-8 envelope (X = CX - 2.5) to avoid crossing Pin 1 (at Y=23.75)
     lines.append(f"X{fmt_coord(CX)}Y{fmt_coord(32.0)}D02*")
-    lines.append(f"X{fmt_coord(CX)}Y{fmt_coord(26.5)}D01*")
-    lines.append(f"X{fmt_coord(CX - 0.95)}Y{fmt_coord(25.0)}D01*")
+    lines.append(f"X{fmt_coord(CX)}Y{fmt_coord(28.0)}D01*")
+    lines.append(f"X{fmt_coord(CX - 2.5)}Y{fmt_coord(25.5)}D01*")
+    lines.append(f"X{fmt_coord(CX - 2.5)}Y{fmt_coord(23.25)}D01*")
     lines.append(f"X{fmt_coord(CX - 0.95)}Y{fmt_coord(23.25)}D01*")
 
     # 7. TIA U1 (OPA855 WSON-8) Footprint at (CX, 23.0)
@@ -270,25 +272,29 @@ def gen_top_copper():
         lines.append(f"X{fmt_coord(CX - 0.95)}Y{fmt_coord(y_pos)}D03*")
         lines.append(f"X{fmt_coord(CX + 0.95)}Y{fmt_coord(y_pos)}D03*")
 
-    # Feedback Resistor Rf (0402) pads at (CX - 0.5, 25.0) and (CX + 0.5, 25.0)
+    # Feedback Resistor Rf (0402) pads at (CX - 0.8, 26.5) and (CX + 0.8, 26.5)
     lines.append("D19*")
-    lines.append(f"X{fmt_coord(CX - 0.5)}Y{fmt_coord(25.0)}D03*")
-    lines.append(f"X{fmt_coord(CX + 0.5)}Y{fmt_coord(25.0)}D03*")
+    lines.append(f"X{fmt_coord(CX - 0.8)}Y{fmt_coord(26.5)}D03*")
+    lines.append(f"X{fmt_coord(CX + 0.8)}Y{fmt_coord(26.5)}D03*")
 
-    # Connect Rf pads directly to Pin 2 (CX - 0.95, 23.25) and Pin 6 (CX + 0.95, 22.75)
+    # Connect Rf pads cleanly around U1 perimeter:
+    # Left pad to Pin 2: horizontally left to (CX - 2.5, 26.5), down to (CX - 2.5, 23.25), then into Pin 2
+    # Right pad to Pin 6: horizontally right to (CX + 2.5, 26.5), down to (CX + 2.5, 22.75), then into Pin 6
     lines.append("D10*")
-    lines.append(f"X{fmt_coord(CX - 0.95)}Y{fmt_coord(25.0)}D02*")
-    lines.append(f"X{fmt_coord(CX - 0.5)}Y{fmt_coord(25.0)}D01*")
-    lines.append(f"X{fmt_coord(CX + 0.5)}Y{fmt_coord(25.0)}D02*")
-    lines.append(f"X{fmt_coord(CX + 0.95)}Y{fmt_coord(25.0)}D01*")
+    lines.append(f"X{fmt_coord(CX - 0.8)}Y{fmt_coord(26.5)}D02*")
+    lines.append(f"X{fmt_coord(CX - 2.5)}Y{fmt_coord(26.5)}D01*")
+    lines.append(f"X{fmt_coord(CX - 2.5)}Y{fmt_coord(23.25)}D01*")
+
+    lines.append(f"X{fmt_coord(CX + 0.8)}Y{fmt_coord(26.5)}D02*")
+    lines.append(f"X{fmt_coord(CX + 2.5)}Y{fmt_coord(26.5)}D01*")
+    lines.append(f"X{fmt_coord(CX + 2.5)}Y{fmt_coord(22.75)}D01*")
     lines.append(f"X{fmt_coord(CX + 0.95)}Y{fmt_coord(22.75)}D01*")
 
-    # 8. High-Speed 50-ohm RF Coplanar Waveguide Output from Pin 6 to SMA J2 Center Launch Pad
+    # 8. High-Speed 50-ohm RF Coplanar Waveguide Output from Pin 6 node (CX + 2.5, 22.75) to SMA J2 Launch
     lines.append("D12*")  # 0.35mm 50-ohm trace
-    lines.append(f"X{fmt_coord(CX + 0.95)}Y{fmt_coord(22.75)}D02*")
-    lines.append(f"X{fmt_coord(CX + 2.0)}Y{fmt_coord(22.75)}D01*")
-    lines.append(f"X{fmt_coord(CX + 2.0)}Y{fmt_coord(16.0)}D01*")
-    lines.append(f"X{fmt_coord(CX)}Y{fmt_coord(14.0)}D01*")
+    lines.append(f"X{fmt_coord(CX + 2.5)}Y{fmt_coord(22.75)}D02*")
+    lines.append(f"X{fmt_coord(CX + 2.5)}Y{fmt_coord(16.0)}D01*")
+    lines.append(f"X{fmt_coord(CX)}Y{fmt_coord(13.5)}D01*")
     lines.append(f"X{fmt_coord(CX)}Y{fmt_coord(1.5)}D01*")
 
     # SMA Edge Launch Connector J2 at (CX, 1.5): Center Signal Pad (D22) + Ground Pads (D21)
@@ -329,6 +335,7 @@ def gen_inner1_gnd():
         10: "C,0.150000",
         14: "C,5.000000",
         15: "C,0.600000",
+        25: "C,1.000000",   # 1.0mm Antipad for isolated signal vias
     }
     lines = make_header("In1.Cu (L2 Solid Continuous GND Plane)", apertures)
 
@@ -337,7 +344,7 @@ def gen_inner1_gnd():
     emit_rect_region(lines, 0.5, 0.5, BOARD_W - 0.5, 8.8)
     emit_rect_region(lines, 30.2, 8.8, 44.8, 11.2)
 
-    # M2.5 mounting pads & 36 ground via fence pads
+    # M2.5 mounting pads & 36 ground via fence pads (direct connection to GND)
     lines.append("D14*")
     for hx, hy in [(12.5, 12.5), (62.5, 12.5), (62.5, 62.5), (12.5, 62.5)]:
         lines.append(f"X{fmt_coord(hx)}Y{fmt_coord(hy)}D03*")
@@ -347,6 +354,15 @@ def gen_inner1_gnd():
     for i in range(36):
         theta = i * (2.0 * math.pi / 36.0)
         lines.append(f"X{fmt_coord(CX + r_ring * math.cos(theta))}Y{fmt_coord(CY + r_ring * math.sin(theta))}D03*")
+
+    # Antipad clear flashes (%LPC*%) for all 32 signal fanout vias (isolating from GND plane)
+    lines.append("%LPC*%")
+    lines.append("D25*")
+    qsh_x0 = CX - 7.25
+    for i in range(16):
+        lines.append(f"X{fmt_coord(CX - 7.5 + i * 1.0)}Y{fmt_coord(49.0)}D03*")
+        lines.append(f"X{fmt_coord(qsh_x0 + i * 0.5)}Y{fmt_coord(12.4)}D03*")
+    lines.append("%LPD*%")
 
     lines.append("M02*")
     return "\n".join(lines) + "\n"
@@ -358,6 +374,8 @@ def gen_inner1_gnd():
 def gen_inner2_pwr():
     apertures = {
         10: "C,0.200000",
+        25: "C,1.000000",   # 1.0mm Antipad for isolated vias
+        26: "C,4.200000",   # 4.2mm Antipad for M2.5 mounting holes
     }
     lines = make_header("In2.Cu (L3 Solid Split Power Planes)", apertures)
 
@@ -367,6 +385,27 @@ def gen_inner2_pwr():
     emit_rect_region(lines, 38.0, 20.0, 74.5, 74.5)
     # Zone 3 (-3.3V BPD Reverse Bias): X from 0.5 to 74.5, Y from 0.5 to 8.8 (clearing NPTH at Y=10.0)
     emit_rect_region(lines, 0.5, 0.5, 74.5, 8.8)
+
+    # Antipad clear flashes (%LPC*%) isolating Power planes from:
+    # 1. 4 mounting holes
+    # 2. 36 ground fence vias
+    # 3. 32 signal fanout vias
+    lines.append("%LPC*%")
+    lines.append("D26*")
+    for hx, hy in [(12.5, 12.5), (62.5, 12.5), (62.5, 62.5), (12.5, 62.5)]:
+        lines.append(f"X{fmt_coord(hx)}Y{fmt_coord(hy)}D03*")
+
+    lines.append("D25*")
+    r_ring = 26.375
+    for i in range(36):
+        theta = i * (2.0 * math.pi / 36.0)
+        lines.append(f"X{fmt_coord(CX + r_ring * math.cos(theta))}Y{fmt_coord(CY + r_ring * math.sin(theta))}D03*")
+
+    qsh_x0 = CX - 7.25
+    for i in range(16):
+        lines.append(f"X{fmt_coord(CX - 7.5 + i * 1.0)}Y{fmt_coord(49.0)}D03*")
+        lines.append(f"X{fmt_coord(qsh_x0 + i * 0.5)}Y{fmt_coord(12.4)}D03*")
+    lines.append("%LPD*%")
 
     lines.append("M02*")
     return "\n".join(lines) + "\n"
@@ -415,6 +454,7 @@ def gen_inner4_gnd():
         10: "C,0.150000",
         14: "C,5.000000",
         15: "C,0.600000",
+        25: "C,1.000000",   # 1.0mm Antipad for isolated signal vias
     }
     lines = make_header("In4.Cu (L5 Secondary Shield GND Plane)", apertures)
 
@@ -431,6 +471,15 @@ def gen_inner4_gnd():
     for i in range(36):
         theta = i * (2.0 * math.pi / 36.0)
         lines.append(f"X{fmt_coord(CX + r_ring * math.cos(theta))}Y{fmt_coord(CY + r_ring * math.sin(theta))}D03*")
+
+    # Antipad clear flashes (%LPC*%) for all 32 signal fanout vias (isolating from GND plane)
+    lines.append("%LPC*%")
+    lines.append("D25*")
+    qsh_x0 = CX - 7.25
+    for i in range(16):
+        lines.append(f"X{fmt_coord(CX - 7.5 + i * 1.0)}Y{fmt_coord(49.0)}D03*")
+        lines.append(f"X{fmt_coord(qsh_x0 + i * 0.5)}Y{fmt_coord(12.4)}D03*")
+    lines.append("%LPD*%")
 
     lines.append("M02*")
     return "\n".join(lines) + "\n"
@@ -480,9 +529,9 @@ def gen_top_mask():
         13: "C,1.350000",   # 1.35mm stroke for Au ground ring opening (54mm OD / 51.5mm ID)
         14: "C,5.100000",   # M2.5 mounting hole mask opening
         16: "R,0.250000X0.450000",  # VCSEL / BPD mask opening
-        17: "R,0.350000X0.700000",  # WSON-8 pad opening
-        18: "R,1.300000X1.700000",  # Thermal pad opening
-        19: "R,0.600000X0.700000",  # 0402 pad opening
+        17: "R,0.600000X0.330000",  # WSON-8 pad opening (leaving 0.17mm solder mask dam)
+        18: "R,1.000000X1.300000",  # Thermal pad opening
+        19: "R,0.700000X0.600000",  # 0402 pad opening
         20: "R,0.400000X1.600000",  # Samtec pin opening
         21: "R,1.600000X4.100000",  # SMA ground pad opening
         22: "R,0.700000X2.600000",  # SMA center signal pad opening
@@ -529,10 +578,10 @@ def gen_top_mask():
         lines.append(f"X{fmt_coord(CX - 0.95)}Y{fmt_coord(y_pos)}D03*")
         lines.append(f"X{fmt_coord(CX + 0.95)}Y{fmt_coord(y_pos)}D03*")
 
-    # 6. Feedback Resistor Rf (at Y=25.0)
+    # 6. Feedback Resistor Rf (at Y=26.5)
     lines.append("D19*")
-    lines.append(f"X{fmt_coord(CX - 0.5)}Y{fmt_coord(25.0)}D03*")
-    lines.append(f"X{fmt_coord(CX + 0.5)}Y{fmt_coord(25.0)}D03*")
+    lines.append(f"X{fmt_coord(CX - 0.8)}Y{fmt_coord(26.5)}D03*")
+    lines.append(f"X{fmt_coord(CX + 0.8)}Y{fmt_coord(26.5)}D03*")
 
     # 7. Samtec Connector
     lines.append("D20*")
@@ -576,9 +625,9 @@ def gen_bottom_mask():
 def gen_top_paste():
     apertures = {
         16: "R,0.150000X0.350000",
-        17: "R,0.250000X0.600000",
-        18: "R,1.100000X1.500000",
-        19: "R,0.500000X0.600000",
+        17: "R,0.450000X0.220000",  # WSON-8 paste stencil opening
+        18: "R,0.800000X1.100000",  # Thermal pad paste opening
+        19: "R,0.500000X0.450000",  # 0402 paste opening,
         20: "R,0.300000X1.500000",
     }
     lines = make_header("F.Paste (Top Solder Paste)", apertures)
@@ -609,10 +658,10 @@ def gen_top_paste():
         lines.append(f"X{fmt_coord(CX - 0.95)}Y{fmt_coord(y_pos)}D03*")
         lines.append(f"X{fmt_coord(CX + 0.95)}Y{fmt_coord(y_pos)}D03*")
 
-    # Feedback Resistor Rf (at Y=25.0)
+    # Feedback Resistor Rf (at Y=26.5)
     lines.append("D19*")
-    lines.append(f"X{fmt_coord(CX - 0.5)}Y{fmt_coord(25.0)}D03*")
-    lines.append(f"X{fmt_coord(CX + 0.5)}Y{fmt_coord(25.0)}D03*")
+    lines.append(f"X{fmt_coord(CX - 0.8)}Y{fmt_coord(26.5)}D03*")
+    lines.append(f"X{fmt_coord(CX + 0.8)}Y{fmt_coord(26.5)}D03*")
 
     # Samtec Connector
     lines.append("D20*")
@@ -765,18 +814,38 @@ def gen_kicad_pcb():
     (pad "1" thru_hole circle (at 0 0) (size 5.0 5.0) (drill 2.7) (layers *.Cu *.Mask) (net 1 "GND"))
   )
 
-  (footprint "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm" (layer "F.Cu")
+  (footprint "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.2mm" (layer "F.Cu")
     (at 37.5 23.0)
-    (pad "1" smd rect (at -0.95 0.75) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask"))
-    (pad "2" smd rect (at -0.95 0.25) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 4 "KCL_SUM_ANA"))
-    (pad "3" smd rect (at -0.95 -0.25) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
-    (pad "4" smd rect (at -0.95 -0.75) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 3 "-3V3_BIAS"))
-    (pad "5" smd rect (at 0.95 -0.75) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
-    (pad "6" smd rect (at 0.95 -0.25) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 5 "RF_OUT_50OHM"))
-    (pad "7" smd rect (at 0.95 0.25) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
-    (pad "8" smd rect (at 0.95 0.75) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 2 "+3V3_OPT"))
-    (pad "9" smd rect (at 0 0) (size 1.2 1.6) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
+    (pad "1" smd rect (at -0.95 0.75) (size 0.5 0.25) (layers "F.Cu" "F.Paste" "F.Mask"))
+    (pad "2" smd rect (at -0.95 0.25) (size 0.5 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 4 "KCL_SUM_ANA"))
+    (pad "3" smd rect (at -0.95 -0.25) (size 0.5 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
+    (pad "4" smd rect (at -0.95 -0.75) (size 0.5 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 3 "-3V3_BIAS"))
+    (pad "5" smd rect (at 0.95 -0.75) (size 0.5 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
+    (pad "6" smd rect (at 0.95 -0.25) (size 0.5 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 5 "RF_OUT_50OHM"))
+    (pad "7" smd rect (at 0.95 0.25) (size 0.5 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
+    (pad "8" smd rect (at 0.95 0.75) (size 0.5 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 2 "+3V3_OPT"))
+    (pad "9" smd rect (at 0 0) (size 0.9 1.2) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
   )
+
+  (footprint "Resistor_SMD:R_0402_1005Metric" (layer "F.Cu")
+    (at 37.5 26.5)
+    (pad "1" smd rect (at -0.8 0) (size 0.6 0.5) (layers "F.Cu" "F.Paste" "F.Mask") (net 4 "KCL_SUM_ANA"))
+    (pad "2" smd rect (at 0.8 0) (size 0.6 0.5) (layers "F.Cu" "F.Paste" "F.Mask") (net 5 "RF_OUT_50OHM"))
+  )
+
+  (segment (start 37.5 32.0) (end 37.5 28.0) (width 0.25) (layer "F.Cu") (net 4 "KCL_SUM_ANA"))
+  (segment (start 37.5 28.0) (end 35.0 25.5) (width 0.25) (layer "F.Cu") (net 4 "KCL_SUM_ANA"))
+  (segment (start 35.0 25.5) (end 35.0 23.25) (width 0.25) (layer "F.Cu") (net 4 "KCL_SUM_ANA"))
+  (segment (start 35.0 23.25) (end 36.55 23.25) (width 0.15) (layer "F.Cu") (net 4 "KCL_SUM_ANA"))
+  (segment (start 36.7 26.5) (end 35.0 26.5) (width 0.15) (layer "F.Cu") (net 4 "KCL_SUM_ANA"))
+  (segment (start 35.0 26.5) (end 35.0 23.25) (width 0.15) (layer "F.Cu") (net 4 "KCL_SUM_ANA"))
+
+  (segment (start 38.3 26.5) (end 40.0 26.5) (width 0.15) (layer "F.Cu") (net 5 "RF_OUT_50OHM"))
+  (segment (start 40.0 26.5) (end 40.0 22.75) (width 0.15) (layer "F.Cu") (net 5 "RF_OUT_50OHM"))
+  (segment (start 40.0 22.75) (end 38.45 22.75) (width 0.15) (layer "F.Cu") (net 5 "RF_OUT_50OHM"))
+  (segment (start 40.0 22.75) (end 40.0 16.0) (width 0.35) (layer "F.Cu") (net 5 "RF_OUT_50OHM"))
+  (segment (start 40.0 16.0) (end 37.5 13.5) (width 0.35) (layer "F.Cu") (net 5 "RF_OUT_50OHM"))
+  (segment (start 37.5 13.5) (end 37.5 1.5) (width 0.35) (layer "F.Cu") (net 5 "RF_OUT_50OHM"))
 )
 """
 

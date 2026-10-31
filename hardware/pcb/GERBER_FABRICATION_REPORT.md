@@ -73,3 +73,28 @@ PCB 주문 시 아래 사양을 발주서에 그대로 지정합니다:
 5. **NPTH 가이드 핀 내층 동박 단락 방지**: Samtec 가이드 핀 홀(`T03`, `Y=10.0mm`) 주변으로 `In1_Cu`, `In2_Cu`, `In4_Cu` 솔리드 동박 폴리곤에 이격(Clearance)을 부여했습니다.
 6. **KiCad `.kicad_pcb` 파일 내 잘못된 HTML 주석(`<!-- -->`) 제거**: S-Expression 파서 오류를 유발하던 HTML 주석을 전수 제거하고 6층 레이어 정의 및 괄호 균형을 검증했습니다.
 7. **`deep_gerbonara_audit.py` 내 형식적 통과(`print("[PASS]")`) 제거**: 실제로 `gerbonara`의 `Arc`, `Region`, `Flash`, `Line` 프리미티브를 순회하여 54mm Au 접지링 외경(`54.00mm` / 마스크 `54.10mm`), SMA 중심 패드 개구, 내층 폴리곤 개수, 48개 스트립라인 세그먼트를 정량 검증하도록 감사 스크립트를 강화했습니다.
+
+---
+
+## 5. 4차 DFM/DRC 정밀 교정 (GPT Codex 레드팀 지적 사항 100% 반영)
+
+외부 감사관(GPT Codex)의 독립 소스코드 감사 결과 지적된 **"비아 절연 및 TIA 핀 간 단락"** 결함을 정밀 분석하여 완전히 해결했습니다:
+
+1. **TIA (OPA855 WSON-8) 핀 간 0.10mm 중첩 쇼트 완전 해소**:
+   - 기존 조리개(Aperture 17)가 `R,0.250000X0.600000` (X=0.25mm, Y=0.60mm)로 정의되어, 핀 피치($0.50\,\mathrm{mm}$)보다 패드 높이($0.60\,\mathrm{mm}$)가 커서 인접 핀 간 $0.10\,\mathrm{mm}$ 물리적 단락이 발생했던 것을 **`R,0.500000X0.250000` (X=0.50mm, Y=0.25mm)**로 방향 및 치수를 정정.
+   - 핀 간 Y 이격 거리를 **$0.25\,\mathrm{mm}$ ($\ge 0.20\,\mathrm{mm}$ IPC-7351 기준)**로 완벽 확보.
+   - 솔더마스크 조리개도 `R,0.600000X0.330000`으로 조정하여 핀 사이에 $0.17\,\mathrm{mm}$의 솔더마스크 댐(Solder Mask Dam)을 형성, 납땜 브릿지 원천 차단.
+
+2. **KCL 버스 및 귀환저항($R_f$) 배선의 핀 1/7/8 관통 쇼트 수정**:
+   - 상단에서 핀 2(IN-) 및 핀 6(OUT)으로 진입하던 배선이 핀 1 및 핀 7/8을 직선으로 덮어버리던 결함을 수정.
+   - 칩 외곽($X = CX \pm 2.5\,\mathrm{mm}$)을 우회하여 핀 2(Y=23.25) 및 핀 6(Y=22.75)에 **완벽한 수평 측면 진입(Horizontal Side-Entry)** 경로 구축.
+   - 핀 1 및 핀 7/8과의 절연 이격 $\ge 0.30\,\mathrm{mm}$ 확보 (Zero Short 달성).
+
+3. **내층 접지면 및 전원면 비아 절연(Antipad) 전수 부여 (`%LPC*%`)**:
+   - 솔리드 구리 폴리곤(G36/G37)을 관통하던 비-접속 비아(Signal Vias 32개, Ground Fence Vias 36개, 체결 홀 4개)에 이격이 없어 전원-접지 및 신호-전원이 단락되던 치명적 결함 해소.
+   - RS-274X 표준 **`%LPC*%` (Layer Polarity Clear)** 모드를 도입하여:
+     - `In1_Cu.g1` (L2 GND): 32개 신호 비아 관통부에 $\varnothing 1.0\,\mathrm{mm}$ 안티패드 32개 펀칭.
+     - `In2_Cu.g2` (L3 PWR): 4개 마운팅 홀($\varnothing 4.2\,\mathrm{mm}$) + 36개 접지 펜스 비아($\varnothing 1.0\,\mathrm{mm}$) + 32개 신호 비아($\varnothing 1.0\,\mathrm{mm}$) = 총 72개 안티패드 펀칭 (GND-전원 및 신호-전원 완전 절연).
+     - `In4_Cu.g4` (L5 GND): 32개 신호 비아 관통부에 $\varnothing 1.0\,\mathrm{mm}$ 안티패드 32개 펀칭.
+   - `deep_gerbonara_audit.py` Section 4 DRC에서 총 136개 안티패드 및 TIA 핀 절연 전수 검증 통과 완료.
+
