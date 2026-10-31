@@ -1,81 +1,100 @@
-# [AXON-DIR-SQA-01] AXON 양자 컴퓨터 개발 마스터 지침서
-### (Sovereign Quantum-Classical Full-Stack Architecture Directive)
+# [AXON-DIR-SQA-01 v2.0] AXON 양자 제어 및 광학 CPNPU 마스터 지침서
+### (Sovereign Quantum-Classical & Optical CPNPU Full-Stack Directive)
 
-> **“극저온 챔버 내부에서 물리 곱셈기를 제거하고, 구리 배선 대신 빛을 통과시키며, 상온 원격 제어 대신 77K 인시츄(In-Situ) 닫힌 루프로 5ns 안에 오류를 교정한다.”**
+> **“완벽함을 선언하지 않는다. 근거를 기억하고, 스스로 오류를 찾아, 검증된 개선을 축적한다.”**  
+> **“물리 곱셈기를 0개로 제거하고, 구리 동축선 대신 WDM 광섬유로 상온-극저온을 연결하며, 77K 인시츄(In-Situ) 국소 폐루프와 금(Au) 반사 캐비티 Li-Fi로 실시간 연산과 오류 정정을 수행한다.”**
 
 ---
 
-## Ⅰ. 5대 기본 공리 (Core Axioms)
+## Ⅰ. 6대 기본 공리 (Core Engineering Axioms)
 
-모든 엔지니어와 에이전트는 본 프로젝트 설계 시 아래 5가지 원칙을 어길 수 없다.
+모든 엔지니어와 에이전트는 본 프로젝트의 설계·구현·검증 시 아래 6가지 불변 원칙을 준수한다.
 
 1. **0-MUL 불변성 (Zero-Multiplier Axiom):**  
-   극저온(77K) 챔버 내부에 들어가는 모든 전자식 디지털 제어 코어(ALU)에서 **물리 곱셈기를 0개로 강제**한다. 모든 연산은 부호선택(Sign-Select), 0-SKIP, CSD Shift-Add, LUT로만 구현한다.
-2. **광학 절연 불변성 (Photonic Interconnect Axiom):**  
-   상온(300K)과 극저온(77K) 간의 신호 인터페이스에 금속 동축선을 금지한다. **100% 실리카 광섬유(64-WDM)**를 사용해 외부 열 침투를 물리적으로 차단한다.
-3. **고체 클래딩 밀봉 불변성 (Solid Cladding Axiom):**  
-   모든 광도파로는 고체 실리카($SiO_2$, $n=1.44$) 산화막으로 완전 밀봉하여, 칩 외부의 액체질소 또는 진공 환경과 **빛이 물리화학적으로 직접 접촉하는 것을 원천 차단**한다.
-4. **5ns 인시츄 폐루프 (In-Situ Closed-Loop QEC):**  
-   상온 컴퓨터로 신호를 빼내어 양자 오류 정정(QEC)을 수행하는 것을 금지한다. 77K 챔버 내부의 광 CPNPU와 0-MUL SoC가 **5.0ns 이내에 에러 신드롬을 온칩 계산하고 즉각 피드백 펄스를 방출**해야 한다.
-5. **증거 우선 표기 (Evidence Gate Rule):**  
-   성능 수치는 반드시 🟢 VERIFIED(실측), 🟡 PROTOTYPE, 🔵 ENGINEERING, 🟠 ESTIMATED(시뮬레이션), 🔴 TARGET으로 구분하며, 근거 없는 완료 선언을 엄금한다.
+   상온 및 극저온(77K) 제어 코어(ALU)와 양자 오류 정정(QEC) 디코더에서 **물리 곱셈기(`$mul`)를 0개로 강제**한다. 모든 연산은 부호선택(Sign-Select: $+1, -1$), `0-SKIP`, CSD Shift-Add, 조합 논리 LUT로만 구현하며, 합성 시 `select -assert-none t:$mul` 게이트로 검증한다.
+2. **2계층 제어 경계 분리 (Two-Tier Control Boundary Axiom):**  
+   상온(300K)과 극저온(77K)을 잇는 편도 $1\,\mathrm{m}$ 광섬유의 물리적 왕복 전파 바닥값($\approx 10.007\,\mathrm{ns}$)을 직시한다.
+   - **외부 트렁크 (Outer Loop, $300\mathrm{K} \leftrightarrow 77\mathrm{K}$):** 2가닥 WDM/TDM 다중화 광섬유를 통해 OpenQASM/T-ASM 회로 명령 하향 및 신드롬 통계 수집을 수행하여 다수 구리 동축선의 전도열을 차단한다.
+   - **내부 고속 폐루프 (Inner In-Situ Loop, $77\mathrm{K}$ Local):** $<5.0\,\mathrm{ns}$ 목표의 실시간 신드롬 복호 및 피드백은 상온을 거치지 않고 **77K 스테이지 내부의 0-MUL 하드웨어 디코더에서 단일 사이클로 종결**한다.
+3. **건식 기밀 캐비티 및 콜드핑거 전도 냉각 (Dry-Cavity & Cold-Finger Axiom):**  
+   광학 경로 내부로 액체질소(LN2)가 유입되어 비등(기포 산란)하는 것을 엄금한다. $58\times 58\,\mathrm{mm}$ 금(Au) 반사 캐비티 리드와 캐리어 PCB는 $\varnothing 54\,\mathrm{mm}$ O-링/인듐 실링으로 기밀 밀봉(진공 또는 건조 불활성 기체 유지)하고, 냉각은 외부 무산소동 콜드핑거(Cold-Finger) 전도 냉각으로 수행한다.
+4. **극저온 밴드갭 청색 천이 대응 (Cryogenic Varshni Bandgap Axiom):**  
+   77K 냉각 시 반도체 밴드갭 증가로 인해 표준 $\mathrm{In}_{0.53}\mathrm{Ga}_{0.47}\mathrm{As}$의 차단 파장이 단파장($\approx 1540\,\mathrm{nm}$ 모델치)으로 이동함을 설계에 반영한다. 상온(300K) 보드는 `표준 InGaAs + 1550nm`를 기본으로 하되, 77K 보드는 **`표준 InGaAs + 1310nm(O-Band)`** 또는 **`Extended-InGaAs + 1550nm(C-Band)`** 투트랙 후보를 실측 비교하여 확정한다.
+5. **3진 그로버-위상 동형성 (Ternary Grover-Phase Isomorphism):**  
+   그로버 알고리즘의 위상 반전 오라클($|x\rangle \mapsto (-1)^{f(x)}|x\rangle$)과 확산 연산을 AXON의 3-Trit $\{-1(\text{위상 반전}), 0(\text{0-SKIP 마스킹}), +1(\text{유지})\}$ 및 차동 광다이오드(BPD) KCL 전류 합산($I_{\text{diff}} = I^+ - I^-$)으로 1:1 매핑하여 연상 기억(Engram) 및 양자 제어를 가속한다.
+6. **엄격한 증거 등급 분리 (Strict Epistemic Tiering):**  
+   모든 산출물과 수치는 아래 5단계 증거 태그로 엄격히 분리하며, 모델 가정치를 실측치로 둔갑시키는 행위를 금지한다.
+   - 🟢 `[VERIFIED]`: 단위 테스트, 비트 동치 시뮬레이션, 독립 파서(Gerber/SHA-256) 검증 완료.
+   - 🟢 `[SYNTHESIZED]`: Yosys/ABC 합성 넷리스트 구조적 셀 및 LUT 카운트 확인 완료.
+   - 🟠 `[TIMING-ANALYZED / ASSUMED]`: 정적 타이밍 분석(STA), 논리 단수(LTP), 열·링크 예산 및 반도체 모델 계산치.
+   - 🔵 `[ENGINEERING]`: 상용 통합 및 보드 조립·레시피 고도화 진행 중.
+   - 🔴 `[TARGET / NOT_EVALUATED]`: 물리 QPU 실칩 동작, 77K 챔버 실측, 종단간 아날로그 폐루프 실측 대기.
 
 ---
 
 ## Ⅱ. 5계층 풀스택 통합 아키텍처 (L0 ~ L4)
 
 ```text
-┌────────────────────────────────────────────────────────────────────────┐
-│ [L4: 에이전트 지능 & 영속 기억] CAMEL-Swarm 자가치유 + CORAL 캘리브레이션  │
-├────────────────────────────────────────────────────────────────────────┤
-│ [L3: 물리인식 컴파일러] T-Synthesis (야코비안 립시츠 제약 기반 펄스 합성) │
-├────────────────────────────────────────────────────────────────────────┤
-│ [L2: 극저전력 디지털 SoC] AXON 0-MUL Cryo-CMOS (Sign-Select / 0-SKIP)  │
-├────────────────────────────────────────────────────────────────────────┤
-│ [L1: 광학 PIM & 도파로] 특허 34/35 광 CPNPU (MZI 위상간섭 / In-Flight) │
-├────────────────────────────────────────────────────────────────────────┤
-│ [L0: 77K 극저온 패키징] 진공 챔버 + Cold-Finger 전도 냉각 + WDM 광섬유  │
-└────────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ [L4: 지능 & 영속 기억] CAMEL-Swarm 자가교정 + CORAL/Engram 3진 그로버 탐색     │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ [L3: 양자-고전 브릿지] OpenQASM 3.0 -> T-ASM 컴파일러 + 야코비안 수축 안정화   │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ [L2: 0-MUL 실시간 QEC] 5Q(20 LUT) & 100Q 타일링(354 LUT) 단일 사이클 디코더    │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ [L1: 광학 CPNPU (PAT-35/36)] 58mm Au 미러 캐비티 + InGaAs BPD KCL 차동 합산   │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ [L0: 기구·PCB·극저온 링크] 75mm 6층 Rogers 캐리어 보드 + 2가닥 WDM + 콜드핑거 │
+└──────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### [L0 Layer] 극저온 물리 패키징 (Cryo-Packaging)
-- **냉각 메커니즘:** 진공 챔버 내에서 무산소 고순도 구리 콜드 핑거(Cold-Finger)를 통한 전도 냉각(Conductive Cooling). 보드는 액체에 젖지 않는 진공 상태에서 77K 유지.
-- **기판 및 접합:** 극저온 열팽창 계수(CTE)가 매칭된 PTFE/Rogers 고주파 기판 + 인듐(Indium) 솔더링 / 골드 와이어본딩.
-- **광학 인입:** 단일 진공 피드스루(Feedthrough)를 통해 16가닥의 광섬유 리본 케이블로 1,000채널 WDM 신호 공급.
+### [L0 Layer] 기구·고주파 PCB 및 2가닥 WDM 극저온 패키징
+- **$58\times 58\,\mathrm{mm}$ 금(Au) 반사 캐비티 리드 (`AXON_PAT35_CAVITY_LID_REV_B.dxf`):** AL6061-T6 / C10200 무산소동 모재, 단결정 다이아몬드 플라이커팅($Ra \le 0.02\,\mu\mathrm{m}$ 목표), 3층 PVD 스퍼터링(`10nm Ti/Cr + 150nm 4N Au + 80nm SiO2`).
+- **$75\times 75\,\mathrm{mm}$ 6층 하이브리드 캐리어 PCB (`AXON_OPTICAL_CPNPU_CARRIER_GERBER_REV_A1.zip`):** Rogers RO4350B + High-Tg FR-4 6층 구조(`F_Cu`, `In1_GND`, `In2_PWR`, `In3_Stripline`, `In4_GND`, `B_Cu`), 54mm ENIG 금도금 차폐 링, 74개 드릴 홀(IPC-NC-349 규격, `gerbonara` 독립 감사 100% 통과).
+- **2가닥 광섬유 WDM/TDM 트렁크 (`P2_v0.3` / `P3_WDM_v0.4`):** 하향 제어 1가닥 + 상향 판독 1가닥 구성. CWDM($4\lambda \times 13\text{슬롯}$) 및 DWDM($10\lambda \times 5\text{슬롯} = 50\text{채널}$, 프레임 $50\,\mathrm{ns}$, 갱신율 $20\,\mathrm{MHz}$ 계산치) 스케줄링 모델 확보.
 
-### [L1 Layer] 광 CPNPU 광학 인터커넥트 (특허 34/35)
-- **리만-포아송 0-SKIP:** $\Delta\phi = \pi$ 위상 반전을 통해 쓸모없는 노이즈 성분을 트랜지스터 스위칭 없이 0 mW로 수동 소멸.
-- **64-WDM MZI 부호선택기:**
-  - $+1 \rightarrow 0$ 위상 (보강)
-  - $-1 \rightarrow \pi$ 위상 (상쇄)
-  - $0 \rightarrow$ 듀얼 링 공진기 광 차단 (소광비 $\ge 45\text{ dB}$ 준수)
-- **인플라이트 연산:** 500μm 도파로 통과 시간(5.804 ps) 내에 아날로그 1차 GEMV 완결.
+### [L1 Layer] 광학 CPNPU 및 KCL 0-MUL 차동 연산 코어 (특허 34/35/36)
+- **3진 광-전자 차동 수신 (`cryo_bpd_ternary.py`):**
+  - $+1$: 양(+) 포토다이오드 어레이 경로 전달 ($I_{\text{diff}} > +\theta$)
+  - $-1$: 음(-) 포토다이오드 어레이 경로 전달 또는 $\pi$ 위상 반전 ($I_{\text{diff}} < -\theta$)
+  - $0$ (`0-SKIP`): 광원/변조기 게이팅 차단 ($I_{\text{diff}} \approx 0$, 구동 전력 절감)
+- **무곱셈 아날로그 합산:** 16채널 VCSEL 어레이와 2x 1x16 InGaAs 균형 광다이오드(BPD)의 캐소드/애노드 접합점(KCL 가상접지 노드)에서 디지털 곱셈기 없이 전류 차동 합산 후 초저잡음 TIA(OPA855급)로 증폭.
 
-### [L2 Layer] 0-MUL Cryo-CMOS 제어 코어 (T-ASM)
-- **트랜지스터 규격:** 77K 캐리어 이동도 3배 증가를 활용하여 구동 전압을 $V_{dd} = 0.5\text{V}$로 인가 (동적 전력 75% 급감).
-- **ALU 설계:** 물리 곱셈기 배제. 3-Trit $\{-1, 0, +1\}$ 가중치에 따라 가산기 1회 트리거 또는 비트 와이어드 시프트(Wired Shift)로 종결.
-- **발열 상한:** 1,000 큐비트 제어 시 챔버 내부 총 발열을 **0.5W 이내로 절대 고정**.
+### [L2 Layer] 0-MUL 실시간 양자 오류 정정(QEC) 하드웨어 디코더
+- **3-Qubit 비트반전 디코더 (`qec_decoder_3qubit_0mul.v`):** 하드 판정 및 int8 아날로그 차분 패리티 지원. **86 표준 셀, 44개 4-LUT, 최장 경로 15단, 곱셈기 0개** 🟢 `[SYNTHESIZED]`.
+- **5-Qubit 완전 부호 디코더 (`qec_decoder_5qubit_0mul.v`):** `[[5, 1, 3]]` 안정자 생성자 기반 15개 단일 큐비트 파울리 오류($X, Y, Z$) 1:1 전단사 복호. **50 표준 셀, 20개 4-LUT, 최장 경로 9단, 곱셈기 0개** 🟢 `[SYNTHESIZED]`. (주의: `[[5, 1, 3]]`은 비-CSS 부호이므로 논리 CNOT은 횡단 게이트가 아닌 보조 상태 주입/격자 수술 규약을 따름).
+- **100-Qubit 모듈러 타일링 디코더 (`qec_tile_100q_0mul.v` / `tiler_100q.rs`):** 20개 5-Qubit 타일 병렬 구동(Mode A: 20 논리 큐비트 $d=3$ / Mode B: 4 연결 논리 큐비트 $d=9$). **1,014 조합 셀, 354개 4-LUT, 326 FFs, 곱셈기 0개**로 클록당 100 물리 큐비트 동시 복호 🟢 `[SYNTHESIZED]`.
+- **회전형 표면 부호 디코더 (`surface_code.rs`):** $d=3$ 평면 격자(9 데이터 큐비트, 8 플라켓 체크)의 모든 단일 파울리 오류를 그래프 탐색(MWPM) 없이 단일 사이클 조합 논리로 복호 🟢 `[VERIFIED]`.
 
-### [L3 Layer] T-Synthesis 물리인식 양자 컴파일러 (Classiq 대체)
-- **제약 기반 합성 (Constraint HLS):** Classiq의 기능적 추상화 모델을 계승하되, 하드웨어 제약 조건으로 `Max_Thermal_Budget = 500mW`, `0-MUL_Only`, `ER >= 45dB`를 주입.
-- **야코비안 수축 매핑 (Error Mitigation):** 다층 양자 연산 중 발생하는 누적 위상 드리프트를 야코비안 립시츠 바운드($\|J\| \le 1$)로 정규화하여, 캘리브레이션 오차를 수학적으로 상쇄하는 제어 펄스 코드 자동 생성.
-- **Qutrit 네이티브 지원:** 0과 1(이진)에 갇히지 않고, 3레벨 양자계($|0\rangle, |1\rangle, |2\rangle$)를 5-Trit/Byte 코덱으로 1:1 매핑.
+### [L3 Layer] OpenQASM 3.0 $\to$ T-ASM 브릿지 및 야코비안 안정화
+- **OpenQASM 3.0 컴파일러 브릿지 (`qasm_bridge.rs`):** 표준 양자 회로(`reset`, `h`, `s`, `cx`, `measure`) 및 `qec_5q` 프래그마를 AXON T-ASM 마이크로코드(`T_0MUL_H`, `T_0MUL_SYND5Q`, `T_0MUL_CORR5Q`)로 직결 변환 🟢 `[VERIFIED]`.
+- **5-Trit/Byte & 13-Code 코덱:** $3^5 = 243$ 상태와 13개 인밴드 제어 코드(Zero-run 등)를 결합하여 가중치와 양자 제어 시퀀스를 무손실 압축 🟢 `[VERIFIED]`.
+- **야코비안 수축 매핑:** 다층 양자화 및 위상 드리프트 오차를 스펙트럴 제약과 레인지 투영으로 억제.
 
-### [L4 Layer] 자가치유 에이전트 및 영속 기억 (Swarm & Engram)
-- **CORAL 캘리브레이션 원장:** 77K에서 미세하게 발생하는 도파로의 열광학 드리프트 데이터를 파일시스템 원장에 실시간 누적 기록.
-- **CAMEL-Swarm 폐루프 제어:**
-  - `Verifier Agent`: 큐비트 에러 신드롬 모니터링
-  - `Tuning Agent`: MZI 위상 바이어스를 마이크로초 단위로 재보정하여 소광비 45dB 영구 유지.
+### [L4 Layer] CORAL 영속 증거 원장 및 CAMEL-Swarm 검증 루프
+- **독립 감사 및 접수 체계 (`AXON_SQA_01_v0.3.1` & `m3_intake.py`):** 모든 RTL·Rust·합성 로그는 SHA-256 해시 매니페스트와 커밋 귀속 검사기를 통과해야 하며, 현재 `repetition_3` 및 `five_qubit` 모두 `READY_FOR_REVIEW` (이슈 0건) 달성 🟢 `[VERIFIED]`.
 
 ---
 
-## Ⅲ. 단계별 개발 로드맵 (Milestones & Gates)
+## Ⅲ. 마일스톤 현황 및 검증 게이트 (Milestones & Evidence Ledger)
 
-| 마일스톤 | 핵심 목표 | 성공 판정 게이트 (Pass Criteria) | 현재 상태 |
+| 마일스톤 | 핵심 검증 목표 | 검증 기준 및 달성 내역 | 증거 등급 |
 |:---:|---|---|:---:|
-| **M1** | 0-MUL vs 곱셈기 RTL 게이트 시뮬레이션 | 20,000개 벡터 비트 일치, 곱셈기 셀 0개 | 🟢 **VERIFIED** |
-| **M2** | 광 CPNPU MZI 수치 모델 융합 (`fusion_pat34`) | 소광비 $\ge 45\text{ dB}$에서 코사인 유사도 $> 0.9999$ | 🟢 **VERIFIED** |
-| **M3** | 100~1,000 큐비트 스케일링 열역학 시뮬레이션 | 1,000 큐비트 발열 $< 0.5\text{W}$, QEC 지연 $< 5\text{ns}$ | 🟠 **ESTIMATED** |
-| **M4** | Sky130 / OpenLane 77K Cryo-PDK 합성 및 OpenSTA | 77K 모델링 파라미터 기반 Fmax 및 누설전류 실측 | 🔵 **ENGINEERING** |
-| **M5** | FPGA + 광 트랜시버 보드 HIL 극저온 챔버 실측 | 액체질소 콜드 핑거 상에서 0-MUL 펄스 방출 실증 | 🔴 **TARGET** |
-| **M6** | 실리콘 포토닉스 CPO 칩렛 테이프아웃 및 큐비트 직결 | 단일 랙 1,000 큐비트 상용 시스템 패키징 | 🔴 **TARGET** |
+| **M1** | 0-MUL vs 곱셈기 MAC 비트 동치 및 합성 | Rust 768 전수 검사 & Verilog 20,000 벡터 오류 0건, `$mul = 0`, LUT 38.2% 절감 | 🟢 **VERIFIED & SYNTHESIZED** |
+| **M2** | 광 CPNPU 수치 모델 및 EDA 멀티 사인오프 | `control01_top` STA(373.1 MHz), LVS(5/5 일치), CDC, DFT(99.84%), REA 통과 | 🟢 **SYNTHESIZED** / 🟠 **TIMING-ANALYZED** |
+| **M3** | 극저온 0-MUL QEC 디코더 (3Q / 5Q / 100Q / Surface $d=3$) | Rust 16/16 테스트 & Icarus Verilog 28/28 테스트 PASS, 100Q 디코더 **354 4-LUTs** 합성, `m3_intake` 통과 | 🟢 **VERIFIED & SYNTHESIZED** |
+| **M4** | 캐비티 리드 CAD 도면 및 6층 캐리어 PCB 거버 패키지 | 58mm 리드 DXF/RFQ 완성 + 75mm 6층 거버/74홀 드릴 `gerbonara` 2차 독립 감사 100% 통과 | 🟢 **VERIFIED (PRODUCTION READY)** |
+| **M5** | 2가닥 WDM 스케줄링 및 300K/77K 밴드갭·BPD 모델 | `P2_v0.3`(19 시험), `P3_WDM_v0.4`(21 시험), `P4_CryoBPD_v0.5`(25 시험) 및 SHA-256 전수 일치 | 🟢 **CODE VERIFIED** / 🟠 **ASSUMED MODEL** |
+| **M6** | 상온(300K) $\to$ 극저온(77K) 콜드핑거 보드 HIL 실측 | CNC 리드 + 6층 PCB 실물 조립 후 300K 및 77K에서 3진(`+1, 0, -1`) 응답도·오판율·발열 실측 | 🔴 **TARGET (다음 실증 단계)** |
+| **M7** | 외부 물리 QPU 연동 및 1,000-Qubit 랙 스케일 확장 | 단일 광자/초전도/중성원자 QPU에 AXON 0-MUL 실시간 QEC 제어기 직결 실증 | 🔴 **TARGET (장기 목표)** |
+
+---
+
+## Ⅳ. 실증 추진 3단계 프로토콜 (Actionable Execution Plan)
+
+1. **Step 1 — 상온(300K) 3진 광 CPNPU 기준선 실측:**  
+   확보된 6층 거버(`AXON_OPTICAL_CPNPU_CARRIER_GERBER_REV_A1.zip`)와 금 캐비티 리드(`AXON_PAT35_CAVITY_LID_REV_B.dxf`)를 발주·조립하여, 상온에서 `표준 InGaAs + 1550nm` 조합의 KCL 차동 전류($+1, 0, -1$) 분리도와 `0-SKIP` 전력을 먼저 실측한다.
+2. **Step 2 — 77K 건식 콜드핑거 비교 실측:**  
+   동일 패키지를 O-링/인듐으로 기밀 밀봉한 뒤 진공 챔버 내 구리 콜드핑거(77K)에 장착하여, 냉각 전후의 광응답도 변화(`1310nm` vs `1550nm Extended-InGaAs`), 암전류 감소, 광학 정렬 유지 여부를 상온 데이터와 1:1 대조한다.
+3. **Step 3 — 77K 국소 0-MUL QEC 폐루프 연동:**  
+   FPGA/SoC에 합성된 354-LUT 100큐비트 0-MUL 디코더(`qec_tile_100q_0mul.v`)를 캐리어 보드 고속 커넥터에 직결하여, 광학 신드롬 수신부터 보정 펄스 출력까지의 종단간 국소 루프 지연을 오실로스코프로 실측 검증한다.
