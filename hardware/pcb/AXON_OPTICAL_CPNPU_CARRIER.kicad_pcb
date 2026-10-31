@@ -1,0 +1,103 @@
+(kicad_pcb (version 20221018) (generator pcbnew)
+
+  (general
+    (thickness 1.6)
+  )
+
+  (paper "A4")
+  (layers
+    (0 "F.Cu" signal)
+    (1 "In1.Cu" power "GND")
+    (2 "In2.Cu" power "PWR")
+    (31 "B.Cu" signal)
+    (34 "B.Paste" user)
+    (35 "F.Paste" user)
+    (36 "B.SilkS" user "B.Silkscreen")
+    (37 "F.SilkS" user "F.Silkscreen")
+    (38 "B.Mask" user)
+    (39 "F.Mask" user)
+    (44 "Edge.Cuts" user)
+  )
+
+  (setup
+    (pad_to_mask_clearance 0.05)
+    (pcbplotparams
+      (layerselection 0x00010fc_ffffffff)
+      (usegerberextensions true)
+      (usegerberattributes true)
+      (usegerberadvancedattributes true)
+      (creategerberjobfile true)
+      (outputformat 1)
+      (plotframeref false)
+      (viasonmask false)
+      (mode 1)
+      (useauxorigin false)
+      (hpglpennumber 1)
+      (hpglpenspeed 20)
+      (hpglpendiameter 15.000000)
+      (psnegative false)
+      (psa4output false)
+      (plotreference true)
+      (plotvalue true)
+      (plotinvisibletext false)
+      (sketchpadsonfab false)
+      (subtractmaskfromsilk false)
+      (outputdirectory "gerber/")
+    )
+  )
+
+  (net 0 "")
+  (net 1 "GND")
+  (net 2 "+3V3_OPT")
+  (net 3 "-3V3_BIAS")
+  (net 4 "KCL_SUM_ANA")
+  (net 5 "RF_OUT_50OHM")
+
+  <!-- Board Outline: 75x75mm -->
+  (gr_line (start 0 0) (end 75 0) (layer "Edge.Cuts") (width 0.15))
+  (gr_line (start 75 0) (end 75 75) (layer "Edge.Cuts") (width 0.15))
+  (gr_line (start 75 75) (end 0 75) (layer "Edge.Cuts") (width 0.15))
+  (gr_line (start 0 75) (end 0 0) (layer "Edge.Cuts") (width 0.15))
+
+  <!-- Cavity Lid Outline: 58x58mm -->
+  (gr_rect (start 8.5 8.5) (end 66.5 66.5) (layer "F.SilkS") (width 0.15))
+  <!-- Optical Pocket: 45x45mm -->
+  (gr_rect (start 15.0 15.0) (end 60.0 60.0) (layer "F.SilkS") (width 0.15))
+
+  <!-- Silkscreen Title -->
+  (gr_text "AXON-LABS-ORG // PAT-35/36 OPTICAL CPNPU CARRIER REV A1" (at 37.5 70.0) (layer "F.SilkS")
+    (effects (font (size 1.2 1.2) (thickness 0.15)))
+  )
+
+  <!-- 4x M2.5 Mounting Holes -->
+  (footprint "MountingHole:MountingHole_2.7mm_M2.5_Pad_Via" (layer "F.Cu")
+    (at 12.5 12.5)
+    (pad "1" thru_hole circle (at 0 0) (size 5.0 5.0) (drill 2.7) (layers *.Cu *.Mask) (net 1 "GND"))
+  )
+  (footprint "MountingHole:MountingHole_2.7mm_M2.5_Pad_Via" (layer "F.Cu")
+    (at 62.5 12.5)
+    (pad "1" thru_hole circle (at 0 0) (size 5.0 5.0) (drill 2.7) (layers *.Cu *.Mask) (net 1 "GND"))
+  )
+  (footprint "MountingHole:MountingHole_2.7mm_M2.5_Pad_Via" (layer "F.Cu")
+    (at 62.5 62.5)
+    (pad "1" thru_hole circle (at 0 0) (size 5.0 5.0) (drill 2.7) (layers *.Cu *.Mask) (net 1 "GND"))
+  )
+  (footprint "MountingHole:MountingHole_2.7mm_M2.5_Pad_Via" (layer "F.Cu")
+    (at 12.5 62.5)
+    (pad "1" thru_hole circle (at 0 0) (size 5.0 5.0) (drill 2.7) (layers *.Cu *.Mask) (net 1 "GND"))
+  )
+
+  <!-- OPA855 TIA Footprint -->
+  (footprint "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm" (layer "F.Cu")
+    (at 37.5 23.0)
+    (pad "1" smd rect (at -0.95 0.75) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask"))
+    (pad "2" smd rect (at -0.95 0.25) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 4 "KCL_SUM_ANA"))
+    (pad "3" smd rect (at -0.95 -0.25) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
+    (pad "4" smd rect (at -0.95 -0.75) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 3 "-3V3_BIAS"))
+    (pad "5" smd rect (at 0.95 -0.75) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
+    (pad "6" smd rect (at 0.95 -0.25) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 5 "RF_OUT_50OHM"))
+    (pad "7" smd rect (at 0.95 0.25) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
+    (pad "8" smd rect (at 0.95 0.75) (size 0.6 0.25) (layers "F.Cu" "F.Paste" "F.Mask") (net 2 "+3V3_OPT"))
+    (pad "9" smd rect (at 0 0) (size 1.2 1.6) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
+  )
+)
