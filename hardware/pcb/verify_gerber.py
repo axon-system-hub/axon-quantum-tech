@@ -63,7 +63,7 @@ def check_drill_file(filepath):
         errors.append("Excellon header missing M48 or METRIC")
 
     # Count drill holes
-    holes = re.findall(r"X\d+Y\d+", content)
+    holes = re.findall(r"X[\d.]+Y[\d.]+", content)
     if len(holes) != 42:  # 4 M2.5 + 36 via fence + 2 guide pins = 42
         errors.append(f"Expected 42 total drill holes, found {len(holes)}")
 
@@ -121,3 +121,4 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+

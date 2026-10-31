@@ -23,9 +23,8 @@ def fmt_coord(mm_val):
     return str(val_int)
 
 def fmt_drill(mm_val):
-    """Format mm value to Excellon METRIC,TZ (3.3) format"""
-    val_int = int(round(mm_val * 1000))
-    return str(val_int)
+    """Format mm value to Excellon explicit decimal format (e.g. 12.500)"""
+    return f"{mm_val:.3f}"
 
 def make_header(layer_name, apertures):
     lines = [
@@ -517,14 +516,14 @@ def gen_top_paste():
 def gen_drill_file():
     lines = [
         "M48",
-        "; AXON Optical CPNPU Carrier NC Drill",
-        "METRIC,TZ",
+        "; AXON Optical CPNPU Carrier NC Drill (IPC-NC-349 / Excellon Format 2)",
+        "METRIC,LZ",
         "FMAT,2",
+        "G90",
         "T01C2.700",  # M2.5 mounting holes
         "T02C0.300",  # Ground fence vias
         "T03C0.800",  # Connector alignment guide pins
         "%",
-        "G90",
         "G05",
         "; Tool 1: M2.5 Mounting Holes (4 holes)",
         "T01",
@@ -696,3 +695,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
