@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 from gerbonara.excellon import ExcellonFile
 from gerbonara.rs274x import GerberFile
-from gerbonara.graphic_objects import ArcPoly, Flash, Line, Region
+from gerbonara.graphic_objects import Arc, Flash, Line, Region
 
 GERBER_DIR = Path(r"D:\axon-양자기술\hardware\pcb\gerber_files")
 
@@ -139,9 +139,9 @@ def audit_gerber_files():
                 print(f"   [FAIL] Expected hole at ({eh[0]:.1f}, {eh[1]:.1f}) mm NOT FOUND in Drill file!")
                 errors += 1
 
-        # 2. Inspect actual ArcPoly objects on F_Cu and F_Mask for the r=26.375mm (54mm OD) Au ground ring
-        fcu_arcs = [o for o in fcu_obj.objects if isinstance(o, ArcPoly)]
-        fmask_arcs = [o for o in fmask_obj.objects if isinstance(o, ArcPoly)]
+        # 2. Inspect actual Arc objects on F_Cu and F_Mask for the r=26.375mm (54mm OD) Au ground ring
+        fcu_arcs = [o for o in fcu_obj.objects if isinstance(o, Arc)]
+        fmask_arcs = [o for o in fmask_obj.objects if isinstance(o, Arc)]
         if fcu_arcs and fmask_arcs:
             fcu_bb = fcu_arcs[0].bounding_box()
             fmask_bb = fmask_arcs[0].bounding_box()
