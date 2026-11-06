@@ -133,6 +133,7 @@
 | **디코더 지연 시간** | RTL 조합논리 분석 기준 **$< 1.0\,\mathrm{ns}$ ($0.91\,\mathrm{ns}$ 분석치)** | 단일 클록 내 복호 완료 |
 | **Pauli Frame 관리** | 물리 게이트 역적용 대신 소프트웨어/FPGA 레지스터 가상 프레임 실시간 갱신 | 광자 손실 및 지연 방지 |
 | **명령어 세트** | OpenQASM 3.0 컴파일 기반 **T-ASM (Ternary Assembly)** | WDM 광트렁크 직결 패킷화 |
+| **천부 81-노드 QPU 컴파일러 & 런타임** | **$9 \times 9 = 81$ 노드 (`9 타일 × (5 Data + 4 Ancilla)`)** 무낭비 파티션, `qec_5q` 4-Ancilla 안정자 회로 하향(`0-SKIP` 20% 생략), `u128` 0-MUL 스태빌라이저 태블로(`CliffordSim128`) | `[CODE-VERIFIED]` `cheonbu_runtime.rs` (135/135 단일 파울리 + 9/9 `人(0)` 소실 복구 100% 통과, `$mul = 0`) |
 
 ---
 

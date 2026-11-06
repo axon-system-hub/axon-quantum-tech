@@ -10,6 +10,7 @@
 //! consecutive input vectors. They are NOT silicon or cryogenic measurements.
 
 pub mod activity;
+pub mod cheonbu_runtime;
 pub mod encoding_bridge;
 pub mod mac;
 pub mod optical;
