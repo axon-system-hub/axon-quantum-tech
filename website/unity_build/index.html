@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>AXON Quantum 3D — Unity 6 WebGL</title>
+  <style>
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #040B12; }
+    #unity-canvas { width: 100%; height: 100%; display: block; outline: none; }
+    #unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 220px; text-align: center; color: #E3B341; font: 600 13px/1.4 sans-serif; }
+    #unity-progress-bg { width: 100%; height: 6px; background: rgba(255,255,255,0.12); border-radius: 99px; overflow: hidden; margin-top: 8px; }
+    #unity-progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #38BDF8, #E3B341); transition: width 0.1s; }
+  </style>
+</head>
+<body>
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+  <div id="unity-loading-bar">
+    <div>AXON Unity 6 WebGL 로딩 중...</div>
+    <div id="unity-progress-bg"><div id="unity-progress-fill"></div></div>
+  </div>
+  <script>
+    var canvas = document.querySelector('#unity-canvas');
+    var loadingBar = document.querySelector('#unity-loading-bar');
+    var progressFill = document.querySelector('#unity-progress-fill');
+    var unityApp = null;
+    var pendingSync = null;
+
+    function serializeSync(d) {
+      var parts = [];
+      if (typeof d.explode === 'number') parts.push('explode=' + d.explode);
+      if (d.hasAutoRotate) parts.push('autoRotate=' + (d.autoRotate ? '1' : '0'));
+      if (d.hasBeams) parts.push('showBeams=' + (d.showBeams ? '1' : '0'));
+      if (d.hasLaser) parts.push('showLaser=' + (d.showLaser ? '1' : '0'));
+      if (typeof d.tempK === 'number') parts.push('tempK=' + d.tempK);
+      if (typeof d.tiltMrad === 'number') parts.push('tiltMrad=' + d.tiltMrad);
+      if (d.preset) parts.push('preset=' + d.preset);
+      return parts.join(';');
+    }
+
+    window.addEventListener('message', function(ev) {
+      if (!ev.data || ev.data.type !== 'AXON_SYNC') return;
+      if (unityApp) {
+        unityApp.SendMessage('AXON_Quantum_3D_Engine', 'ApplyWebSync', serializeSync(ev.data));
+      } else {
+        pendingSync = ev.data;
+      }
+    });
+
+    var script = document.createElement('script');
+    script.src = 'Build/unity_build.loader.js';
+    script.onload = function() {
+      createUnityInstance(canvas, {
+        dataUrl: 'Build/unity_build.data',
+        frameworkUrl: 'Build/unity_build.framework.js',
+        codeUrl: 'Build/unity_build.wasm',
+        streamingAssetsUrl: 'StreamingAssets',
+        companyName: 'AXON',
+        productName: 'AXON Quantum 3D',
+        productVersion: '1.0'
+      }, function(p) {
+        progressFill.style.width = (100 * p) + '%';
+      }).then(function(instance) {
+        unityApp = instance;
+        loadingBar.style.display = 'none';
+        if (pendingSync) {
+          unityApp.SendMessage('AXON_Quantum_3D_Engine', 'ApplyWebSync', serializeSync(pendingSync));
+          pendingSync = null;
+        }
+      }).catch(function(msg) {
+        loadingBar.innerHTML = '<div style="color:#f87171">' + msg + '</div>';
+      });
+    };
+    document.body.appendChild(script);
+  </script>
+</body>
+</html>

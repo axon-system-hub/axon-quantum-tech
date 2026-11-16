@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AXON Quantum — 혁신적인 소버린 AI Quantum, 세상의 친구</title>
+  <meta name="description" content="0-MUL 무곱셈 아키텍처, 77K 자유공간 6N 골드 광학 캐비티, 천부경 9×9 위상 코덱으로 여는 소버린 AI Quantum 컴퓨팅." />
+  <link rel="icon" type="image/png" href="assets/images/axon-emblem.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body data-mode="friendly">
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <canvas id="fluidCursorCanvas" class="fluid-cursor-canvas" aria-hidden="true"></canvas>
+  <!-- Skip to content -->
+  <a href="#main" class="skip-link">본문으로 바로가기</a>
+
+  <!-- Top Navigation -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand" aria-label="AXON Quantum 홈">
+        <span class="brand-mark">
+          <img src="assets/images/axon-emblem.png" alt="AXON 엠블럼" />
+        </span>
+        <span class="brand-text">
+          <strong>AXON</strong>
+          <span>Sovereign AI Quantum</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="주요 메뉴">
+        <a href="#vision">비전</a>
+        <a href="#axon-3d-engine">3D 엔진</a>
+        <a href="#photonic-video">원리 영상</a>
+        <a href="#architecture">핵심 기술</a>
+        <a href="#workstation-tiers">워크스테이션 · BOM</a>
+        <a href="#gallery">갤러리</a>
+        <a href="#interactive-lab">실습·시뮬</a>
+        <a href="#evidence">검증</a>
+        <a href="workflow.html" class="nav-workflow-pill">개발 워크플로우</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="mode-switch" role="group" aria-label="설명 깊이 전환">
+          <button type="button" class="mode-btn active" data-set-mode="friendly" title="누구나 이해하기 쉬운 설명으로 보기">
+            쉽게 보기
+          </button>
+          <button type="button" class="mode-btn" data-set-mode="deep" title="SSOT 및 RTL 엔지니어링 원문 수치로 보기">
+            엔지니어링
+          </button>
+        </div>
+        <button type="button" class="mobile-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section id="top" class="hero">
+      <canvas id="bgQuantumCanvas" class="hero-bg-canvas" aria-hidden="true"></canvas>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="hero-kicker">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            Sovereign AI × 77K Photonic-Ternary Quantum
+          </p>
+          <h1>
+            스스로 생각하고,<br />
+            세상과 함께 호흡하는<br />
+            소버린 AI Quantum
+          </h1>
+          <p class="hero-lead friendly-copy">
+            초고가의 극저온 희석냉동기나 남의 기술에 기대지 않습니다.
+            <strong>곱셈기를 0개로 줄인 0-MUL 연산</strong>과 <strong>77K 액체질소 자유공간 광학</strong>,
+            그리고 한국의 <strong>천부경 9×9 수리 위상</strong>이 만나 누구나 곁에 두고 쓸 수 있는 따뜻한 양자·AI 친구를 만듭니다.
+          </p>
+          <p class="hero-lead deep-copy">
+            <strong>AXON-SSOT-QUANTUM v1.2.0</strong> 기반 아키텍처: 물리 곱셈기 0개(<code>t:$mul = 0</code>)의 0-MUL 조합논리 5Q 디코더(<code>20 LUTs, 0.91 ns</code>)와
+            <strong><code>cheonbu81_qec_top_0mul</code></strong> Sky130 9타일 코어(<code>38,957.36 µm²</code>, <code>4,749 cells / 631 FF</code>, <code>129.70 MHz / 7.710 ns</code>, <code>111 pins</code>, SymbiYosys BMC PROVED),
+            <code>58×58 mm</code> 6N 골드-유전체 자유공간 4-반사 링 캐비티(<code>77K, 0.4703 ns/lap</code>),
+            그리고 <code>18B (243+13)</code> Fail-Closed WDM 코덱을 통합한 소버린 광양자 플랫폼입니다.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#interactive-lab" class="btn btn-primary">9×9 천부경 &amp; QEC 직접 체험하기</a>
+            <button type="button" class="btn btn-ghost voice-btn" id="heroVoiceBtn" aria-pressed="false">
+              <span class="voice-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+              AXON 음성 브리핑 듣기
+            </button>
+            <a href="#evidence" class="btn btn-ghost">검증 현황 보기</a>
+            <audio id="axonIntroAudio" src="axon_intro.wav" preload="none"></audio>
+          </div>
+
+          <dl class="hero-metrics">
+            <div>
+              <dt>물리 곱셈기</dt>
+              <dd><span class="count-num" data-target="0">0</span> <small>개 (0-MUL)</small></dd>
+            </div>
+            <div>
+              <dt>목표 냉각 온도</dt>
+              <dd><span class="count-num" data-target="77">77</span> <small>K (액체질소)</small></dd>
+            </div>
+            <div>
+              <dt>QEC 디코더 · Sky130</dt>
+              <dd>0.91 <small>ns (5Q) · 129.7 MHz</small></dd>
+            </div>
+            <div>
+              <dt>천부경 코덱</dt>
+              <dd><span class="count-num" data-target="81">81</span> <small>Trits (무손실)</small></dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Live Interactive Hero Canvas -->
+        <div class="hero-visual">
+          <div class="cavity-panel">
+            <div class="cavity-toolbar">
+              <span class="cavity-title">77K 광학 캐비티 &amp; 천부경 9×9 실시간 뷰</span>
+              <div class="cavity-tabs" role="tablist">
+                <button type="button" class="cavity-tab active" data-viz="ring" role="tab" aria-selected="true">4-반사 링</button>
+                <button type="button" class="cavity-tab" data-viz="grid" role="tab" aria-selected="false">9×9 천부경</button>
+                <button type="button" class="cavity-tab" data-viz="showcase" role="tab" aria-selected="false">실물 쇼케이스</button>
+              </div>
+            </div>
+            <div class="cavity-stage">
+              <canvas id="heroCanvas" width="540" height="440" aria-label="AXON 77K 광학 캐비티 및 9×9 격자 시뮬레이션"></canvas>
+              <div class="hero-showcase" id="heroShowcase" hidden>
+                <img src="assets/images/quantum-cavity-exploded.png" alt="AXON 77K 광학 캐비티 정밀 분해도" class="showcase-slide active" />
+                <img src="assets/images/qoxc-prototype.png" alt="블랙 골드 AXON QOXC 광교차연결 프로토타입" class="showcase-slide" />
+                <img src="assets/images/chip-pat35-cpnpu.png" alt="AXON PAT-35 광학 CPNPU 기술 청사진" class="showcase-slide" />
+                <img src="assets/images/datacenter-vision.png" alt="AXON 양자 데이터센터 설계 비전" class="showcase-slide" />
+                <img src="assets/images/people-ai-lab.png" alt="사람과 AI가 함께하는 AXON 연구소" class="showcase-slide" />
+                <div class="showcase-caption" id="showcaseCaption">AXON 77K 광학 캐비티 정밀 분해도</div>
+              </div>
+            </div>
+            <div class="cavity-readout" id="heroReadout">
+              <span><strong>광로:</strong> 140.99 mm/lap (77K)</span>
+              <span><strong>비행시간:</strong> 0.4703 ns</span>
+              <span><strong>상태:</strong> [IDEALIZED_SIMULATION]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISION: 세상의 친구 -->
+    <section id="vision" class="section section-light">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Our Philosophy</span>
+          <h2>기술은 높되, 문턱은 낮게 — 세상의 친구가 되는 양자 AI</h2>
+          <p class="friendly-copy">
+            기존의 양자 컴퓨터는 영하 273도(4K/15mK)의 거대한 냉동기와 수백억 원의 장비가 필요해 연구실 벽 안에만 갇혀 있었습니다.
+            AXON은 발상을 전환했습니다. 우리 손에 닿는 77K 액체질소 환경과 불필요한 계산을 건너뛰는 0-MUL 지능으로,
+            대한민국과 세계 모든 개발자·연구자·기업의 곁으로 다가갑니다.
+          </p>
+          <p class="deep-copy">
+            AXON은 극저온 열부하 병목을 <code>0-MUL(Sign-Select)</code> + <code>0-SKIP</code> 하드웨어 게이팅으로 돌파하고,
+            고비용 실리콘 포토닉스(SiPh) 도파로 대신 <code>6N Au + DBR</code> 자유공간(Li-Fi) 광로 및 2계층 제어 경계(<code>300K↔77K WDM</code> / <code>77K In-Situ &lt;5ns</code>)를 채택하여
+            독자적 주권(Sovereign) 하드웨어·소프트웨어 스택을 구축합니다.
+          </p>
+        </div>
+
+        <div class="vision-grid">
+          <article class="vision-card">
+            <div class="vision-icon" aria-hidden="true">01</div>
+            <h3>누구에게나 열린 소버린 주권</h3>
+            <p class="friendly-copy">
+              외산 클라우드나 폐쇄형 SDK에 종속되지 않습니다. Rust, Verilog RTL, Pure ASCII CUDA 커널까지 모든 핵심 설계를 투명하게 검증하며, 내 작업실과 데이터센터에 직접 구축할 수 있습니다.
+            </p>
+            <p class="deep-copy">
+              <code>OpenQASM 3.0 → T-ASM</code> 컴파일러, <code>CliffordSim128</code> 태블로, <code>YourOS</code> 및 <code>kernels/axon_cheonbu81.cu</code>(100% ASCII)로 이어지는 완전 자립형 풀스택을 제공합니다.
+            </p>
+          </article>
+
+          <article class="vision-card">
+            <div class="vision-icon" aria-hidden="true">02</div>
+            <h3>열을 줄여 지구를 지키는 지능</h3>
+            <p class="friendly-copy">
+              AI와 양자 제어에서 가장 큰 적은 '열'입니다. 값이 0인 신호는 아예 계산하지 않고 건너뛰는(0-SKIP) 3진법 지능으로 전력과 발열을 획기적으로 낮춥니다.
+            </p>
+            <p class="deep-copy">
+              <code>mac_0mul</code>은 기존 3진 곱셈기(<code>mac_tern_mul</code>) 대비 게이트 수 <code>-23.4%</code>(295 vs 385), 4-LUT <code>-38.2%</code>(110 vs 178)를 절감하며 <code>TriPole::In(0)</code>에서 62~76% 연산을 생략합니다.
+            </p>
+          </article>
+
+          <article class="vision-card">
+            <div class="vision-icon" aria-hidden="true">03</div>
+            <h3>과장 없는 정직한 과학</h3>
+            <p class="friendly-copy">
+              "무조건 된다"고 말하지 않습니다. 코드로 검증된 것, 시뮬레이션으로 추정한 것, 아직 실험실에서 측정해야 할 목표를 명확히 구분해 공개하는 것이 진짜 친구의 태도입니다.
+            </p>
+            <p class="deep-copy">
+              모든 스펙은 <code>[VERIFIED]</code>, <code>[SYNTHESIZED]</code>, <code>[IDEALIZED_SIMULATION]</code>, <code>[TARGET]</code> 5단계 증거 태그와 <code>fabrication_release: BLOCKED</code> 안전 게이트로 엄격히 관리됩니다.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D THREE.JS AXON ENGINE -->
+    <section id="axon-3d-engine" class="section section-dark engine-3d-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Interactive 3D Digital Twin</span>
+          <h2>Three.js 3D AXON 광양자 엔진</h2>
+          <p>마우스로 360° 회전·확대하고, 분해(Exploded) 슬라이더를 움직여 75×75mm 캐리어 PCB, 9×9 천부경 웨이퍼, 58×58mm 6N 골드 4-반사 캐비티 리드 내부를 직접 입체 탐색해 보세요.</p>
+        </div>
+
+        <div class="engine-3d-tabs" role="tablist" aria-label="3D 엔진 런타임 전환">
+          <button type="button" class="engine-tab active" data-engine="threejs" role="tab" aria-selected="true">Three.js 실시간 WebGL</button>
+          <button type="button" class="engine-tab" data-engine="unity" role="tab" aria-selected="false">Unity 6 (6000.6.6f1) WebGL 연동</button>
+          <button type="button" class="engine-tab" data-engine="blender" role="tab" aria-selected="false">Blender 5.2 (.glb) 정밀 모델</button>
+        </div>
+
+        <div class="engine-3d-shell">
+          <div class="engine-3d-viewport">
+            <div id="axon3dContainer" class="axon-3d-canvas-wrap" aria-label="Three.js 3D AXON 광양자 엔진 뷰포트">
+              <div class="engine-3d-loading" id="axon3dStatus">3D AXON 엔진 초기화 중...</div>
+            </div>
+            <div id="unity3dContainer" class="unity-3d-wrap" hidden>
+              <iframe id="unityWebglFrame" title="Unity 6 AXON 3D 엔진" hidden></iframe>
+              <div class="unity-bridge-card" id="unityBridgeFallback">
+                <span class="badge badge-target">UNITY 6000.6.6f1 READY</span>
+                <h3>Unity 6 WebGL 빌드 자동 연동 대기 중</h3>
+                <p>
+                  Unity Hub에서 <code>d:\axon-양자기술\unity_axon_3d</code> 프로젝트를 연 뒤 상단 메뉴
+                  <strong><code>AXON → Build WebGL for Website</code></strong>를 실행하면
+                  <code>website/unity_build/</code>에 자동 출력되어 이 화면에 즉시 임베드됩니다.
+                </p>
+                <div class="unity-sync-status">
+                  <span>현재 동기화 상태:</span>
+                  <code id="unitySyncReadout">explode=0.25 · autoRotate=true</code>
+                </div>
+              </div>
+            </div>
+            <div id="blender3dContainer" class="axon-3d-canvas-wrap" hidden aria-label="Blender 5.2 GLB 3D 뷰포트">
+              <div class="engine-3d-loading" id="blender3dStatus">Blender 5.2 (.glb) 정밀 모델 준비 중...</div>
+            </div>
+            <div class="engine-3d-hud">
+              <span>드래그: 360° 회전</span>
+              <span>스크롤: 확대/축소</span>
+              <span>우클릭: 이동</span>
+              <span id="hudTelemetry">77K · 140.99mm/lap · 81 Qutrits · 0-MUL</span>
+            </div>
+          </div>
+
+          <aside class="engine-3d-controls">
+            <div class="ctrl-group">
+              <h3>카메라 프리셋</h3>
+              <div class="preset-btns">
+                <button type="button" class="preset-btn active" data-preset="assembly">전체 조립 뷰</button>
+                <button type="button" class="preset-btn" data-preset="ring">4-반사 링 캐비티</button>
+                <button type="button" class="preset-btn" data-preset="cheonbu">9×9 천부경 V-바운스</button>
+                <button type="button" class="preset-btn" data-preset="exploded">입체 분해도</button>
+              </div>
+            </div>
+
+            <div class="ctrl-group">
+              <label for="explodeRange">레이어 분해 (Exploded View): <strong id="explodeVal">25%</strong></label>
+              <input type="range" id="explodeRange" min="0" max="100" value="25" />
+            </div>
+
+            <div class="ctrl-group">
+              <label for="tempRange">극저온 온도 (QEC World): <strong id="tempVal">77 K · QEC 100.00%</strong></label>
+              <input type="range" id="tempRange" min="77" max="300" value="77" />
+            </div>
+
+            <div class="ctrl-group">
+              <label for="tiltRange">미러 M1 각도 섭동 (Ray): <strong id="tiltVal">0.0 mrad</strong></label>
+              <input type="range" id="tiltRange" min="0" max="30" value="0" />
+            </div>
+
+            <div class="ctrl-group ctrl-toggles">
+              <label class="toggle-row">
+                <input type="checkbox" id="toggleAutoRotate" checked />
+                <span>자동 회전 (Auto-Rotate)</span>
+              </label>
+              <label class="toggle-row">
+                <input type="checkbox" id="toggleVBounce" checked />
+                <span>9×9 수직 V-바운스 광선 표시</span>
+              </label>
+              <label class="toggle-row">
+                <input type="checkbox" id="toggleRingBeam" checked />
+                <span>45° 4-반사 링 광자 순환</span>
+              </label>
+            </div>
+
+            <div class="ctrl-specs">
+              <div><span>캐리어 PCB (Rev A2)</span><strong>75 × 75 × 1.6 mm</strong></div>
+              <div><span>캐비티 리드 (Rev C)</span><strong>58 × 58 × 5.0 mm</strong></div>
+              <div><span>4-반사 링 광로</span><strong>140.994 mm (0.4703 ns)</strong></div>
+              <div><span>천부경 격자</span><strong>9 × 9 = 81 Qutrits</strong></div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="vision-grid" style="margin-top: 1.75rem;">
+          <article class="vision-card">
+            <span class="badge badge-code">81-TRIT MATRIX</span>
+            <h3>왜 81자(9×9 천부경)인가?</h3>
+            <p>
+              3<sup>81</sup>(≈4.43×10<sup>38</sup>) 상태 공간은 128-bit(16 Byte) 정보를 무손실로 담는 최소 정방 격자입니다.
+              각 글자는 <code>天(+1) · 人(0) · 地(-1)</code> 3극 광학 위상 게이트로, 곱셈기 없이(<code>0-MUL</code>) 부호 선택과 <code>0-SKIP</code> 연산을 수행합니다.
+            </p>
+          </article>
+          <article class="vision-card">
+            <span class="badge badge-target">CENTER CORE 六 · 成環</span>
+            <h3>중심 코어 六과 성환(成環) 루프</h3>
+            <p>
+              81자의 정중앙 41번 <strong><code>六(Row 4, Col 4)</code></strong>은 8방위에서 반사되어 들어오는 광신호가 최종 수렴하는 중심 어큐뮬레이터입니다.
+              바로 아래 <strong><code>成·環</code></strong> 노드는 77K 냉각 수축과 위상 오차를 보정하는 능동 위상 잠금 루프 역할을 합니다.
+            </p>
+          </article>
+          <article class="vision-card">
+            <span class="badge badge-sim">3D FREE-SPACE OPTICS</span>
+            <h3>3차원 입체 빛 동역학 (모드 A + B)</h3>
+            <p>
+              빛은 평면에 갇히지 않고 <strong>수평 45° 4-반사 링(140.994 mm)</strong>과 함께, 웨이퍼 각 노드에서
+              <strong>상부 6N 골드 천장 미러(H=3.5 mm)</strong>를 찍고 35.26°~70.53° 입체 각도로 중심 <code>六</code>로 꺾여 내리는
+              <strong>3D 수직 V-바운스</strong>로 동작합니다.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHOTONIC QUANTUM CODED VIDEO -->
+    <section id="photonic-video" class="section section-dark video-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Coded Simulation Video</span>
+          <h2>코드로 그려낸 AXON 광양자 작동 원리 (4-Act 시뮬레이션)</h2>
+          <p>Python(PIL/NumPy)과 FFmpeg로 1280×720 HD 30fps 프레임마다 직접 수식을 계산해 렌더링한 광양자 원리 영상입니다. 챕터 버튼을 눌러 원하는 단계로 바로 이동해 보세요.</p>
+        </div>
+
+        <div class="video-shell">
+          <div class="video-frame">
+            <video id="axonQuantumVideo" controls autoplay muted loop playsinline preload="metadata" poster="assets/images/quantum-cavity-exploded.png">
+              <source src="axon_photonic_quantum.mp4" type="video/mp4" />
+              브라우저가 HTML5 비디오를 지원하지 않습니다.
+            </video>
+          </div>
+          <div class="video-chapters" role="group" aria-label="영상 챕터 이동">
+            <button type="button" class="btn btn-primary btn-sm" id="playWithVoiceBtn">
+              AXON-Supertone 음성 설명 켜고 처음부터 재생
+            </button>
+            <button type="button" class="chapter-btn active" data-seek="0">
+              <span class="ch-time">00:00</span>
+              <strong>Act 01 · 자유공간 광간섭 (天+1 / 人0 / 地-1)</strong>
+              <small>ECDL · PPLN SPDC 광원과 0-SKIP 진공 평형</small>
+            </button>
+            <button type="button" class="chapter-btn" data-seek="13">
+              <span class="ch-time">00:13</span>
+              <strong>Act 02 · 6N 골드 4-반사 링 캐비티</strong>
+              <small>58×58mm 리드 · 140.99mm/lap · 0.4703 ns 비행시간</small>
+            </button>
+            <button type="button" class="chapter-btn" data-seek="26">
+              <span class="ch-time">00:26</span>
+              <strong>Act 03 · 천부경 9×9 V-바운스 &amp; 六 수렴</strong>
+              <small>35.28° · 45.02° · 54.75° 마법각 입사 및 코어 수렴</small>
+            </button>
+            <button type="button" class="chapter-btn" data-seek="37">
+              <span class="ch-time">00:37</span>
+              <strong>Act 04 · [[5,1,3]] 0-MUL 단일 사이클 QEC</strong>
+              <small>20 4-LUT · 0.91 ns 가상 Pauli (Cheonbu-81 129.7 MHz 확장)</small>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE: 4 Pillars -->
+    <section id="architecture" class="section section-dark">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Core Architecture</span>
+          <h2>AXON을 움직이는 네 가지 혁신</h2>
+          <p>하드웨어의 물리적 한계부터 소프트웨어 코덱까지, 하나의 일관된 공리로 연결됩니다.</p>
+        </div>
+
+        <div class="arch-grid">
+          <article class="arch-card">
+            <figure class="arch-figure">
+              <img src="assets/images/chip-zero01-blueprint.png" alt="AXON ZERO-01 반도체 설계 청사진" loading="lazy" class="zoomable-img" />
+            </figure>
+            <div class="arch-meta">
+              <span class="badge badge-verified">VERIFIED · SKY130 SYNTHESIZED · BMC PROVED</span>
+              <span class="arch-code">0-MUL · SKY130</span>
+            </div>
+            <h3>곱셈기 없는 0-MUL 제어기 &amp; Cheonbu-81 Sky130</h3>
+            <p class="friendly-copy">
+              복잡하고 뜨거운 곱셈 회로 대신 부호 선택(+1, -1)과 건너뛰기(0-SKIP), 자리 이동만으로 모든 연산을 처리합니다. 5큐비트 디코더는 1나노초 이내, 81노드 통합 칩(<code>cheonbu81_qec_top_0mul</code>)도 Sky130 공정 기준 129.7 MHz로 동작합니다.
+            </p>
+            <p class="deep-copy">
+              Yosys/ABC Sky130 합성에서 <code>t:$mul = 0</code> 확정. 기존 5Q 코어(<code>20 LUTs, 0.91 ns</code>)에 이어 9타일 통합 <code>cheonbu81_qec_top_0mul</code>은 <code>38,957.36 µm²</code>, <code>4,749 cells (631 FF)</code>, <code>7.710 ns / 129.70 MHz</code>, <code>111 pins (-72.9% vs 409)</code>를 달성했으며 SymbiYosys BMC <code>rc=0</code> 및 <code>iverilog 9/9 PASS</code>를 통과했습니다(OpenLane2 P&amp;R/DRC/LVS <code>[NOT_RUN_IN_SANDBOX]</code>).
+            </p>
+            <ul class="spec-list">
+              <li><span>Sky130 면적 · 셀</span><strong>38,957.36 µm² · 4,749 (631 FF)</strong></li>
+              <li><span>Sky130 속도 · 핀 절감</span><strong>129.70 MHz (7.710 ns) · 111 pins (-72.9%)</strong></li>
+              <li><span>형식·코심 검증</span><strong>BMC rc=0 · 9/9 cosim · 200,768 5Q</strong></li>
+            </ul>
+          </article>
+
+          <article class="arch-card">
+            <figure class="arch-figure">
+              <img src="assets/images/quantum-cavity-exploded.png" alt="AXON 77K 광학 캐비티 정밀 분해도" loading="lazy" class="zoomable-img" />
+            </figure>
+            <div class="arch-meta">
+              <span class="badge badge-sim">IDEALIZED_SIMULATION</span>
+              <span class="arch-code">77K CAVITY</span>
+            </div>
+            <h3>77K 자유공간 6N 골드 캐비티</h3>
+            <p class="friendly-copy">
+              비싼 반도체 도파관 대신, 손바닥 크기(58×58mm)의 진공 금거울 방 안에서 빛이 45도로 반사되며 정보를 주고받습니다. 액체질소가 직접 닿지 않는 건식 냉각으로 깨끗한 빛을 지킵니다.
+            </p>
+            <p class="deep-copy">
+              <code>58×58×5 mm</code> 캐비티 리드(Rev C) 내 <code>∅50 mm</code> 포켓 및 4개 평면 반사 패싯 적용. 77K 열수축(<code>-0.302%</code>) 반영 1 lap 광로 <code>140.994 mm</code>(<code>0.4703 ns</code>). Varshni 밴드갭 이동 대응 1310nm/1550nm 투트랙 설계.
+            </p>
+            <ul class="spec-list">
+              <li><span>캐리어 PCB (Rev A2)</span><strong>75 × 75 × 1.6 mm</strong></li>
+              <li><span>내부 진공도 목표</span><strong>10⁻⁵ Torr</strong></li>
+              <li><span>1회 순환 비행시간</span><strong>0.4703 ns</strong></li>
+            </ul>
+          </article>
+
+          <article class="arch-card">
+            <figure class="arch-figure">
+              <img src="assets/images/chip-pat35-cpnpu.png" alt="AXON PAT-35 광학 CPNPU 기술 청사진" loading="lazy" class="zoomable-img" />
+            </figure>
+            <div class="arch-meta">
+              <span class="badge badge-verified">CODE-VERIFIED · 18B FAIL-CLOSED</span>
+              <span class="arch-code">CHEONBU-81</span>
+            </div>
+            <h3>천부경 9×9 위상 격자 &amp; 18B Fail-Closed 패킷</h3>
+            <p class="friendly-copy">
+              천부경 81자를 9×9 격자(45 데이터 + 36 보조)로 배치해 중심 코어 '六(육)'으로 수렴시킵니다. 18바이트 광패킷에 오류나 비정상 명령이 섞여 들어오면 적용하지 않고 즉시 폐기(Fail-Closed)해 큐비트를 지킵니다.
+            </p>
+            <p class="deep-copy">
+              <code>9×9 = 81</code> 노드(<code>9 타일 × (5 Data + 4 Ancilla)</code>) 무낭비 파티션. <code>18B (243+13)</code> 프레임은 Data 17B(<code>0..242</code>, 85 Trits 중 81 사용 + <code>trits[81..84]=0</code>)와 Ctrl 1B(<code>243..255</code>)를 분리하여 도메인 침범 시 원자적 폐기하며 WDM <code>2.335 GB/s</code>로 전송됩니다(<code>iverilog 9/9</code>, Rust <code>12/12 + 31/31 PASS</code>).
+            </p>
+            <ul class="spec-list">
+              <li><span>프레임 · WDM 대역</span><strong>18 Bytes (243+13) · 2.335 GB/s</strong></li>
+              <li><span>무결성 검증</span><strong>SHA-256 100% · 9/9 cosim PASS</strong></li>
+              <li><span>중심 수렴 · 성환 루프</span><strong>Index 40 (4,4) 六 · 48→49</strong></li>
+            </ul>
+          </article>
+
+          <article class="arch-card">
+            <figure class="arch-figure">
+              <img src="assets/images/quantum-rack.png" alt="AXON 극저온 양자 연구 랙" loading="lazy" class="zoomable-img" />
+            </figure>
+            <div class="arch-meta">
+              <span class="badge badge-target">SCALING · L1–L4 RACK</span>
+              <span class="arch-code">YOUR-OS · CXL</span>
+            </div>
+            <h3>19인치 5-슬롯 랙 &amp; 300K CXL/NVMe 패브릭</h3>
+            <p class="friendly-copy">
+              개인 책상용 Mini 4U부터 기업용 42U 랙, 국가 데이터센터까지 4개 티어로 확장됩니다. 19인치 표준 서버 랙 1단에 양자 카드 5장을 빈틈없이 꽂고, 300K 호스트의 초고속 메모리·스토리지와 광패킷으로 연결합니다.
+            </p>
+            <p class="deep-copy">
+              L1 19인치 4U 쉘프(유효폭 <code>435 mm</code> 내 <code>74.0 mm</code> 폭 / <code>85.0 mm</code> 피치 5슬롯 = <code>414 mm</code> 점유). 300K 호스트는 <code>DDR5/CXL 3.0</code>, <code>64TB NVMe ZNS</code>, <code>512TB NVMe-oF Lustre (100 GB/s)</code>로 18B WDM(블레이드당 <code>2.335 GB/s</code>)을 수용합니다.
+            </p>
+            <ul class="spec-list">
+              <li><span>L1 19&quot; 5-슬롯 기구</span><strong>74 / 85 mm (414 / 435 mm)</strong></li>
+              <li><span>LN₂ 듀어 · 지속시간</span><strong>261.4 mL (200 mL) · 9.7–11.15 h</strong></li>
+              <li><span>300K 호스트 스토리지</span><strong>CXL 3.0 · NVMe ZNS · Lustre 100 GB/s</strong></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKSTATION TIERS & BOM -->
+    <section id="workstation-tiers" class="section section-light ws-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">4-Tier Qubit Workstation Architecture &amp; BOM</span>
+          <h2>책상 위 Mini 4U부터 국가 슈퍼컴 DC까지 — 4단계 77K 양자 워크스테이션</h2>
+          <p class="friendly-copy">
+            AXON은 77K 액체질소 건식 광학 캐비티와 19인치 5-슬롯 랙 규격, 그리고 <code>cheonbu81_qec_top_0mul</code> 칩을 결합해
+            개인·기업·연구소·국가기관용 4단계 워크스테이션으로 확장합니다. 모든 예상 단가는 <strong>[DERIVED/ASSUMED]</strong> 추정치이며 제작 릴리스는 <strong>BLOCKED</strong> 안전 게이트를 준수합니다.
+          </p>
+          <p class="deep-copy">
+            L1 19인치 4U 쉘프(유효폭 <code>435 mm</code> 내 <code>74.0 mm</code> 폭 / <code>85.0 mm</code> 피치 5슬롯 = <code>414 mm</code> 점유, <code>75×75×1.6 mm</code> Rev A2 PCB + <code>58×58×5 mm</code> 6N Au+DBR 건식 캐비티)를 공통 모듈로 사용하여 Tier 1(5~20Q)부터 Tier 4(10,000~100,000+Q)까지 선형 확장합니다.
+            300K 호스트는 <code>DDR5/CXL 3.0</code>, <code>NVMe ZNS</code>, <code>NVMe-oF Lustre (100 GB/s)</code>로 18B WDM 패킷(<code>2.335 GB/s</code>/블레이드)을 처리하며, 모든 단가는 <code>[DERIVED/ASSUMED], EQ-01..EQ-12 OPEN</code> 정책에 따릅니다.
+          </p>
+        </div>
+
+        <!-- Tier Selector Tabs -->
+        <div class="ws-tier-tabs" role="tablist" aria-label="워크스테이션 티어 선택">
+          <button type="button" class="ws-tier-btn active" data-ws-tier="tier_1_personal" role="tab" aria-selected="true" aria-pressed="true">
+            <span class="ws-tier-kicker">Tier 1 · Personal</span>
+            <strong>개인 · 개발자 (5~20Q)</strong>
+            <small>Mini 4U · 0.45 kW · ₩3,980만</small>
+          </button>
+          <button type="button" class="ws-tier-btn" data-ws-tier="tier_2_enterprise" role="tab" aria-selected="false" aria-pressed="false">
+            <span class="ws-tier-kicker">Tier 2 · Enterprise</span>
+            <strong>기업 42U 랙 (100~200Q)</strong>
+            <small>42U 단일 랙 · 2.5 kW · ₩3.3억</small>
+          </button>
+          <button type="button" class="ws-tier-btn" data-ws-tier="tier_3_research" role="tab" aria-selected="false" aria-pressed="false">
+            <span class="ws-tier-kicker">Tier 3 · Research</span>
+            <strong>연구소 클러스터 (1~2KQ)</strong>
+            <small>6×42U + OXC · 15 kW · ₩31.6억</small>
+          </button>
+          <button type="button" class="ws-tier-btn" data-ws-tier="tier_4_national" role="tab" aria-selected="false" aria-pressed="false">
+            <span class="ws-tier-kicker">Tier 4 · National DC</span>
+            <strong>국가 슈퍼컴 (10~100KQ+)</strong>
+            <small>50+ 랙 복층 · 120 kW · ₩368억</small>
+          </button>
+        </div>
+
+        <!-- Selected Tier Explorer Card -->
+        <div class="ws-explorer-shell">
+          <div class="ws-explorer-visual">
+            <figure class="ws-tier-figure">
+              <img id="wsTierImg" src="assets/images/tier1-workstation.jpg" alt="AXON Tier 1 워크스테이션" class="zoomable-img" />
+              <figcaption id="wsTierImgCaption">AXON Tier 1: Mini 4U 데스크사이드 타워 (단일 74mm YZ 슬롯, 0.45 kW 가정용 220V 구동)</figcaption>
+            </figure>
+
+            <!-- L1 19" 5-Slot Rack Visualizer -->
+            <div class="ws-rack-card">
+              <div class="ws-rack-head">
+                <span>L1 19&quot; 5-슬롯 4U 쉘프 실장 구조 (74mm 폭 / 85mm 피치)</span>
+                <strong id="wsRackSummary">1 / 5 슬롯 점유 (Mini 4U 단일 카드)</strong>
+              </div>
+              <div class="ws-rack-visual" id="wsRackVisual" aria-label="19인치 5슬롯 랙 점유 시각화"></div>
+              <p class="ws-rack-footnote">
+                유효폭 435 mm 내 5슬롯 × 85 mm 피치 = 414 mm 사용 · 캐비티 58×58×5 mm (C10200 OFHC + 6N Au + DBR) · 10⁻⁵ Torr 건식 진공
+              </p>
+            </div>
+          </div>
+
+          <div class="ws-explorer-detail">
+            <div class="ws-detail-head">
+              <div>
+                <h3 id="wsTierTitle">Tier 1: 개인 · 개발자용 워크스테이션</h3>
+                <p id="wsTierSubtitle" class="ws-detail-sub">Tier 1: Personal / Developer Workstation · 개인 개발자, 딥테크 스타트업, 대학 개인 연구실</p>
+              </div>
+              <span class="ws-gate-badge" id="wsTierGateBadge">fabrication_release: BLOCKED · [DERIVED/ASSUMED], EQ-01..EQ-12 OPEN</span>
+            </div>
+
+            <p class="friendly-copy ws-summary-copy" id="wsTierFriendlyDesc"></p>
+            <p class="deep-copy ws-summary-copy" id="wsTierDeepDesc"></p>
+
+            <!-- Cost KPIs -->
+            <div class="ws-cost-kpis">
+              <div class="ws-kpi-box">
+                <span>기준 BOM Capex (Baseline)</span>
+                <strong id="wsTierCapexBase">₩3,980만 ($29,481)</strong>
+                <small id="wsTierCapexRange">범위: ₩3,050만 ~ ₩5,230만 [DERIVED/ASSUMED]</small>
+              </div>
+              <div class="ws-kpi-box">
+                <span>소비 전력 · 연간 전력량</span>
+                <strong id="wsTierPower">0.45 kW (3,942 kWh/yr)</strong>
+                <small>77K 건식 냉각 + 300K 호스트 통합 벽전력</small>
+              </div>
+              <div class="ws-kpi-box ws-kpi-accent">
+                <span>5년 TCO 비교 (vs 15mK 희석냉동기)</span>
+                <strong id="wsTierTcoSavings">AXON ₩4,576만 vs 15mK ₩32.31억 (98.58% 절감)</strong>
+                <small>동일 큐비트 체급 기준 5년 총소유비용 추정치</small>
+              </div>
+            </div>
+
+            <!-- Hardware Specs Grid -->
+            <dl class="ws-specs-grid">
+              <div><dt>물리 큐비트</dt><dd id="wsTierPhysQubits">5 ~ 20 Qubit</dd></div>
+              <div><dt>논리 큐비트 · 코드</dt><dd id="wsTierLogicalQubits">1 ~ 4 LQ</dd></div>
+              <div class="ws-spec-wide"><dt>QEC 매핑 상세</dt><dd id="wsTierQecDetail">-</dd></div>
+              <div><dt>폼팩터 · 랙 기구</dt><dd id="wsTierFormFactor">-</dd></div>
+              <div><dt>77K 냉각 · 진공</dt><dd id="wsTierCryo">-</dd></div>
+              <div><dt>300K 호스트 메모리</dt><dd id="wsTierMemory">-</dd></div>
+              <div><dt>300K 스토리지</dt><dd id="wsTierStorage">-</dd></div>
+              <div class="ws-spec-wide"><dt>18B WDM 패킷 대역폭</dt><dd id="wsTierBandwidth">-</dd></div>
+            </dl>
+
+            <!-- 5-Subsystem BOM Breakdown -->
+            <div class="ws-subsystems-wrap">
+              <div class="ws-subsystems-head">
+                <h4>5대 서브시스템별 BOM 구성비 (Baseline · [DERIVED/ASSUMED])</h4>
+                <button type="button" class="btn btn-primary btn-sm" id="wsOpenLabBtn">BOM/TCO 시뮬레이터에서 상세 계산하기 →</button>
+              </div>
+              <div id="wsTierSubsystems" class="ws-subsystems-list"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Engineering Reference Visuals: L1 Rack + Cheonbu-81 Sky130 + 77K vs 15mK -->
+        <div class="ws-ref-grid">
+          <article class="ws-ref-card">
+            <figure class="ws-ref-fig">
+              <img src="assets/images/ssot-l1-cavity-rack.jpg" alt="SSOT L1 19인치 5슬롯 74/85mm 캐비티 랙 기구도" loading="lazy" class="zoomable-img" />
+            </figure>
+            <div class="ws-ref-body">
+              <span class="badge badge-target">L1 RACK GEOMETRY</span>
+              <h3>19&quot; 5-슬롯 74/85mm &amp; 75×75 PCB</h3>
+              <p>
+                유효폭 <code>435 mm</code> 4U 쉘프에 <code>74.0 mm</code> 카드 5장을 <code>85.0 mm</code> 피치로 수납(<code>414 mm</code> 사용).
+                <code>261.4 mL</code> 듀어(200 mL 충전)로 <code>9.70~11.15h</code> 유지하며 진동 마운트는 <code>[UNCONFIRMED]</code>로 관리합니다.
+              </p>
+            </div>
+          </article>
+
+          <article class="ws-ref-card">
+            <figure class="ws-ref-fig">
+              <img src="assets/images/cheonbu81-chip-arch.jpg" alt="cheonbu81_qec_top_0mul Sky130 0-MUL 아키텍처 다이어그램" loading="lazy" class="zoomable-img" />
+            </figure>
+            <div class="ws-ref-body">
+              <span class="badge badge-verified">SKY130 · BMC PROVED</span>
+              <h3>cheonbu81_qec_top_0mul RTL</h3>
+              <p>
+                9타일(45D+36A=81노드) Sky130 합성: <code>38,957.36 µm²</code>, <code>4,749 cells (631 FF)</code>,
+                <code>7.710 ns (129.70 MHz)</code>, <code>111 pins</code>, <code>t:$mul=0</code>. OpenLane2 P&amp;R/DRC/LVS는 <code>[NOT_RUN_IN_SANDBOX]</code>입니다.
+              </p>
+            </div>
+          </article>
+
+          <article class="ws-ref-card">
+            <figure class="ws-ref-fig">
+              <img src="assets/images/axon-77k-vs-15mk.jpg" alt="AXON 77K 광양자 vs 15mK 초전도 희석냉동기 전력 및 TCO 비교" loading="lazy" class="zoomable-img" />
+            </figure>
+            <div class="ws-ref-body">
+              <span class="badge badge-sim">77K VS 15mK TCO</span>
+              <h3>83~98.6% TCO · 12.0~62.2× 절전</h3>
+              <p>
+                15mK 희석냉동기(28~1,800 kW, He-3·코액스 배선) 대비 AXON 77K는 동일 큐비트 체급에서
+                벽전력을 <code>12.0×~62.2×</code> 낮추고 5년 TCO를 <code>83.15%~98.58%</code> 절감합니다(<code>[DERIVED/ASSUMED]</code>).
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HARDWARE & VISION GALLERY -->
+    <section id="gallery" class="section section-dark gallery-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Visual Archive</span>
+          <h2>AXON 하드웨어 · 광학 · 캠퍼스 갤러리</h2>
+          <p>극저온 6N 골드 캐비티 프로토타입부터 알루미늄 AI 워크스테이션, 데이터센터 캠퍼스까지 AXON의 실제 설계 아카이브입니다. 이미지를 클릭하면 크게 볼 수 있습니다.</p>
+        </div>
+
+        <!-- Kinetic Marquee Filmstrip -->
+        <div class="kinetic-strip-wrap" aria-label="움직이는 AXON 비전 쇼케이스">
+          <div class="kinetic-strip-head">
+            <span>LIVE MOTION ARCHIVE · 마우스를 올리면 일시정지됩니다</span>
+            <button type="button" class="btn btn-ghost btn-sm" id="marqueeToggleBtn">일시정지</button>
+          </div>
+          <div class="kinetic-marquee" id="kineticMarquee">
+            <div class="kinetic-track">
+              <div class="kinetic-card"><img src="assets/images/quantum-cavity-exploded.png" alt="77K 광학 캐비티 분해도" class="zoomable-img" /><span>77K 광학 캐비티</span></div>
+              <div class="kinetic-card"><img src="assets/images/qoxc-prototype.png" alt="QOXC 광교차연결 프로토타입" class="zoomable-img" /><span>QOXC 프로토타입</span></div>
+              <div class="kinetic-card"><img src="assets/images/cryo-cartridge.png" alt="극저온 양자 카트리지" class="zoomable-img" /><span>극저온 카트리지</span></div>
+              <div class="kinetic-card"><img src="assets/images/chip-zero01-blueprint.png" alt="ZERO-01 0-MUL 칩 청사진" class="zoomable-img" /><span>ZERO-01 0-MUL</span></div>
+              <div class="kinetic-card"><img src="assets/images/chip-pat35-cpnpu.png" alt="PAT-35 광학 CPNPU" class="zoomable-img" /><span>PAT-35 CPNPU</span></div>
+              <div class="kinetic-card"><img src="assets/images/workstation-exploded.png" alt="알루미늄 AI 워크스테이션" class="zoomable-img" /><span>AI 워크스테이션</span></div>
+              <div class="kinetic-card"><img src="assets/images/datacenter-vision.png" alt="양자 데이터센터 비전" class="zoomable-img" /><span>양자 데이터센터</span></div>
+              <div class="kinetic-card"><img src="assets/images/people-ai-lab.png" alt="사람과 AI가 함께하는 연구소" class="zoomable-img" /><span>사람과 AI 연구소</span></div>
+              <!-- Duplicate for seamless infinite loop -->
+              <div class="kinetic-card" aria-hidden="true"><img src="assets/images/quantum-cavity-exploded.png" alt="" class="zoomable-img" /><span>77K 광학 캐비티</span></div>
+              <div class="kinetic-card" aria-hidden="true"><img src="assets/images/qoxc-prototype.png" alt="" class="zoomable-img" /><span>QOXC 프로토타입</span></div>
+              <div class="kinetic-card" aria-hidden="true"><img src="assets/images/cryo-cartridge.png" alt="" class="zoomable-img" /><span>극저온 카트리지</span></div>
+              <div class="kinetic-card" aria-hidden="true"><img src="assets/images/chip-zero01-blueprint.png" alt="" class="zoomable-img" /><span>ZERO-01 0-MUL</span></div>
+              <div class="kinetic-card" aria-hidden="true"><img src="assets/images/chip-pat35-cpnpu.png" alt="" class="zoomable-img" /><span>PAT-35 CPNPU</span></div>
+              <div class="kinetic-card" aria-hidden="true"><img src="assets/images/workstation-exploded.png" alt="" class="zoomable-img" /><span>AI 워크스테이션</span></div>
+              <div class="kinetic-card" aria-hidden="true"><img src="assets/images/datacenter-vision.png" alt="" class="zoomable-img" /><span>양자 데이터센터</span></div>
+              <div class="kinetic-card" aria-hidden="true"><img src="assets/images/people-ai-lab.png" alt="" class="zoomable-img" /><span>사람과 AI 연구소</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-filters" role="group" aria-label="갤러리 카테고리 필터">
+          <button type="button" class="filter-btn active" data-filter="all">전체</button>
+          <button type="button" class="filter-btn" data-filter="optics">양자 광학 · 77K</button>
+          <button type="button" class="filter-btn" data-filter="chip">반도체 · Cheonbu-81</button>
+          <button type="button" class="filter-btn" data-filter="system">워크스테이션 · 랙</button>
+          <button type="button" class="filter-btn" data-filter="campus">데이터센터 · 연구소</button>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+          <figure class="gallery-item" data-cat="quantum optics">
+            <img src="assets/images/ssot-l1-cavity-rack.jpg" alt="SSOT L1 19인치 5슬롯 74/85mm 캐비티 랙 기구도" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>L1 77K 캐비티 &amp; 19&quot; 5-슬롯 랙 기구</strong>
+              <span>74/85mm 피치 4U 쉘프 + 58×58mm 6N Au+DBR 건식 캐비티</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="chip hardware">
+            <img src="assets/images/cheonbu81-chip-arch.jpg" alt="cheonbu81_qec_top_0mul Sky130 0-MUL 아키텍처 다이어그램" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>cheonbu81_qec_top_0mul (Sky130)</strong>
+              <span>38,957.36 µm² · 129.70 MHz · 111 pins · t:$mul=0</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="system hardware">
+            <img src="assets/images/tier1-workstation.jpg" alt="AXON Tier 1 Mini 4U 개인용 양자 워크스테이션" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>Tier 1: Mini 4U 개인 · 개발자용</strong>
+              <span>5~20Q · 단일 74mm YZ 슬롯 · 0.45 kW 가정용 220V</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="system hardware">
+            <img src="assets/images/tier2-enterprise-rack.jpg" alt="AXON Tier 2 기업용 42U 단일 랙 양자 어플라이언스" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>Tier 2: 기업 · 산업용 42U 단일 랙</strong>
+              <span>100~200Q · 20매 캐비티 + CXL 3.0 / NVMe ZNS</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="system campus">
+            <img src="assets/images/tier3-research-cluster.jpg" alt="AXON Tier 3 연구소 · 대학 메가랙 클러스터" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>Tier 3: 연구소 · 대학 메가-랙 클러스터</strong>
+              <span>1,000~2,000Q · 6×42U + Blue SM-PM OXC + Lustre 100 GB/s</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="system campus">
+            <img src="assets/images/tier4-national-dc.jpg" alt="AXON Tier 4 국가 · 국방 슈퍼컴퓨팅 양자 데이터센터" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>Tier 4: 국가 · 국방 슈퍼컴퓨팅 DC</strong>
+              <span>10,000~100,000+Q · 2층 복층 홀 + MW급 질소 재액화</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="system optics">
+            <img src="assets/images/axon-77k-vs-15mk.jpg" alt="AXON 77K 광양자 vs 15mK 초전도 희석냉동기 전력 및 TCO 비교" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>AXON 77K vs 15mK 초전도 비교</strong>
+              <span>12.0~62.2× 절전 · 83.15~98.58% 5년 TCO 절감 [DERIVED/ASSUMED]</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="quantum optics">
+            <img src="assets/images/qoxc-prototype.png" alt="블랙 골드 AXON QOXC 광교차연결 프로토타입" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>QOXC 광교차연결 프로토타입</strong>
+              <span>블랙 &amp; 6N 골드 기반 77K 광 스위칭 코어</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="quantum optics">
+            <img src="assets/images/cryo-cartridge.png" alt="AXON 극저온 양자 카트리지 분해·조립도" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>극저온 양자 카트리지</strong>
+              <span>YZ 수직 슬롯 수납형 모듈 분해·조립 구조</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="hardware system">
+            <img src="assets/images/workstation-exploded.png" alt="AXON 알루미늄 AI 워크스테이션 분해도" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>알루미늄 소버린 AI 워크스테이션</strong>
+              <span>저소음·고효율 로컬 AI 컴퓨트 모놀리식 섀시</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="campus">
+            <img src="assets/images/datacenter-vision.png" alt="AXON 양자 데이터센터 설계 비전" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>양자 데이터센터 설계 비전</strong>
+              <span>QPU Hall · Optical OXC · Cryo Plant 통합 레이아웃</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="campus">
+            <img src="assets/images/datacenter-campus.png" alt="석양의 AXON 양자 데이터센터 캠퍼스" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>AXON 양자 데이터센터 캠퍼스</strong>
+              <span>지속 가능한 친환경 소버린 인프라 비전</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="campus">
+            <img src="assets/images/future-connection.png" alt="연결의 미래, AXON" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>연결의 미래, AXON</strong>
+              <span>인류와 AI·양자 네트워크가 하나로 이어지는 세계</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="campus">
+            <img src="assets/images/lab-seokmun.png" alt="AXON 석문연구소" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>AXON 석문 연구소</strong>
+              <span>차세대 극저온·광학 실증 거점</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="campus">
+            <img src="assets/images/lab-gasan.png" alt="AXON 가산·구로 디지털단지 거점" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>가산·구로 AI 디지털 거점</strong>
+              <span>광패브릭 데이터센터 및 소프트웨어 R&amp;D 센터</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" data-cat="hardware">
+            <img src="assets/images/axon-emblem.png" alt="AXON 프리미엄 다크 크롬 사슴 엠블럼" loading="lazy" class="zoomable-img" />
+            <figcaption>
+              <strong>AXON 엠블럼</strong>
+              <span>Sovereign AI Quantum 아이덴티티</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE LAB -->
+    <section id="interactive-lab" class="section section-light">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Interactive Playground</span>
+          <h2>직접 만져보는 AXON 엔진</h2>
+          <p>백서 속 수식이 실제로 어떻게 동작하는지 브라우저에서 바로 실험해 보세요.</p>
+        </div>
+
+        <div class="lab-shell">
+          <div class="lab-nav" role="tablist" aria-label="인터랙티브 실험 선택">
+            <button type="button" class="lab-tab active" data-lab="cheonbu" role="tab" aria-selected="true">
+              1. 천부경 9×9 위상 &amp; V-바운스 탐색기
+            </button>
+            <button type="button" class="lab-tab" data-lab="codec" role="tab" aria-selected="false">
+              2. 16B ↔ 81-Trit 무손실 코덱 &amp; 0-SKIP
+            </button>
+            <button type="button" class="lab-tab" data-lab="qec" role="tab" aria-selected="false">
+              3. [[5,1,3]] 0-MUL QEC 단일 사이클 디코더
+            </button>
+            <button type="button" class="lab-tab" data-lab="workstation" role="tab" aria-selected="false">
+              4. 워크스테이션 티어 · 랙 · BOM / 5년 TCO 시뮬레이터
+            </button>
+            <button type="button" class="lab-tab" data-lab="pkt18" role="tab" aria-selected="false">
+              5. 18B (243+13) Fail-Closed 패킷 &amp; 천부81 RTL 인스펙터
+            </button>
+          </div>
+
+          <!-- LAB 1: Cheonbu 9x9 -->
+          <div class="lab-panel active" id="lab-cheonbu" role="tabpanel">
+            <div class="cheonbu-layout">
+              <div>
+                <div class="cheonbu-legend">
+                  <span class="legend-item"><i class="dot dot-pos"></i>天 (+1) ADD / 보강</span>
+                  <span class="legend-item"><i class="dot dot-zero"></i>人 (0) 0-SKIP / 평형</span>
+                  <span class="legend-item"><i class="dot dot-neg"></i>地 (-1) SUB / 상쇄</span>
+                  <span class="legend-item"><i class="dot dot-center"></i>六 중심코어 / 成環 루프</span>
+                </div>
+                <div class="cheonbu-grid" id="cheonbuGrid" role="grid" aria-label="천부경 9x9 81노드 매트릭스"></div>
+              </div>
+
+              <aside class="cheonbu-inspector" id="cheonbuInspector">
+                <div class="inspector-header">
+                  <span class="inspector-char" id="inspChar">六</span>
+                  <div>
+                    <h3 id="inspTitle">원문 41번 · 중심 코어 六</h3>
+                    <p id="inspCoord">좌표 (Row 4, Col 4) · Index 40</p>
+                  </div>
+                </div>
+                <div class="inspector-body">
+                  <div class="insp-row">
+                    <span>3극 상태 (TriPole)</span>
+                    <strong id="inspPole">人 (0) — L1 중심 어큐뮬레이터</strong>
+                  </div>
+                  <div class="insp-row">
+                    <span>소속 링 (Concentric Ring)</span>
+                    <strong id="inspRing">Center Core (0-Hop 수렴점)</strong>
+                  </div>
+                  <div class="insp-row">
+                    <span>77K V-바운스 입사각</span>
+                    <strong id="inspAngle">0.0000° (수직 입사 기준)</strong>
+                  </div>
+                  <div class="insp-row">
+                    <span>77K 총광로 / 비행시간</span>
+                    <strong id="inspTof">6.9789 mm / 23.279 ps</strong>
+                  </div>
+                  <p class="insp-desc" id="inspDesc">
+                    천부경 81자의 정중앙(4,4)으로, 8방위에서 반사되어 들어오는 광신호가 모이는 중심 수렴 노드입니다.
+                  </p>
+                </div>
+              </aside>
+            </div>
+          </div>
+
+          <!-- LAB 2: 16B <-> 81-Trit Codec -->
+          <div class="lab-panel" id="lab-codec" role="tabpanel" hidden>
+            <div class="codec-layout">
+              <div class="codec-input-box">
+                <label for="codecInput">변환할 텍스트 또는 메시지 입력 (최대 16바이트 / UTF-8 절단)</label>
+                <div class="codec-input-row">
+                  <input type="text" id="codecInput" value="AXON Quantum!" maxlength="16" placeholder="예: AXON Sovereign" />
+                  <button type="button" class="btn btn-primary btn-sm" id="codecSampleBtn">샘플 순환</button>
+                </div>
+                <p class="codec-hint">
+                  입력된 바이트를 부호 있는 128비트 정수(<code>i128</code>)로 해석해 81자리 균형 3진수(<code>-1, 0, +1</code>)로 무손실 변환합니다.
+                  (<code>2¹²⁷ &lt; (3⁸¹-1)/2</code> 이므로 오버플로가 불가능합니다.)
+                </p>
+
+                <div class="codec-stats">
+                  <div class="stat-pill">
+                    <span>사용 바이트</span>
+                    <strong id="statBytes">13 / 16 B</strong>
+                  </div>
+                  <div class="stat-pill">
+                    <span>0-SKIP 비율 (人 = 0)</span>
+                    <strong id="statSkip">0%</strong>
+                  </div>
+                  <div class="stat-pill">
+                    <span>무손실 왕복 복원</span>
+                    <strong id="statRoundtrip" class="text-verified">100% 일치</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="codec-output-box">
+                <div class="codec-output-header">
+                  <span>81-Trit 균형 3진수 패킷 (9×9 매핑)</span>
+                  <code id="codecHex">HEX: --</code>
+                </div>
+                <div class="trit-matrix" id="tritMatrix" aria-live="polite"></div>
+                <div class="codec-decoded">
+                  <span>역변환 복원 결과:</span>
+                  <code id="codecDecoded">AXON Quantum!</code>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LAB 3: [[5,1,3]] QEC Decoder -->
+          <div class="lab-panel" id="lab-qec" role="tabpanel" hidden>
+            <div class="qec-layout">
+              <div class="qec-controls">
+                <h3>5-Qubit <code>[[5,1,3]]</code> 코드 오류 주입 테스트</h3>
+                <p class="friendly-copy">
+                  5개의 물리 큐비트 중 하나를 클릭해 X(비트 반전), Z(위상 반전), Y(복합) 오류를 만들어 보세요.
+                  곱셈기 없는 0-MUL 조합회로가 4비트 신드롬을 읽고 1클록 만에 복구합니다.
+                </p>
+                <p class="deep-copy">
+                  <code>[[5,1,3]]</code> Stabilizer 생성자(<code>S0=XZZXI, S1=IXZZX, S2=XIXZZ, S3=ZXIXZ</code>) 기반 단일 사이클 조합논리 디코더입니다.
+                  15종 단일 파울리 오류(X/Y/Z on Q0..Q4)를 4-bit 신드롬 LUT로 즉시 매핑하며 Yosys/ABC 합성 기준 50 gates, 20 4-LUT, 9 logic levels(<code>0.91 ns</code>), <code>t:$mul = 0</code>을 만족합니다.
+                </p>
+                <div class="qubit-cards" id="qubitCards">
+                  <!-- Generated by JS -->
+                </div>
+                <div class="qec-actions">
+                  <button type="button" class="btn btn-ghost btn-sm" id="qecResetBtn">모든 큐비트 초기화 (No Error)</button>
+                </div>
+              </div>
+
+              <div class="qec-result">
+                <div class="qec-meter">
+                  <div>
+                    <span>측정된 4-bit 신드롬 (S₃S₂S₁S₀)</span>
+                    <strong id="qecSyndrome" class="mono">0000</strong>
+                  </div>
+                  <div>
+                    <span>0-MUL 디코더 판정</span>
+                    <strong id="qecDiagnosis">오류 없음 (Clean State)</strong>
+                  </div>
+                  <div>
+                    <span>적용된 Pauli Frame 보정</span>
+                    <strong id="qecCorrection" class="mono">I (No-Op)</strong>
+                  </div>
+                </div>
+                <div class="qec-hw-note">
+                  <span>하드웨어 자원: <strong>50 Gates · 20 4-LUTs · 0 Multipliers · 0.91 ns (조합논리)</strong></span>
+                  <span class="badge badge-verified">Verilog tb_qec_decoder.v 25/25 PASS</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LAB 4: Workstation Tier, Rack & BOM / TCO Simulator -->
+          <div class="lab-panel" id="lab-workstation" role="tabpanel" hidden>
+            <div class="ws-lab-layout">
+              <div class="ws-lab-controls">
+                <h3>워크스테이션 티어 · 랙 · BOM / N년 TCO 시뮬레이터</h3>
+                <p class="friendly-copy">
+                  티어, 환율, 전기요금, 운용 연수를 조절해 77K AXON 워크스테이션과 15mK 초전도 희석냉동기의 Capex·전력비·유지보수 총소유비용(TCO)을 실시간 비교해 보세요.
+                </p>
+                <p class="deep-copy">
+                  <code>AXON_WORKSTATION_DATA</code> SSOT 파라미터 기반 실시간 Capex + Opex(8,760 h/yr × P<sub>wall</sub> × tariff + cryo_maint) 모델입니다.
+                  모든 단가는 <code>[DERIVED/ASSUMED], EQ-01..EQ-12 OPEN</code> 정책이며 <code>fabrication_release: BLOCKED</code> 상태를 유지합니다.
+                </p>
+
+                <div class="ws-lab-field">
+                  <label for="labWsTier">워크스테이션 티어 선택</label>
+                  <select id="labWsTier" class="ws-select">
+                    <option value="tier_1_personal">Tier 1 · 개인용 (5~20Q · Mini 4U · 0.45 kW)</option>
+                    <option value="tier_2_enterprise">Tier 2 · 기업용 (100~200Q · 42U 랙 · 2.5 kW)</option>
+                    <option value="tier_3_research">Tier 3 · 연구소 (1~2KQ · 6×42U+OXC · 15 kW)</option>
+                    <option value="tier_4_national">Tier 4 · 국가 DC (10~100KQ+ · 50+ 랙 · 120 kW)</option>
+                  </select>
+                  <div class="ws-quick-pills">
+                    <button type="button" class="ws-pill-btn active" data-lab-ws-tier="tier_1_personal" aria-pressed="true">Tier 1</button>
+                    <button type="button" class="ws-pill-btn" data-lab-ws-tier="tier_2_enterprise" aria-pressed="false">Tier 2</button>
+                    <button type="button" class="ws-pill-btn" data-lab-ws-tier="tier_3_research" aria-pressed="false">Tier 3</button>
+                    <button type="button" class="ws-pill-btn" data-lab-ws-tier="tier_4_national" aria-pressed="false">Tier 4</button>
+                  </div>
+                </div>
+
+                <div class="ws-lab-field">
+                  <span class="ws-field-label">BOM 단가 밴드 ([DERIVED/ASSUMED])</span>
+                  <div class="ws-band-btns" role="group" aria-label="BOM 단가 밴드 선택">
+                    <button type="button" class="ws-band-btn" data-bom-band="low" aria-pressed="false">Low (양산 절감)</button>
+                    <button type="button" class="ws-band-btn active" data-bom-band="baseline" aria-pressed="true">Baseline (기준)</button>
+                    <button type="button" class="ws-band-btn" data-bom-band="high" aria-pressed="false">High (초기 시제)</button>
+                  </div>
+                </div>
+
+                <div class="ws-lab-sliders">
+                  <div class="ws-slider-row">
+                    <label for="labWsFx">적용 환율: <strong id="labWsFxVal">₩1,350 / $1</strong></label>
+                    <input type="range" id="labWsFx" min="1200" max="1550" step="10" value="1350" />
+                  </div>
+                  <div class="ws-slider-row">
+                    <label for="labWsTariff">산업용 전기요금: <strong id="labWsTariffVal">₩150 / kWh</strong></label>
+                    <input type="range" id="labWsTariff" min="100" max="250" step="5" value="150" />
+                  </div>
+                  <div class="ws-slider-row">
+                    <label for="labWsYears">운용 TCO 기간: <strong id="labWsYearsVal">5년</strong></label>
+                    <input type="range" id="labWsYears" min="1" max="10" step="1" value="5" />
+                  </div>
+                </div>
+
+                <div class="ws-lab-subsystems-card">
+                  <h4>선택 티어 5대 서브시스템 BOM 분해</h4>
+                  <div id="labWsSubsystems" class="ws-subsystems-list"></div>
+                </div>
+              </div>
+
+              <div class="ws-lab-results">
+                <div class="ws-tco-banner">
+                  <div>
+                    <span id="labWsHorizonLabel">5년 TCO (BASELINE)</span>
+                    <strong id="labWsSavingsKrw">₩31.86억 ($2.36M)</strong>
+                    <small>15mK 초전도 대비 예상 순절감액</small>
+                  </div>
+                  <div class="ws-tco-badges">
+                    <div class="ws-tco-pill">
+                      <span>TCO 절감률</span>
+                      <strong id="labWsSavingsPct">98.58%</strong>
+                    </div>
+                    <div class="ws-tco-pill">
+                      <span>전력 효율비</span>
+                      <strong id="labWsPowerRatio">62.2× 절전</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ws-tco-chart-wrap">
+                  <canvas id="tcoCompareCanvas" aria-label="AXON 77K vs 15mK 5년 TCO 비교 차트"></canvas>
+                </div>
+
+                <div class="ws-compare-grid">
+                  <div class="ws-compare-card is-axon">
+                    <span class="ws-compare-tag">AXON 77K 건식 자유공간</span>
+                    <dl>
+                      <div><dt>초기 구축 (Capex)</dt><dd id="labWsAxonCapex">-</dd></div>
+                      <div><dt>누적 전력비</dt><dd id="labWsAxonElec">-</dd></div>
+                      <div><dt>누적 극저온 유지비</dt><dd id="labWsAxonMaint">-</dd></div>
+                      <div class="ws-total-row"><dt>총 TCO 합계</dt><dd id="labWsAxonTco">-</dd></div>
+                    </dl>
+                  </div>
+                  <div class="ws-compare-card is-sc15mk">
+                    <span class="ws-compare-tag">15mK 초전도 희석냉동기</span>
+                    <dl>
+                      <div><dt>초기 구축 (Capex)</dt><dd id="labWs15mkCapex">-</dd></div>
+                      <div><dt>누적 전력비</dt><dd id="labWs15mkElec">-</dd></div>
+                      <div><dt>누적 극저온 유지비</dt><dd id="labWs15mkMaint">-</dd></div>
+                      <div class="ws-total-row"><dt>총 TCO 합계</dt><dd id="labWs15mkTco">-</dd></div>
+                    </dl>
+                  </div>
+                </div>
+
+                <p class="ws-policy-note" id="labWsPolicyNote">[DERIVED/ASSUMED], EQ-01..EQ-12 OPEN · fabrication_release: BLOCKED</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LAB 5: 18B (243+13) Fail-Closed Packet & Cheonbu-81 RTL Inspector -->
+          <div class="lab-panel" id="lab-pkt18" role="tabpanel" hidden>
+            <div class="pkt-layout">
+              <div class="pkt-controls">
+                <h3>18B (243+13) Fail-Closed 패킷 &amp; 천부81 0-SKIP RTL 인스펙터</h3>
+                <p class="friendly-copy">
+                  18바이트 광패킷의 제어 바이트(<code>byte[17]</code>)를 바꾸거나 의도적으로 오류를 주입해 보세요.
+                  도메인 규칙(데이터 0..242, 제어 243..255)을 하나라도 어기면 패킷 전체를 폐기(Fail-Closed)해 큐비트 상태를 보호합니다.
+                </p>
+                <p class="deep-copy">
+                  <code>cheonbu81_qec_top_0mul</code>의 18B 프레임 수신 스테이징 검증기와 타일별 0-SKIP 클록 게이팅(<code>!tile_enable || quarantine || (zero_skip_en &amp;&amp; !mode_soft &amp;&amp; syn==0)</code>)을 실시간 시뮬레이션합니다.
+                </p>
+
+                <div class="pkt-field">
+                  <label for="pktCtrlSelect">Byte[17] 제어 명령 선택 (243..255 유효 / &lt;243 오류)</label>
+                  <select id="pktCtrlSelect" class="ws-select">
+                    <option value="243">243 · CTRL_NOP_SKIP (유휴 / 0-SKIP 유지)</option>
+                    <option value="244">244 · QEC_TRIT_ROUND (3진 QEC 라운드 실행)</option>
+                    <option value="245">245 · SPIRAL_PATH_A (나선 경로 A)</option>
+                    <option value="246">246 · SPIRAL_PATH_B1 (나선 경로 B1)</option>
+                    <option value="247">247 · SPIRAL_PATH_C (나선 경로 C)</option>
+                    <option value="248" selected>248 · PAULI_FRAME_COMMIT (Pauli 프레임 커밋)</option>
+                    <option value="249">249 · PAULI_FRAME_RESET (Pauli 프레임 초기화)</option>
+                    <option value="250">250 · SEONGHWAN_SYNC (성환 루프 동기)</option>
+                    <option value="251">251 · ERASURE_MASK_LATCH (소실 마스크 래치)</option>
+                    <option value="252">252 · RING_SCALE_SHIFT (동심원 링 시프트)</option>
+                    <option value="253">253 · TELEMETRY_READOUT (119-bit 텔레메트리 송신)</option>
+                    <option value="254">254 · HOTSWAP_PARAM_COMMIT (Soft-IQ 핫스왑)</option>
+                    <option value="255">255 · EMERGENCY_ZERO_SKIP (비상 전 타일 0-SKIP 차단)</option>
+                    <option value="200">200 · [INVALID &lt; 243] ERR_CTRL_RANGE 테스트</option>
+                    <option value="0">0 · [INVALID &lt; 243] ERR_CTRL_RANGE 테스트</option>
+                  </select>
+                </div>
+
+                <div class="pkt-checks">
+                  <label class="pkt-check-item">
+                    <input type="checkbox" id="pktCorruptByteCheck" />
+                    <span>데이터 도메인 오염 주입 (<code>byte[5] = 248 ≥ 243</code> → ERR_DATA_GE_243)</span>
+                  </label>
+                  <label class="pkt-check-item">
+                    <input type="checkbox" id="pktPadCheck" />
+                    <span>패딩 트릿 비영(Non-zero) 주입 (<code>trits[81..84] ≠ 0</code> → ERR_PAD_TRITS_NZ)</span>
+                  </label>
+                  <label class="pkt-check-item">
+                    <input type="checkbox" id="pktRxLastCheck" checked />
+                    <span>정상 18B 프레임 길이 (<code>rx_last == 17</code>, 해제 시 ERR_FRAME_LEN)</span>
+                  </label>
+                  <label class="pkt-check-item">
+                    <input type="checkbox" id="pktZeroSkipCheck" checked />
+                    <span>0-SKIP 클록 게이팅 활성화 (<code>zero_skip_en</code>)</span>
+                  </label>
+                  <label class="pkt-check-item">
+                    <input type="checkbox" id="pktSoftModeCheck" />
+                    <span>Soft-IQ 연속 모드 (<code>mode_soft</code> 활성화 시 0-SKIP 우회)</span>
+                  </label>
+                </div>
+
+                <div class="pkt-tile-section">
+                  <div class="pkt-tile-head">
+                    <span>3×3 = 9 타일 신드롬 토글 (클릭해 신드롬 활성/비활성 전환)</span>
+                    <button type="button" class="btn btn-ghost btn-sm" id="pktResetBtn">기본값 초기화</button>
+                  </div>
+                  <div id="pktTileGrid" class="pkt-tile-grid" aria-label="천부81 3x3 9타일 0-SKIP 상태 그리드"></div>
+                </div>
+              </div>
+
+              <div class="pkt-results">
+                <div class="pkt-verdict-card">
+                  <div class="pkt-verdict-top">
+                    <span id="pktVerdictBadge" class="pkt-verdict-badge is-commit">COMMIT_81_GRID</span>
+                    <code id="pktErrorFlags" class="pkt-err-flags">0x0 (ALL CHECKS PASS)</code>
+                  </div>
+                  <h4 id="pktVerdictTitle">원자적 커밋 완료 (248 · PAULI_FRAME_COMMIT)</h4>
+                  <p id="pktVerdictDesc">스테이징 버퍼의 V4 XOR Pauli 프레임을 원자적으로 커밋합니다.</p>
+                </div>
+
+                <div class="pkt-dump-card">
+                  <div class="pkt-dump-head">
+                    <span>18-Byte 패킷 프레임 덤프 (Bytes 0..16 Data + Byte 17 Ctrl)</span>
+                    <strong id="pktSkipCount">2 / 9 활성 실행 · 7 / 9 0-SKIP 클램프</strong>
+                  </div>
+                  <div id="pktByteDump" class="pkt-byte-dump"></div>
+                </div>
+
+                <div class="pkt-rtl-summary">
+                  <div><span>토폴로지</span><strong id="pktNodeSummary">3×3 = 9 Tiles (45 Data + 36 Ancilla = 81 nodes)</strong></div>
+                  <div><span>119-bit TX 안전성</span><strong id="pktTxSafety">119-bit TX: 17B (7-bit/B &lt; 128 &lt; 243) + Byte[17]=253 → 대역 충돌 0건 (Safe)</strong></div>
+                  <div><span>Sky130 RTL 지표</span><strong id="pktRtlMetrics">Sky130: 38,957.36 µm² · 4,749 cells · 7.710 ns (129.7 MHz) · 111 pins · t:$mul=0</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVIDENCE & HONESTY LEDGER -->
+    <section id="evidence" class="section section-dark">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Evidence &amp; Safety Gate</span>
+          <h2>검증된 사실과 앞으로 풀어야 할 과제를 투명하게 나눕니다</h2>
+          <p>
+            AXON은 검증되지 않은 추정을 사실처럼 포장하지 않습니다. 현재 <code>fabrication_release: BLOCKED</code> 안전 게이트 아래 단계별 실증을 진행하고 있습니다.
+          </p>
+        </div>
+
+        <!-- Safety Gate & Evidence Summary Strip -->
+        <div class="evidence-summary-grid">
+          <div class="safety-gate-card">
+            <div class="safety-gate-head">
+              <div>
+                <span class="safety-gate-eyebrow">HARDWARE SAFETY GATE · SSOT VII.2</span>
+                <h3>제작 릴리스 상태: <code class="gate-blocked">BLOCKED</code></h3>
+              </div>
+              <span class="gate-progress-pill">해제 조건 0 / 4 충족</span>
+            </div>
+            <div class="gate-checklist">
+              <div class="gate-check-item">
+                <span class="gate-dot pending"></span>
+                <span>1. 상온 무압력 더미 조립체 기구 치수·공차 전수 검사</span>
+              </div>
+              <div class="gate-check-item">
+                <span class="gate-dot pending"></span>
+                <span>2. 공인 자격자 ASME/KGS 극저온 압력용기 및 PRV 오리피스 사이징</span>
+              </div>
+              <div class="gate-check-item">
+                <span class="gate-dot pending"></span>
+                <span>3. 시설 산소결핍(ODH) 2중 감지 및 강제 비상 배기 구축</span>
+              </div>
+              <div class="gate-check-item">
+                <span class="gate-dot pending"></span>
+                <span>4. 광학 경로 <code>g⁽²⁾(0)</code>, HOM 가시도(&gt;90%), Bell 부등식(<code>|S|&gt;2</code>) 계측</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="evidence-kpi-grid">
+            <div class="evidence-kpi">
+              <span class="kpi-num cyan">200,768</span>
+              <span class="kpi-label">Rust↔Verilog 5Q 비트 일치</span>
+            </div>
+            <div class="evidence-kpi">
+              <span class="kpi-num green">t:$mul = 0</span>
+              <span class="kpi-label">Yosys/ABC 물리 곱셈기</span>
+            </div>
+            <div class="evidence-kpi">
+              <span class="kpi-num gold">38,957.36 µm²</span>
+              <span class="kpi-label">Cheonbu-81 Sky130 (4,749 cells · 631 FF)</span>
+            </div>
+            <div class="evidence-kpi">
+              <span class="kpi-num cyan">129.70 MHz</span>
+              <span class="kpi-label">Sky130 7.710 ns · 111 pins (-72.9%)</span>
+            </div>
+            <div class="evidence-kpi">
+              <span class="kpi-num green">BMC rc=0</span>
+              <span class="kpi-label">SymbiYosys 형식 검증 · 9/9 cosim</span>
+            </div>
+            <div class="evidence-kpi">
+              <span class="kpi-num">140.99mm</span>
+              <span class="kpi-label">77K 4-반사 링 1-lap 광로</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="evidence-filters" role="tablist" aria-label="증거 등급 필터">
+          <button type="button" class="ev-filter-btn active" data-ev-filter="all">전체 항목 (9)</button>
+          <button type="button" class="ev-filter-btn" data-ev-filter="verified">검증·합성 완료 (3)</button>
+          <button type="button" class="ev-filter-btn" data-ev-filter="sim">시뮬레이션·추정 모델 (4)</button>
+          <button type="button" class="ev-filter-btn" data-ev-filter="blocked">제작 안전 게이트 (2)</button>
+        </div>
+
+        <div class="ledger-table-wrap">
+          <table class="ledger-table" id="evidenceTable">
+            <thead>
+              <tr>
+                <th>기술 영역</th>
+                <th>현재 증거 등급</th>
+                <th>검증 내용 및 정량 수치</th>
+                <th>남은 과제 (Next Gate)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-ev-cat="verified">
+                <td><strong>Cheonbu-81 Sky130 RTL &amp; Formal BMC</strong></td>
+                <td><span class="badge badge-verified">VERIFIED · SYNTHESIZED · FORMAL-PROVED</span></td>
+                <td><code>cheonbu81_qec_top_0mul</code> Sky130 합성: <code>38,957.36 µm²</code>, <code>4,749 cells (631 FF)</code>, <code>7.710 ns / 129.70 MHz</code>, <code>111 pins (-72.9% vs 409)</code>, <code>t:$mul = 0</code>, SymbiYosys BMC <code>rc=0</code>, <code>iverilog 9/9 PASS</code>, <code>18B (243+13)</code> Fail-Closed</td>
+                <td>OpenLane2 P&amp;R/DRC/LVS 로컬 실행 및 77K 파운드리 코너 STA</td>
+              </tr>
+              <tr data-ev-cat="verified">
+                <td><strong>0-MUL 연산기 &amp; 5Q QEC RTL</strong></td>
+                <td><span class="badge badge-verified">VERIFIED · SYNTHESIZED</span></td>
+                <td>Rust↔Verilog 비트 일치 200,768회 PASS, Yosys/ABC 합성 <code>t:$mul = 0</code> (5Q 디코더 20 LUT, <code>0.91 ns</code>)</td>
+                <td>77K 파운드리 코너 STA 및 실리콘 테이프아웃</td>
+              </tr>
+              <tr data-ev-cat="verified">
+                <td><strong>Cheonbu-81 v0.4 코덱</strong></td>
+                <td><span class="badge badge-verified">CODE-VERIFIED</span></td>
+                <td>16B↔81-Trit 전단사 SHA-256 100% 일치, Pure ASCII CUDA 커널 단위 테스트 31/31 + Rust 12/12 PASS</td>
+                <td>실제 멀티GPU/광패브릭 대규모 텐서 벤치마크</td>
+              </tr>
+              <tr data-ev-cat="sim">
+                <td><strong>[[5,1,3]] &amp; 81-노드 QPU 시뮬</strong></td>
+                <td><span class="badge badge-sim">SIMULATED</span></td>
+                <td>CliffordSim128 단일 파울리 135건 + 모의 소실 180건 통과, 라이브러리 29/29 &amp; 통합 14/14 PASS</td>
+                <td>물리 큐비트 펄스 레벨 QEC 및 실시간 피드백 실측</td>
+              </tr>
+              <tr data-ev-cat="sim">
+                <td><strong>77K 자유공간 광학 캐비티</strong></td>
+                <td><span class="badge badge-sim">IDEALIZED_SIMULATION</span></td>
+                <td>기하 광로(140.994mm/lap, 0.4703ns), V-바운스 입사각, 반사율 민감도 200k 샘플링 검증 완료</td>
+                <td>6N 골드+DBR 77K 정반사율, <code>g⁽²⁾(0)</code>, HOM 간섭, Bell 부등식 실측</td>
+              </tr>
+              <tr data-ev-cat="sim">
+                <td><strong>Physics World &amp; 3D 디지털 트윈</strong></td>
+                <td><span class="badge badge-sim">CODE-VERIFIED · SIMULATED</span></td>
+                <td>NVIDIA Warp 1.19 + PhysicsNeMo + DeepQuantum 4.5 + Rust <code>axon-toolkit-core</code>(3/3 PASS), Unity 6·Blender 5.2·Three.js 연동</td>
+                <td>77K 실측 데이터 피팅 및 CUDA 커널 실시간 동기화</td>
+              </tr>
+              <tr data-ev-cat="sim">
+                <td><strong>4-Tier 워크스테이션 BOM &amp; 5년 TCO</strong></td>
+                <td><span class="badge badge-sim">DERIVED / ASSUMED</span></td>
+                <td>Tier 1~4(5Q~100KQ+) Capex/전력/TCO 모델 산출(15mK 대비 83.15~98.58% TCO 절감 추정, EQ-01..EQ-12 OPEN)</td>
+                <td>실제 벤더 RFQ 견적 확보 및 진동 마운트(<code>[UNCONFIRMED]</code>) 확정</td>
+              </tr>
+              <tr data-ev-cat="blocked">
+                <td><strong>OpenLane2 P&amp;R / DRC / LVS 물리 레이아웃</strong></td>
+                <td><span class="badge badge-target">NOT_RUN_IN_SANDBOX · BLOCKED</span></td>
+                <td><code>cheonbu81_qec_top_0mul</code> OpenLane2 P&amp;R / DRC / LVS <code>[NOT_RUN_IN_SANDBOX]</code> (Die 340×340 µm, Core util 43.29% 목표 사전 구성)</td>
+                <td>OpenLane2 + Magic DRC + Netgen LVS 풀 플로우 실행 및 GDSII Sign-off</td>
+              </tr>
+              <tr data-ev-cat="blocked">
+                <td><strong>PCB Rev A2 / 캐비티 Rev C</strong></td>
+                <td><span class="badge badge-target">ENGINEERING · BLOCKED</span></td>
+                <td>75×75mm 6층 PCB 및 58×58mm 리드, 19&quot; 5슬롯(74/85mm) RFQ 도면 동기화 완료</td>
+                <td>상온 더미 공차 검사, ASME/KGS 압력용기 및 ODH 안전 승인 후 제작 해제</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPANION / ECOSYSTEM -->
+    <section id="companion" class="section section-light">
+      <div class="container companion-grid">
+        <div class="companion-copy">
+          <span class="section-tag">Friend of the World</span>
+          <h2>소버린 AI Quantum의 여정에 함께하세요</h2>
+          <p>
+            AXON 양자기술은 거대한 독점 기업만의 전유물이 아닌, 인류와 개발자, 산업 현장의 든든한 친구를 지향합니다.
+            극저온 광학 연구자, FPGA/ASIC 엔지니어, Rust &amp; CUDA 개발자, 그리고 소버린 AI 인프라를 꿈꾸는 모든 파트너에게 열려 있습니다.
+          </p>
+          <figure class="companion-photo">
+            <img src="assets/images/people-ai-lab.png" alt="사람과 AI가 함께하는 AXON 연구소" loading="lazy" class="zoomable-img" />
+            <figcaption>사람과 AI가 함께 연구하고 호흡하는 AXON 연구소</figcaption>
+          </figure>
+          <div class="companion-tracks">
+            <div class="track-pill">
+              <strong>77K 극저온 광학</strong>
+              <span>6N Au+DBR 미러 · HOM · Bell 계측</span>
+            </div>
+            <div class="track-pill">
+              <strong>0-MUL RTL / Sky130</strong>
+              <span>5Q 20 LUT · Cheonbu-81 129.7 MHz</span>
+            </div>
+            <div class="track-pill">
+              <strong>Rust · CUDA · Physics World</strong>
+              <span>Cheonbu-81 · Warp · DeepQuantum</span>
+            </div>
+          </div>
+          <div class="companion-tags">
+            <span>Rust Reference Models</span>
+            <span>Synthesizable Verilog RTL</span>
+            <span>OpenQASM 3.0 → T-ASM</span>
+            <span>77K Cryo-Optics</span>
+            <span>Pure ASCII CUDA</span>
+            <span>NVIDIA Warp · DeepQuantum</span>
+            <span>Unity 6 · Blender 5.2 3D</span>
+          </div>
+        </div>
+
+        <div class="companion-card">
+          <div class="companion-card-head">
+            <div>
+              <h3>함께 시작할 수 있는 워크플로우</h3>
+              <p>로컬 워크스페이스에서 지금 바로 AXON 검증 스위트를 실행해 볼 수 있습니다.</p>
+            </div>
+          </div>
+
+          <div class="wf-tabs" role="tablist" aria-label="워크플로우 카테고리">
+            <button type="button" class="wf-tab active" data-wf="rust">Rust &amp; 0-MUL</button>
+            <button type="button" class="wf-tab" data-wf="rtl">Verilog QEC RTL</button>
+            <button type="button" class="wf-tab" data-wf="physics">Physics World &amp; 3D</button>
+          </div>
+
+          <div class="code-box-wrap">
+            <div class="code-box-toolbar">
+              <span class="code-box-label" id="wfLabel">0-MUL &amp; Cheonbu-81 Rust 검증 스위트</span>
+              <div class="code-box-actions">
+                <button type="button" class="wf-btn" id="wfPreviewToggle">예상 출력 보기</button>
+                <button type="button" class="wf-btn primary" id="wfCopyBtn">명령어 복사</button>
+              </div>
+            </div>
+            <pre class="code-block" id="wfCodeBlock"><code># 1. 0-MUL &amp; Cheonbu-81 전체 Rust 테스트 (29 lib + 14 QEC + 12 top + 31 v0.4)
+cargo test
+
+# 2. 100-1000 큐비트 극저온 스케일링 시뮬레이터
+cargo run --release --bin scale_sim</code></pre>
+            <pre class="code-output" id="wfOutputBlock" hidden><code>test result: ok. 86 passed; 0 failed; 0 ignored
+[AXON-SCALE] 100Q (20 tiles): 77K inner loop 0.91ns &lt; 2-lap 0.9406ns -&gt; PASS</code></pre>
+          </div>
+
+          <div class="companion-doc-grid">
+            <a href="workflow.html" class="doc-card-link">
+              <span class="doc-badge">24M ROADMAP</span>
+              <div>
+                <strong>AXON Quantum 개발 워크플로우 &amp; 체크리스트</strong>
+                <small>6대 도메인 · 4대 안전 게이트 · M1~M24 인터랙티브 체크리스트</small>
+              </div>
+            </a>
+            <a href="../AXON_QUANTUM_MASTER_EXECUTION_BLUEPRINT.md" class="doc-card-link">
+              <span class="doc-badge">BLUEPRINT</span>
+              <div>
+                <strong>마스터 실행 블루프린트 (기술·벤더·예산·Gap)</strong>
+                <small>소버린 AI × 77K QPU 전 계층 통합 마스터 문서</small>
+              </div>
+            </a>
+            <a href="../AXON_QUANTUM_SSOT.md" class="doc-card-link">
+              <span class="doc-badge">SSOT</span>
+              <div>
+                <strong>AXON Quantum SSOT v1.2.0</strong>
+                <small>6대 불변 공리 · 77K 광로 · 안전 게이트 기준</small>
+              </div>
+            </a>
+            <a href="../RTL_PPA_SYNTHESIS_REPORT.md" class="doc-card-link">
+              <span class="doc-badge">RTL</span>
+              <div>
+                <strong>RTL PPA 합성 보고서</strong>
+                <small>Yosys/ABC t:$mul=0 · 20 LUT · 지연 분석</small>
+              </div>
+            </a>
+            <a href="../PATENT_36_SPECIFICATION.md" class="doc-card-link">
+              <span class="doc-badge">PAT-36</span>
+              <div>
+                <strong>특허 36 (AXON-PAT-36)</strong>
+                <small>9×9 천부경 캐비티 &amp; 성환 위상 잠금 명세</small>
+              </div>
+            </a>
+            <a href="../AXON_CHEONBU81_CHIP_EDA_ALIGNMENT_SPEC.md" class="doc-card-link">
+              <span class="doc-badge">EDA</span>
+              <div>
+                <strong>Cheonbu-81 Chip &amp; EDA 정합 명세</strong>
+                <small>Sky130 38,957.36 µm² · 129.7 MHz · BMC rc=0</small>
+              </div>
+            </a>
+            <a href="../AXON_Qubit_Workstation_Tiers_and_BOM_Report.md" class="doc-card-link">
+              <span class="doc-badge">BOM</span>
+              <div>
+                <strong>4-Tier 워크스테이션 · BOM · TCO 보고서</strong>
+                <small>Tier 1~4 기구 · CXL/NVMe · [DERIVED/ASSUMED]</small>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="assets/images/axon-emblem.png" alt="AXON 엠블럼" class="footer-emblem" />
+        <div>
+          <strong>AXON Quantum Tech</strong>
+          <p>Sovereign AI × 77K Photonic-Ternary Quantum Architecture</p>
+        </div>
+      </div>
+      <p class="footer-note">
+        Baseline: AXON-SSOT-QUANTUM-2026 (v1.2.0) · Evidence-First Engineering
+      </p>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="이미지 확대 보기" hidden>
+    <button type="button" class="lightbox-close" id="lightboxClose" aria-label="닫기">&times;</button>
+    <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="이전 이미지">&#8249;</button>
+    <div class="lightbox-content">
+      <img id="lightboxImg" src="" alt="" />
+      <p id="lightboxCaption"></p>
+    </div>
+    <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="다음 이미지">&#8250;</button>
+  </div>
+
+  <script src="workstation_data.js"></script>
+  <script src="workstation_lab.js"></script>
+  <script src="app.js"></script>
+  <script type="module" src="axon3d.js"></script>
+</body>
+</html>

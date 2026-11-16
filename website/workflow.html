@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AXON Quantum — 개발 워크플로우 &amp; 제작승인 체크리스트</title>
+  <meta name="description" content="AXON Sovereign AI Quantum 6대 도메인 개발 워크플로우, Gate 1~4 제작승인 게이트, 워크로드 및 기업·벤더 디렉토리." />
+  <link rel="icon" type="image/png" href="assets/images/axon-emblem.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="workflow.css" />
+</head>
+<body class="wf-page">
+  <a href="#main" class="skip-link">본문으로 바로가기</a>
+
+  <!-- Top Navigation -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html#top" class="brand" aria-label="AXON Quantum 홈">
+        <span class="brand-mark">
+          <img src="assets/images/axon-emblem.png" alt="AXON 엠블럼" />
+        </span>
+        <span class="brand-text">
+          <strong>AXON</strong>
+          <span>Sovereign AI Quantum</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" id="wfMainNav" aria-label="주요 메뉴">
+        <a href="index.html#vision">비전</a>
+        <a href="index.html#axon-3d-engine">3D 엔진</a>
+        <a href="index.html#architecture">핵심 기술</a>
+        <a href="index.html#workstation-tiers">워크스테이션 · BOM</a>
+        <a href="index.html#evidence">검증</a>
+        <a href="workflow.html" class="active" aria-current="page">개발 워크플로우</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="index.html" class="btn btn-ghost btn-sm wf-home-btn">메인으로</a>
+        <button type="button" class="mobile-menu-btn" id="wfMobileMenuBtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="wfMainNav">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Dashboard Hero / Summary -->
+    <section class="wf-hero" aria-labelledby="wfPageTitle">
+      <div class="container">
+        <div class="wf-hero-top">
+          <div class="wf-hero-intro">
+            <p class="hero-kicker">
+              <span class="pulse-dot" aria-hidden="true"></span>
+              AXON-SSOT-QUANTUM · 24-Month Engineering Roadmap
+            </p>
+            <h1 id="wfPageTitle">개발 워크플로우 &amp; 제작승인 체크리스트</h1>
+            <p class="wf-hero-lead">
+              RTL·광학 캐비티·77K 극저온·소버린 AI·워크스테이션·법무/특허 6대 도메인의 개발 태스크와
+              <strong>Gate 1~4 제작승인(Fabrication Release)</strong> 통과 조건을 실시간으로 추적합니다.
+            </p>
+          </div>
+
+          <div class="wf-controls-bar" role="group" aria-label="체크리스트 상태 관리">
+            <span class="wf-supa-badge offline mono" id="wfSupaBadge">로컬 모드</span>
+            <button type="button" class="btn btn-primary btn-sm" id="wfSupaToggleBtn" aria-expanded="false" aria-controls="wfSupaPanel">
+              Supabase 연동 · 로그
+            </button>
+            <button type="button" class="btn btn-ghost btn-sm" id="wfExportBtn">
+              진행상태 내보내기 (JSON)
+            </button>
+            <button type="button" class="btn btn-ghost btn-sm" id="wfImportBtn">
+              불러오기 (JSON)
+            </button>
+            <input type="file" id="wfImportInput" accept="application/json,.json" hidden />
+            <button type="button" class="btn btn-ghost btn-sm wf-btn-danger" id="wfResetBtn">
+              기본값으로 초기화
+            </button>
+          </div>
+        </div>
+
+        <!-- Supabase Cloud Sync & Experiment Log Drawer -->
+        <div class="wf-supa-panel" id="wfSupaPanel" hidden>
+          <div class="wf-supa-grid">
+            <div class="wf-supa-card">
+              <div class="wf-supa-card-head">
+                <h3>Supabase 클라우드 동기화 설정</h3>
+                <a href="supabase_schema.sql" download class="wf-link-pill mono">schema.sql 다운로드</a>
+              </div>
+              <p class="wf-supa-help">
+                Supabase 대시보드 SQL Editor에서 <code>supabase_schema.sql</code>을 실행한 뒤, Project URL과 Anon(Publishable) Key를 입력하세요.
+              </p>
+              <div class="wf-supa-form">
+                <input type="url" id="wfSupaUrl" class="wf-input mono" placeholder="https://your-project.supabase.co" autocomplete="off" />
+                <input type="password" id="wfSupaKey" class="wf-input mono" placeholder="sb_publishable_... 또는 eyJ..." autocomplete="off" />
+                <div class="wf-supa-btn-row">
+                  <button type="button" class="btn btn-primary btn-sm" id="wfSupaConnectBtn">저장 및 연결</button>
+                  <button type="button" class="btn btn-ghost btn-sm" id="wfSupaPullBtn">클라우드에서 불러오기 (Pull)</button>
+                  <button type="button" class="btn btn-ghost btn-sm" id="wfSupaPushBtn">현재 상태 업로드 (Push)</button>
+                  <button type="button" class="btn btn-ghost btn-sm wf-btn-danger" id="wfSupaDisconnectBtn">연결 해제</button>
+                </div>
+              </div>
+              <details class="wf-supa-auth-details">
+                <summary>관리자 로그인 (RLS 인증 모드 사용 시 선택)</summary>
+                <div class="wf-supa-auth-row">
+                  <input type="email" id="wfSupaEmail" class="wf-input" placeholder="admin@axon.local" />
+                  <input type="password" id="wfSupaPass" class="wf-input" placeholder="비밀번호" />
+                  <button type="button" class="btn btn-ghost btn-sm" id="wfSupaLoginBtn">로그인</button>
+                  <button type="button" class="btn btn-ghost btn-sm" id="wfSupaLogoutBtn" hidden>로그아웃</button>
+                </div>
+              </details>
+            </div>
+
+            <div class="wf-supa-card">
+              <div class="wf-supa-card-head">
+                <h3>R&amp;D 실험 · 실측 로그 (Cloud Lab Note)</h3>
+                <button type="button" class="btn btn-ghost btn-sm" id="wfLogRefreshBtn">새로고침</button>
+              </div>
+              <div class="wf-supa-log-form">
+                <div class="wf-supa-log-row">
+                  <input type="text" id="wfLogTaskId" class="wf-input mono" placeholder="태스크 ID (예: SIL-04)" />
+                  <select id="wfLogTier" class="wf-select">
+                    <option value="[TARGET]">[TARGET]</option>
+                    <option value="[SIMULATED]">[SIMULATED]</option>
+                    <option value="[MEASURED]">[MEASURED]</option>
+                    <option value="[VERIFIED]">[VERIFIED]</option>
+                  </select>
+                </div>
+                <input type="text" id="wfLogTitle" class="wf-input" placeholder="실험/진행 제목 (예: OpenLane P&R 1차 통과)" />
+                <textarea id="wfLogNotes" class="wf-input wf-textarea" rows="2" placeholder="측정 수치, 벤더 회신, 이슈 메모..."></textarea>
+                <button type="button" class="btn btn-primary btn-sm" id="wfLogAddBtn">클라우드 로그 저장</button>
+              </div>
+              <div class="wf-supa-logs-list" id="wfSupaLogsList">
+                <p class="wf-supa-empty">Supabase에 연결하면 클라우드 실험 로그가 표시됩니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Dashboard Cards -->
+        <div class="wf-kpi-grid" aria-label="전체 진행 요약">
+          <div class="wf-kpi-card wf-kpi-progress">
+            <div class="wf-kpi-head">
+              <span class="wf-kpi-label">전체 개발 진행률</span>
+              <span class="wf-kpi-pct mono" id="wfTotalPct">0%</span>
+            </div>
+            <div class="wf-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="wfTotalBarWrap">
+              <div class="wf-progress-fill" id="wfTotalBar" style="width: 0%"></div>
+            </div>
+            <div class="wf-kpi-sub">
+              <span>완료 태스크: <strong class="mono" id="wfDoneCount">0 / 0</strong></span>
+              <span>P0 필수 완료: <strong class="mono" id="wfP0Count">0 / 0</strong></span>
+            </div>
+          </div>
+
+          <div class="wf-kpi-card wf-kpi-gate">
+            <div class="wf-kpi-head">
+              <span class="wf-kpi-label">fabrication_release 게이트</span>
+              <span class="wf-gate-pill blocked mono" id="wfFabReleaseBadge">BLOCKED</span>
+            </div>
+            <p class="wf-gate-desc" id="wfFabReleaseDesc">
+              Gate 1~4 모든 필수 게이트가 완료되면 READY 상태로 전환됩니다.
+            </p>
+            <div class="wf-gate-mini-row mono" id="wfGateMiniRow"></div>
+          </div>
+        </div>
+
+        <!-- 6 Domain Mini Progress Bars -->
+        <div class="wf-domain-strip" id="wfDomainStrip" role="group" aria-label="6대 도메인별 진행률 (클릭하여 필터링)">
+          <!-- Populated by workflow_app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Gate 1~4 Panel -->
+    <section class="wf-section wf-section-gates" aria-labelledby="wfGatesHeading">
+      <div class="container">
+        <div class="wf-section-head">
+          <div>
+            <span class="wf-eyebrow mono">FABRICATION RELEASE GATES</span>
+            <h2 id="wfGatesHeading">Gate 1~4 제작승인 게이트</h2>
+          </div>
+          <p class="wf-section-note">각 게이트에 연결된 태스크가 100% 완료되면 해당 게이트가 PASS 상태로 전환됩니다.</p>
+        </div>
+        <div class="wf-gates-grid" id="wfGatesGrid">
+          <!-- Populated by workflow_app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter & Interactive Checklist -->
+    <section class="wf-section wf-section-checklist" aria-labelledby="wfChecklistHeading">
+      <div class="container">
+        <div class="wf-section-head">
+          <div>
+            <span class="wf-eyebrow mono">INTERACTIVE CHECKLIST · LOCALSTORAGE SYNC</span>
+            <h2 id="wfChecklistHeading">도메인별 실행 태스크 체크리스트</h2>
+          </div>
+          <span class="wf-result-count mono" id="wfResultCount">0개 항목 표시</span>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="wf-filter-panel">
+          <div class="wf-milestone-tabs" id="wfMilestoneTabs" role="tablist" aria-label="마일스톤 필터">
+            <button type="button" class="wf-tab active" data-milestone="ALL" role="tab" aria-selected="true">전체</button>
+            <button type="button" class="wf-tab" data-milestone="M1-M6" role="tab" aria-selected="false">M1-M6</button>
+            <button type="button" class="wf-tab" data-milestone="M7-M12" role="tab" aria-selected="false">M7-M12</button>
+            <button type="button" class="wf-tab" data-milestone="M13-M18" role="tab" aria-selected="false">M13-M18</button>
+            <button type="button" class="wf-tab" data-milestone="M19-M24" role="tab" aria-selected="false">M19-M24</button>
+          </div>
+
+          <div class="wf-filter-controls">
+            <label class="wf-field">
+              <span class="sr-only">도메인 선택</span>
+              <select id="wfDomainFilter" class="wf-select" aria-label="도메인 필터">
+                <option value="ALL">전체 도메인</option>
+              </select>
+            </label>
+
+            <label class="wf-field">
+              <span class="sr-only">상태 필터</span>
+              <select id="wfStatusFilter" class="wf-select" aria-label="상태 필터">
+                <option value="ALL">전체 상태</option>
+                <option value="TODO">미완료만</option>
+                <option value="DONE">완료만</option>
+                <option value="P0">P0 필수만</option>
+              </select>
+            </label>
+
+            <label class="wf-field wf-search-field">
+              <span class="sr-only">태스크 검색</span>
+              <input
+                type="search"
+                id="wfSearchInput"
+                class="wf-input"
+                placeholder="ID, 제목, 부품, 벤더, 파일명 검색..."
+                aria-label="태스크 실시간 검색"
+              />
+            </label>
+          </div>
+        </div>
+
+        <!-- Checklist Items -->
+        <div class="wf-checklist-list" id="wfChecklistList" aria-live="polite">
+          <!-- Populated by workflow_app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture Diagram Gallery -->
+    <section class="wf-section wf-section-gallery" aria-labelledby="wfGalleryHeading">
+      <div class="container">
+        <div class="wf-section-head">
+          <div>
+            <span class="wf-eyebrow mono">SYSTEM ARCHITECTURE DIAGRAMS</span>
+            <h2 id="wfGalleryHeading">아키텍처 다이어그램 갤러리</h2>
+          </div>
+          <p class="wf-section-note">카드를 클릭하면 라이트박스 모달에서 고해상도로 확대해 볼 수 있습니다.</p>
+        </div>
+
+        <div class="wf-gallery-grid" id="wfGalleryGrid">
+          <figure class="wf-gallery-card" tabindex="0" role="button" data-idx="0" aria-label="소버린 AI Quantum 전체 아키텍처 확대 보기">
+            <div class="wf-gallery-thumb">
+              <img src="assets/images/axon_sovereign_ai_quantum_arch.jpg" alt="AXON Sovereign AI Quantum 전체 시스템 아키텍처 다이어그램" loading="lazy" />
+            </div>
+            <figcaption>
+              <span class="wf-badge badge-cyan mono">ARCH-01</span>
+              <strong>AXON Sovereign AI Quantum 전체 아키텍처</strong>
+              <p>0-MUL 코어, 77K 자유공간 광학 캐비티, 243+13 WDM 코덱 통합 계층 구조</p>
+            </figcaption>
+          </figure>
+
+          <figure class="wf-gallery-card" tabindex="0" role="button" data-idx="1" aria-label="Cheonbu-81 칩 및 캐비티 플로어플랜 확대 보기">
+            <div class="wf-gallery-thumb">
+              <img src="assets/images/cheonbu81_chip_cavity_floorplan.jpg" alt="Cheonbu-81 Sky130 9타일 칩 및 58x58mm 광학 캐비티 플로어플랜" loading="lazy" />
+            </div>
+            <figcaption>
+              <span class="wf-badge badge-gold mono">ARCH-02</span>
+              <strong>Cheonbu-81 칩 &amp; 캐비티 플로어플랜</strong>
+              <p>Sky130 9타일 QEC 코어(38,957.36 µm²) 및 58×58 mm 6N 골드 4-반사 링 캐비티</p>
+            </figcaption>
+          </figure>
+
+          <figure class="wf-gallery-card" tabindex="0" role="button" data-idx="2" aria-label="AXON Quantum 4-Tier 로드맵 확대 보기">
+            <div class="wf-gallery-thumb">
+              <img src="assets/images/axon_quantum_4tier_roadmap.jpg" alt="AXON Quantum 4-Tier 워크스테이션 및 M1-M24 로드맵" loading="lazy" />
+            </div>
+            <figcaption>
+              <span class="wf-badge badge-emerald mono">ARCH-03</span>
+              <strong>AXON Quantum 4-Tier 마스터 로드맵</strong>
+              <p>Tier 1 데스크톱부터 Tier 4 국가 양자 데이터센터까지의 24개월 스케일업 경로</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workloads & Vendor Directory -->
+    <section class="wf-section wf-section-directory" aria-labelledby="wfDirectoryHeading">
+      <div class="container">
+        <div class="wf-section-head">
+          <div>
+            <span class="wf-eyebrow mono">WORKLOADS &amp; ECOSYSTEM VENDORS</span>
+            <h2 id="wfDirectoryHeading">타겟 워크로드 &amp; 기업·벤더 디렉토리</h2>
+          </div>
+          <div class="wf-dir-tabs" role="tablist" aria-label="디렉토리 탭 전환">
+            <button type="button" class="wf-dir-tab active" data-dir-tab="workloads" role="tab" aria-selected="true">
+              타겟 워크로드 (<span id="wfWorkloadCount">0</span>)
+            </button>
+            <button type="button" class="wf-dir-tab" data-dir-tab="vendors" role="tab" aria-selected="false">
+              기업·벤더 디렉토리 (<span id="wfVendorCount">0</span>)
+            </button>
+          </div>
+        </div>
+
+        <div id="wfWorkloadsPanel" class="wf-dir-panel" role="tabpanel">
+          <!-- Populated by workflow_app.js -->
+        </div>
+
+        <div id="wfVendorsPanel" class="wf-dir-panel" role="tabpanel" hidden>
+          <!-- Populated by workflow_app.js -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="assets/images/axon-emblem.png" alt="AXON 엠블럼" class="footer-emblem" />
+        <div>
+          <strong>AXON Quantum Tech</strong>
+          <p>Sovereign AI × 77K Photonic-Ternary Quantum Architecture</p>
+        </div>
+      </div>
+      <p class="footer-note">
+        Baseline: AXON-SSOT-QUANTUM-2026 (v1.2.0) · Evidence-First Engineering
+      </p>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="wfLightbox" role="dialog" aria-modal="true" aria-label="아키텍처 다이어그램 확대 보기" hidden>
+    <button type="button" class="lightbox-close" id="wfLightboxClose" aria-label="닫기">&times;</button>
+    <button type="button" class="lightbox-nav lightbox-prev" id="wfLightboxPrev" aria-label="이전 이미지">&#8249;</button>
+    <div class="lightbox-content">
+      <img id="wfLightboxImg" src="" alt="" />
+      <p id="wfLightboxCaption"></p>
+    </div>
+    <button type="button" class="lightbox-nav lightbox-next" id="wfLightboxNext" aria-label="다음 이미지">&#8250;</button>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="wf-toast" id="wfToast" role="status" aria-live="polite" hidden></div>
+
+  <script src="workflow_data.js"></script>
+  <script src="workflow_supabase.js"></script>
+  <script src="workflow_app.js"></script>
+</body>
+</html>

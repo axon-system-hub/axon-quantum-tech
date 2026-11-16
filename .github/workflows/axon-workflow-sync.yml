@@ -1,0 +1,74 @@
+name: AXON Quantum 45-Tasks Supabase Sync
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  sync-tasks-from-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Parse task IDs from commit messages and sync to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.AXON_SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.AXON_SUPABASE_KEY }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+          COMMIT_SHA: ${{ github.sha }}
+          COMMIT_AUTHOR: ${{ github.event.head_commit.author.name }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re, urllib.request
+
+          url = os.environ.get("SUPABASE_URL", "").strip().rstrip("/")
+          key = os.environ.get("SUPABASE_KEY", "").strip()
+          msg = os.environ.get("COMMIT_MSG", "")
+          sha = os.environ.get("COMMIT_SHA", "")[:7]
+          author = os.environ.get("COMMIT_AUTHOR", "github-actions")
+
+          if not url or not key:
+              print("AXON_SUPABASE_URL / AXON_SUPABASE_KEY secrets not configured; skipping.")
+              raise SystemExit(0)
+
+          task_ids = sorted(set(re.findall(r"\b(?:SIL|PHO|CRY|QEC|SOV|SAF)-\d{2}\b", msg.upper())))
+          if not task_ids:
+              print("No AXON task IDs found in commit message.")
+              raise SystemExit(0)
+
+          def post(path, payload, prefer="return=minimal"):
+              req = urllib.request.Request(
+                  f"{url}/rest/v1/{path}",
+                  data=json.dumps(payload).encode("utf-8"),
+                  headers={
+                      "apikey": key,
+                      "Authorization": f"Bearer {key}",
+                      "Content-Type": "application/json",
+                      "Prefer": prefer,
+                  },
+                  method="POST",
+              )
+              with urllib.request.urlopen(req, timeout=15) as resp:
+                  print(path, resp.status)
+
+          task_rows = [
+              {"id": tid, "checked": True, "note": f"Git commit {sha}: {msg[:120]}", "updated_by": author}
+              for tid in task_ids
+          ]
+          post("axon_workflow_tasks?on_conflict=id", task_rows, "resolution=merge-duplicates,return=minimal")
+
+          log_rows = [
+              {
+                  "task_id": tid,
+                  "title": f"Git Push 자동 완료 ({sha})",
+                  "evidence_tier": "[VERIFIED]",
+                  "notes": msg[:300],
+              }
+              for tid in task_ids
+          ]
+          post("axon_experiment_logs", log_rows)
+          print("Synced tasks:", task_ids)
+          PY
