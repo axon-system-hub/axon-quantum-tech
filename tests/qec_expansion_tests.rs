@@ -6,9 +6,9 @@ use axon_quantum_tech::surface_code::{
     decode_surface_d3, surface_x_syndrome, surface_z_syndrome, SurfaceCorrection,
 };
 use axon_quantum_tech::tiler_100q::{
-    decode_100q_parallel, decode_concatenated_mode_b, logical_cnot_5q_protocol,
-    naive_bitwise_cnot_5q, tile_stabilizer_syndrome, IDENTITY_5Q, LOGICAL_X_5Q, LOGICAL_Z_5Q,
-    TOTAL_PHYSICAL_QUBITS_100Q,
+    decode_100q_parallel, decode_concatenated_mode_b, detect_mode_b_from_measurements,
+    logical_cnot_5q_protocol, naive_bitwise_cnot_5q, tile_stabilizer_syndrome, IDENTITY_5Q,
+    LOGICAL_X_5Q, LOGICAL_Z_5Q, TOTAL_PHYSICAL_QUBITS_100Q,
 };
 
 #[test]
@@ -111,7 +111,64 @@ fn test_100q_concatenated_mode_b_tolerance() {
     let super_results = decode_concatenated_mode_b(&state);
 
     assert!(!super_results[0].logical_error, "Super-tile 0 must remain fault-tolerant (0 failed child tiles)");
+    assert_eq!(super_results[0].outer_syndrome, 0);
     assert_eq!(super_results[0].corrected_tiles, 2);
+}
+
+#[test]
+fn test_mode_b_detects_double_x_errors_in_two_inner_tiles() {
+    let mut physical_errors = [Pauli::I; TOTAL_PHYSICAL_QUBITS_100Q];
+    for index in [25, 26, 30, 31] {
+        physical_errors[index] = Pauli::X;
+    }
+
+    let state = decode_100q_parallel(&physical_errors);
+    assert_eq!(state.tiles[5].syndrome, 9);
+    assert_eq!(state.tiles[6].syndrome, 9);
+    assert_eq!(state.uncorrectable_tiles, 2);
+
+    let results = decode_concatenated_mode_b(&state);
+    assert_eq!(
+        results.map(|result| result.logical_error),
+        [false, true, false, false],
+    );
+    assert_eq!(results.map(|result| result.outer_syndrome), [0, 15, 0, 0]);
+    assert_eq!(results[1].corrected_tiles, 0);
+}
+
+#[test]
+fn test_mode_b_outer_syndrome_with_zero_inner_syndrome() {
+    let mut errors = [Pauli::I; TOTAL_PHYSICAL_QUBITS_100Q];
+    errors[0] = Pauli::X;
+    errors[1] = Pauli::X;
+    errors[3] = Pauli::Z;
+
+    let state = decode_100q_parallel(&errors);
+    assert_eq!(state.tiles[0].syndrome, 0);
+    let results = decode_concatenated_mode_b(&state);
+    // Outer syndrome 5 detects the single-tile logical Z residual; level-2 decoding recovers it.
+    assert_eq!(results[0].outer_syndrome, 5);
+    assert!(!results[0].logical_error);
+    assert_eq!(results[0].corrected_tiles, 0);
+
+    // Measurement-only detection flags any nonzero outer syndrome.
+    let measured = detect_mode_b_from_measurements(&state.tiles, [results[0].outer_syndrome, 0, 0, 0]).unwrap();
+    assert!(measured[0].logical_error);
+    assert_eq!(measured[0].outer_syndrome, 5);
+}
+
+#[test]
+fn test_mode_b_with_measured_outer_syndromes() {
+    let state = decode_100q_parallel(&[Pauli::I; TOTAL_PHYSICAL_QUBITS_100Q]);
+    for syndrome in 0..=15 {
+        let results = detect_mode_b_from_measurements(&state.tiles, [0, 0, syndrome, 0]).unwrap();
+        assert_eq!(
+            results.map(|result| result.logical_error),
+            [false, false, syndrome != 0, false],
+        );
+        assert_eq!(results[2].outer_syndrome, syndrome);
+    }
+    assert!(detect_mode_b_from_measurements(&state.tiles, [0, 0, 16, 0]).is_none());
 }
 
 #[test]

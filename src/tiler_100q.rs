@@ -1,4 +1,7 @@
-//! 100-Qubit Modular Tiling Engine & Scalable QPU Architecture.
+//! Injected-Pauli reference model for 20 five-qubit decoder tiles.
+//! Not a QPU, physical fault-tolerant memory, or syndrome extraction circuit.
+//! Residual logical errors use known injected faults (simulation oracle), not
+//! information available to hardware from a single four-bit syndrome.
 //!
 //! # Specification:
 //! - Physical Data Qubits: 100 physical data qubits grouped into 20 tiles of [[5, 1, 3]] perfect codes (ancilla/readout separate).
@@ -7,11 +10,12 @@
 //! - Decoding Latency: 1 combinational clock cycle for local digital syndrome decoding.
 //!
 //! # Operating Modes:
-//! 1. Mode A: 20 Independent Fault-Tolerant Logical Qubits (Distance 3)
-//!    - Coupled via code-space-preserving inter-tile Logical CNOT protocol (`logical_cnot_5q_protocol`).
+//! 1. Mode A: 20 independent ideal [[5,1,3]] decoder models.
+//!    - Logical CNOT below is Pauli algebra, not an implemented gate protocol.
 //! 2. Mode B: 4 Concatenated [[25, 1, 9]] Logical Qubits (Distance 9)
 //!    - 5 tiles per logical qubit (25 physical data qubits / logical qubit).
-//!    - Capable of correcting up to 4 arbitrary Pauli errors per logical qubit.
+//!    - Abstract concatenated code distance is 9. This recursive bounded-distance
+//!      decoder does NOT guarantee correction of every weight-4 fault.
 //! 3. Mode C: 1,000-Qubit Rack Scale Expansion (200 Tiles)
 
 use crate::qec::{FiveQubitCode, Pauli};
@@ -19,6 +23,8 @@ use crate::qec::{FiveQubitCode, Pauli};
 pub const NUM_TILES_100Q: usize = 20;
 pub const PHYSICAL_QUBITS_PER_TILE: usize = 5;
 pub const TOTAL_PHYSICAL_QUBITS_100Q: usize = NUM_TILES_100Q * PHYSICAL_QUBITS_PER_TILE; // 100
+const TILES_PER_SUPER_TILE: usize = 5;
+pub const NUM_SUPER_TILES_100Q: usize = NUM_TILES_100Q / TILES_PER_SUPER_TILE;
 
 /// Status of a single 5-qubit tile after 0-MUL decoding.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -28,6 +34,9 @@ pub struct TileDecodeResult {
     pub error_qubit_local: Option<usize>, // 0..4 within tile
     pub error_op: Option<Pauli>,
     pub uncorrectable_flag: bool,
+    /// Known-injected-error oracle after the selected inner correction.
+    /// Hardware cannot infer this logical Pauli from this tile's syndrome.
+    pub residual_logical_op: Pauli,
 }
 
 /// Global 100-Qubit Decoding State across all 20 tiles.
@@ -47,6 +56,7 @@ pub fn decode_100q_parallel(physical_errors: &[Pauli; TOTAL_PHYSICAL_QUBITS_100Q
         error_qubit_local: None,
         error_op: None,
         uncorrectable_flag: false,
+        residual_logical_op: Pauli::I,
     }; NUM_TILES_100Q];
 
     let mut total_corrected = 0;
@@ -72,7 +82,7 @@ pub fn decode_100q_parallel(physical_errors: &[Pauli; TOTAL_PHYSICAL_QUBITS_100Q
         }
 
         // 2. Decode using single-cycle 0-MUL lookup
-        let (err_q, err_op, uncorrectable) = if syn == 0 {
+        let (err_q, err_op, _) = if syn == 0 {
             (None, None, false)
         } else if let Some(cand) = FiveQubitCode::decode_syndrome(syn) {
             (Some(cand.qubit), Some(cand.pauli), false)
@@ -80,7 +90,15 @@ pub fn decode_100q_parallel(physical_errors: &[Pauli; TOTAL_PHYSICAL_QUBITS_100Q
             (None, None, true)
         };
 
-        if err_q.is_some() {
+        // Every nonzero syndrome of the perfect code has a one-qubit lookup.
+        // Lookup success alone never certifies that the actual fault was fixed.
+        let mut residual = tile_errors;
+        if let (Some(q), Some(p)) = (err_q, err_op) {
+            residual[q] = multiply_pauli_no_phase(residual[q], p);
+        }
+        let residual_logical_op = normalizer_logical_pauli(&residual);
+        let uncorrectable = residual_logical_op != Pauli::I;
+        if err_q.is_some() && !uncorrectable {
             total_corrected += 1;
         }
         if uncorrectable {
@@ -93,6 +111,7 @@ pub fn decode_100q_parallel(physical_errors: &[Pauli; TOTAL_PHYSICAL_QUBITS_100Q
             error_qubit_local: err_q,
             error_op: err_op,
             uncorrectable_flag: uncorrectable,
+            residual_logical_op,
         };
     }
 
@@ -103,48 +122,81 @@ pub fn decode_100q_parallel(physical_errors: &[Pauli; TOTAL_PHYSICAL_QUBITS_100Q
     }
 }
 
-/// Concatenated Level-2 Decoder (Mode B: 4 Logical Qubits, Distance 9)
+/// Ideal recursive level-2 simulation using oracle inner residuals.
+/// Actual hardware needs independent outer stabilizer measurements.
 /// Groups the 20 tiles into 4 super-tiles of 5 tiles each (5x5 = 25 physical qubits each).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct SuperTileResult {
     pub super_tile_idx: usize,
+    /// Four outer stabilizer outcomes in generator order, with g0 in bit 0.
+    pub outer_syndrome: u8,
     pub logical_error: bool,
     pub corrected_tiles: usize,
 }
 
-pub fn decode_concatenated_mode_b(state_100q: &Qpu100State) -> [SuperTileResult; 4] {
+pub fn decode_concatenated_mode_b(state_100q: &Qpu100State) -> [SuperTileResult; NUM_SUPER_TILES_100Q] {
     let mut super_results = [SuperTileResult {
         super_tile_idx: 0,
+        outer_syndrome: 0,
         logical_error: false,
         corrected_tiles: 0,
-    }; 4];
+    }; NUM_SUPER_TILES_100Q];
 
-    for s_idx in 0..4 {
-        let base_tile = s_idx * 5;
-        let mut failed_tiles = 0;
+    for s_idx in 0..NUM_SUPER_TILES_100Q {
+        let base_tile = s_idx * TILES_PER_SUPER_TILE;
         let mut corrected_tiles = 0;
+        let mut outer_errors = [Pauli::I; TILES_PER_SUPER_TILE];
 
-        for t in 0..5 {
+        for t in 0..TILES_PER_SUPER_TILE {
             let tile = &state_100q.tiles[base_tile + t];
-            if tile.uncorrectable_flag {
-                failed_tiles += 1;
-            } else if tile.error_qubit_local.is_some() {
+            outer_errors[t] = tile.residual_logical_op;
+            if !tile.uncorrectable_flag && tile.error_qubit_local.is_some() {
                 corrected_tiles += 1;
             }
         }
 
-        // In [[5, 1, 3]]^2, a super-tile tolerates up to 1 failed tile.
-        // If 2 or more child tiles fail, a level-2 logical error occurs.
-        let logical_err = failed_tiles >= 2;
+        let outer_syn = tile_stabilizer_syndrome(&outer_errors);
+        if let Some(correction) = FiveQubitCode::decode_syndrome(outer_syn) {
+            outer_errors[correction.qubit] =
+                multiply_pauli_no_phase(outer_errors[correction.qubit], correction.pauli);
+        }
+        let logical_err = normalizer_logical_pauli(&outer_errors) != Pauli::I;
 
         super_results[s_idx] = SuperTileResult {
             super_tile_idx: s_idx,
+            outer_syndrome: outer_syn,
             logical_error: logical_err,
             corrected_tiles,
         };
     }
 
     super_results
+}
+
+/// Report Mode B detection using measured outer stabilizer results.
+/// Supply the four-bit outer syndromes after inner corrections (or adjusted for the inner Pauli frame).
+/// Any syndrome outside 0..=15 is rejected with `None`.
+pub fn detect_mode_b_from_measurements(
+    tiles: &[TileDecodeResult; NUM_TILES_100Q],
+    outer_syndromes: [u8; NUM_SUPER_TILES_100Q],
+) -> Option<[SuperTileResult; NUM_SUPER_TILES_100Q]> {
+    if outer_syndromes.iter().any(|&syndrome| syndrome > 0b1111) {
+        return None;
+    }
+    Some(std::array::from_fn(|super_tile_idx| {
+        let start = super_tile_idx * TILES_PER_SUPER_TILE;
+        let corrected_tiles = tiles[start..start + TILES_PER_SUPER_TILE]
+            .iter()
+            .filter(|tile| !tile.uncorrectable_flag && tile.error_qubit_local.is_some())
+            .count();
+        let outer_syndrome = outer_syndromes[super_tile_idx];
+        SuperTileResult {
+            super_tile_idx,
+            outer_syndrome,
+            logical_error: outer_syndrome != 0,
+            corrected_tiles,
+        }
+    }))
 }
 
 // ----------------------------------------------------------------------------
@@ -159,6 +211,32 @@ pub type TilePauli = [Pauli; 5];
 pub const LOGICAL_X_5Q: TilePauli = [Pauli::X; 5];
 pub const LOGICAL_Z_5Q: TilePauli = [Pauli::Z; 5];
 pub const IDENTITY_5Q: TilePauli = [Pauli::I; 5];
+
+/// Classify a normalizer Pauli modulo the stabilizer group.
+/// The caller must first remove its measured stabilizer syndrome.
+fn normalizer_logical_pauli(op: &TilePauli) -> Pauli {
+    assert_eq!(
+        tile_stabilizer_syndrome(op),
+        0,
+        "residual is outside normalizer"
+    );
+    let x = op
+        .iter()
+        .filter(|p| !FiveQubitCode::commutes(**p, Pauli::Z))
+        .count()
+        % 2;
+    let z = op
+        .iter()
+        .filter(|p| !FiveQubitCode::commutes(**p, Pauli::X))
+        .count()
+        % 2;
+    match (x, z) {
+        (0, 0) => Pauli::I,
+        (1, 0) => Pauli::X,
+        (0, 1) => Pauli::Z,
+        _ => Pauli::Y,
+    }
+}
 
 /// Multiply two single-qubit Paulis up to global phase (+/-1, +/-i).
 #[inline]
@@ -264,4 +342,3 @@ pub fn logical_cnot_5q_protocol(control: &TilePauli, target: &TilePauli) -> (Til
 
     (out_c, out_t)
 }
-
